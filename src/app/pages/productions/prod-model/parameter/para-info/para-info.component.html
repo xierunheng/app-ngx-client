@@ -1,0 +1,61 @@
+<nb-card>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              名称不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              名称已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row col-12">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="value" class="col-sm-3 col-form-label">属性值</label>
+        <div class="col-sm-9">
+          <mes-value id="value" name="value" [(value)]="model.value"></mes-value>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="tags" class="col-sm-3 col-form-label">属性标签</label>
+        <div class="col-sm-9">
+          <ngx-dropdown-treeview [items]="tagtree" [config]="multiConfig" (selectedChange)="onSelectedChange($event)">
+          </ngx-dropdown-treeview>
+        </div>
+      </div>
+      <div class="col-sm-9 offset-sm-3 form-group row">
+        <nb-checkbox id="active" name="active" [(ngModel)]="model.active" status="warning">该属性是否可用?
+        </nb-checkbox>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid">确定</button>
+      </div>
+    </form>
+<!--       <div class="col-sm-6" *ngIf=" vConfig.type !== 'create' && isTag ">
+        <ngb-accordion [closeOthers]="true" activeIds="paras">
+          <ngb-panel id="paras" title="[{{model.oid}}]属性列表">
+            <ng-template ngbPanelContent>
+              <ng2-smart-table id="paras" [settings]="parasSettings" [source]="parasSource" (create)="onParaCreate($event)" (edit)="onParaEdit($event)" name="paras">
+              </ng2-smart-table>
+
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div> -->
+  </nb-card-body>
+</nb-card>

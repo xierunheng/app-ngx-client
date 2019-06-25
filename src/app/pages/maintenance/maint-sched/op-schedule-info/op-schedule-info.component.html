@@ -1,0 +1,106 @@
+<nb-card *ngIf="model" size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body class="_kb-ovehide">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">计划单号</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" (change)="onOidChange($event)" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              计划单号不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该计划单号已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="opDef" class="col-sm-3 col-form-label">操作定义</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="opDef" [compareWith]="idCmpFn" [(ngModel)]="model.opDef" name="opDef" (change)="onOpDefChange($event)" required>
+            <option *ngFor="let item of ods" [ngValue]="item">{{item.oid + '-' + item.ver}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="opType" class="col-sm-3 col-form-label">操作类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="opType" [(ngModel)]="model.opType" name="opType" required>
+            <option *ngFor="let item of opTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="qty" class="col-md-3 col-form-label">数量</label>
+        <div class="col-md-9">
+          <mes-qty id="qty" name="qty" [ngModel]="qty"></mes-qty>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="startTime" class="col-sm-3 col-form-label">计划起时</label>
+        <div class="col-sm-9">
+          <input type="date" class="form-control" id="startTime" [ngModel]="model.startTime | date:'yyyy-MM-dd'" (ngModelChange)="model.startTime = $event" name="startTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="endTime" class="col-sm-3 col-form-label">计划终时</label>
+        <div class="col-sm-9 input-group">
+          <input type="date" class="form-control" id="endTime" [ngModel]="model.endTime | date:'yyyy-MM-dd'" (ngModelChange)="model.endTime=$event" name="endTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="scheduleState" class="col-sm-3 col-form-label">计划状态</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="scheduleState" [(ngModel)]="model.scheduleState" name="scheduleState">
+            <option *ngFor="let item of reqStates" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="model.workSchedule">
+        <label for="workSchedule" class="col-sm-3 col-form-label">作业计划</label>
+        <div class="col-sm-9">
+          <label class="form-control"><a href="/#/pages/works/workschedule/{{model.workSchedule._id}}">{{model.workSchedule.oid}}</a></label>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="model.opPerf">
+        <label for="opRes" class="col-sm-3 col-form-label">生产执行</label>
+        <div class="col-sm-9">
+          <label class="form-control"><a href="/#/pages/ops/opperf/{{model.opPerf._id}}">{{model.opPerf.oid}}</a></label>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+        <button *ngIf="releasable" type="button" class="btn btn-primary" (click)="onRelease()" [disabled]="!f.valid || !this.model.opReq || this.model.opReq.length<=0">派工</button>
+        <button *ngIf="unreleasable" type="button" class="btn btn-primary" (click)="onUnRelease()" [disabled]="!f.valid">撤销布产</button>
+        <button *ngIf="insertReleasable" type="button" class="btn btn-primary" (click)="onInsertRelease()" [disabled]="!f.valid">插单布产</button>
+      </div>
+    </form>
+      <!-- <div class="col-sm-6">
+        <ngb-accordion activeIds="opReq" *ngIf="isUpdate">
+          <ngb-panel id="opReq" title="维护操作请求">
+            <ng-template ngbPanelContent>
+              <mes-smart-table [resource]="model.opReq" [columns]="orColunms" [url]="orUrl" (delete)="onDelete($event)" ></mes-smart-table>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div> -->
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,17 @@
+<nb-card>
+  <nb-card-header>
+    车间生产计划日历
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div id='calendar' class="col-9"></div>
+      <div id='external-events' class="col-3">
+        <p>
+          <strong>待排产工单</strong>
+        </p>
+        <div class='fc-event' *ngFor="let jo of schedulingJobOrder">{{jo.title}}</div>
+        <button type="button" class="btn btn-primary" (click)="confirm()">确定</button>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

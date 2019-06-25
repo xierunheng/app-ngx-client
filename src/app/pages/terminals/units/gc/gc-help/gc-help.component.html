@@ -1,0 +1,22 @@
+<div class="modal-header d-flex justify-content-between">
+  <h4>配釉房釉料测验流程</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.close('Close click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th width="150px">检查项目</th>
+        <th>检查方法</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{item.key}}</td>
+        <td>{{item.value}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

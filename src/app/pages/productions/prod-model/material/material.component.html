@@ -1,0 +1,58 @@
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange">
+  <div class="form-check overy-hide form-reset bg-change" [class.tree-close-bg]="!item.collapsed">
+    <div class="content-box">
+      <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa arrow" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
+      <label class="form-check-label kb-cusor text-label">
+        <input type="checkbox" class="form-check-input form-check-reset kb-cusor" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" [indeterminate]="item.indeterminate" /> {{item.text}}
+      </label>
+    </div>
+    <div class="operate-box">
+      <!-- <label class="form-check-label pull-right f-size2">
+        <i class="nb-trash kb-cusor" aria-hidden="true" title="删除" (click)="removeItem(item.value)"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-edit kb-cusor" aria-hidden="true" title="修改" (click)="editItem(item.value)"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2" *ngIf="!item.value.qty" >
+        <i class="nb-plus kb-cusor" aria-hidden="true" title="新增" (click)="addItem(item.value)"></i>
+      </label> -->
+
+      <nb-actions size="medium" fullWidth="false">       
+        <nb-action icon="nb-trash" aria-hidden="true" title="删除 [{{item.text}}]" (click)="removeItem(item.value)"></nb-action>
+        <nb-action icon="nb-edit" aria-hidden="true" title="修改 [{{item.text}}]" (click)="editItem(item.value)"></nb-action>
+        <nb-action icon="nb-plus" aria-hidden="true" title="[{{item.text}}] 新增" (click)="addItem(item.value)" *ngIf="!item.value.qty"></nb-action>
+      </nb-actions>
+    </div>
+  </div>
+</ng-template>
+<nb-card>
+  <nb-card-header class="d-flex justify-content-between">
+    <span>物料配置</span>
+    <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="table"> 表格
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="mtree"> 树状
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="mAsstree"> 装配树
+      </label>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf=" showtype === 'table' ">
+      <div *ngIf="mcs">
+        <ng2-smart-table [settings]="settings" [source]="source" (create)="createMc()" (edit)="editMc($event.data)" (delete)="removeMc($event.data)" id="table"></ng2-smart-table>
+      </div>
+    </div>
+    <div *ngIf=" showtype === 'mtree' ">
+      <ngx-treeview [config]="singleConfig" [items]="mtree" [itemTemplate]="itemTemplate" (filterChange)="onFilterChange($event)" (selectedChange)="onMCChange($event)" id="mtree">
+      </ngx-treeview>
+    </div>
+    <div *ngIf=" showtype === 'mAsstree' ">
+      <ngx-treeview [config]="singleConfig" [items]="mAsstree" [itemTemplate]="itemTemplate" (filterChange)="onFilterChange($event)" (selectedChange)="onMCChange($event)" id="mAsstree">
+      </ngx-treeview>
+    </div>
+  </nb-card-body>
+</nb-card>

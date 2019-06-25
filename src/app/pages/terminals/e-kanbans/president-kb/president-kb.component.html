@@ -1,0 +1,48 @@
+<div class="row wrapper">
+    <div class="col-12 column">
+      <div class="content">
+        <div class="row head">
+          <div class="col-3">
+            <p class="head-value">4500</p>
+            <p class="head-text" for="">当日全厂计划产量: </p>
+          </div>
+          <div class="col-3">
+            <p class="head-value">4560</p>
+            <p class="head-text" for="">实际产量: </p>
+          </div>
+          <div class="col-3">
+            <p class="head-value">89%</p>
+            <p class="head-text" for="">合格率: </p>
+          </div>
+          <div class="col-3">
+            <p class="head-value">92%</p>
+            <p class="head-text" for="">订单达成率: </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <mes-qc-reason-statistics [data]="reasonData"></mes-qc-reason-statistics>
+          </div>
+          <div class="col-6">
+            <mes-qc-trend></mes-qc-trend>
+          </div>
+        </div>
+        <div class="row para-info">
+          <div class="col-3 para-item">
+            <label class="para-key col-8" for="">平均物耗: </label><span class="para-val col-4">4500</span>
+          </div>
+          <div class="col-3 para-item">
+            <label class="para-key col-8" for="">平均能耗: </label><span class="para-val col-4">4560</span>
+          </div>
+          <div class="col-3 para-item">
+            <label class="para-key col-8" for="">单位产品平均耗时: </label><span class="para-val col-4">89%</span>
+          </div>
+          <div class="col-3 para-item">
+            <label class="para-key col-8" for="">设备完好率: </label><span class="para-val col-4">98%</span>
+          </div>
+          <div class="col-3 para-item">
+            <label class="para-key col-8" for="">核心设备稼动率: </label><span class="para-val col-4">70%</span>
+          </div>
+      </div>
+    </div>
+  </div>

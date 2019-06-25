@@ -1,0 +1,72 @@
+<nb-card size="xxsmall">
+  <div class="form-group row col-md-6 mt2">
+    <label for="hs" class="col-md-2 col-form-label text-center">层级结构</label>
+    <div class="col-md-9">
+      <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="hs" (ngModelChange)="onHsChange($event)" [compareWith]="idCmpFn">
+      </mes-tree-select>
+    </div>
+  </div>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    工艺段
+  </nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step [label]="labelOne" *ngFor="let ps of pss">
+        <ng-template #labelOne>
+          {{ps.oid}}
+        </ng-template>
+        <div class="desc">{{ps.desc}}
+          <span class="detail" (click)="toDetail(ps)">详情</span>
+        </div>
+        <div class="col-lg-4">
+          <button nbButton nbStepperPrevious class="mr1">前工序</button>
+          <button nbButton nbStepperNext>后工序</button>
+        </div>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>
+<div class="row" *ngIf="hs">
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>员工</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-person [hs]="hs"></ngx-echarts-person>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>设备</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-equipment [hs]="hs"></ngx-echarts-equipment>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>物料</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-material [hs]="hs"></ngx-echarts-material>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>能源</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-energy [hs]="hs"></ngx-echarts-energy>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>KPI</nb-card-header>
+      <nb-card-body>
+        <ngx-echarts-kpi></ngx-echarts-kpi>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

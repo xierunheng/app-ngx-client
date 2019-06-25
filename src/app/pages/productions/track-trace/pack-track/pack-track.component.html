@@ -1,0 +1,112 @@
+<nb-card>
+  <nb-card-header class="d-flex justify-content-between">
+    <span><!-- {{vConfig.title}} --> 包材追溯</span>
+    <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="form"> 窗体
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="trace"> 追溯
+      </label>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <form action="" #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="input-group">
+        <input type="text"  type="string" placeholder="请输入要追溯的条码.." name="oid" ngModel class="form-control col-3">
+        <span  class="input-group-append">
+            <input type="submit" class="btn btn-primary input-group-text" value="查询">
+        </span>
+    </form>
+
+    <div *ngIf="model" class="col-12 mt2">
+        <div class="row" *ngIf=" showtype === 'form' ">           
+            <!-- <div class="col-sm-12" *ngIf="!isTP && !isZX">
+                <mes-process-bar [ops]="model.oplog"></mes-process-bar>
+            </div> -->
+            <div class="col-6">
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="oid" class="col-sm-3 col-form-label ">子批次号:</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="oid" placeholder="子批次号" [(ngModel)]="model.oid" name="oid">
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="mdefOid" class="col-sm-3 col-form-label ">物料定义:</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="mdefOid" placeholder="物料定义" [(ngModel)]="model.mdef.oid" name="mdefOid">
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="mclassOid" class="col-sm-3 col-form-label ">物料类型:</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="mclassOid" placeholder="物料类型" [(ngModel)]="model.mclass[0].oid" name="mclassOid">
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="createdAt" class="col-sm-3 col-form-label ">创建时间:</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="createdAt" placeholder="创建时间" [(ngModel)]="model.createdAt" name="createdAt">
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="locName" class="col-sm-3 col-form-label ">位置:</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="locName" placeholder="位置" [(ngModel)]="model.loc.name" name="locName">
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="orderOid" class="col-sm-3 col-form-label ">订单:</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="orderOid" placeholder="订单" [(ngModel)]="model.order.oid" name="orderOid">
+                      </div>
+                    </div>
+                </div>  
+                <div class="col-12" *ngIf="model.mdef.oid.startsWith('托盘')" >
+                    <div class="form-group row">
+                      <label for="" class="col-sm-3 col-form-label ">纸箱条码列表:</label>
+                      <div class="col-sm-9 relative">
+                        <ng2-smart-table [settings]="settings" [source]="zxSource" (edit)="showPtcode($event.data)">
+                        </ng2-smart-table>
+                        <div class="ptbarcode-box" *ngIf="ptbarcode&&ptbarcode.length>0">
+                            <p *ngFor="let item of ptbarcode">
+                              {{item}}
+                            </p>
+                        </div>
+                      </div>
+                    </div>
+                </div>  
+                <div class="col-12">
+                    <div class="form-group row">
+                      <label for="" class="col-sm-3 col-form-label ">坯体条码列表:</label>
+                      <div class="col-sm-9">
+                        <ng2-smart-table [settings]="settings" [source]="ptSource">
+                        </ng2-smart-table>
+                      </div>
+                    </div>
+                </div>  
+            </div>
+                       
+            <div class="col-6">
+              <h3>操作记录</h3>
+              <mes-timeline [states]="model.oplog"></mes-timeline>
+            </div>
+        </div>
+        <div *ngIf=" showtype === 'trace' ">
+          <!-- <mes-timeline></mes-timeline> -->
+          <mes-timeline [states]="model.oplog"></mes-timeline>
+        </div>
+    </div>
+    
+  </nb-card-body>
+</nb-card>

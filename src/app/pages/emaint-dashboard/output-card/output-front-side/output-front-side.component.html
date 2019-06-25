@@ -1,0 +1,27 @@
+<nb-card-header>
+  <div class="dropdown ghost-dropdown" ngbDropdown>
+    <button type="button" ngbDropdownToggle class="btn"
+            [ngClass]="{
+              'btn-success': currentTheme === 'default',
+              'btn-primary': currentTheme !== 'default'}">
+      {{ selectedCurrency }}
+    </button>
+    <ul class="dropdown-menu" ngbDropdownMenu>
+      <li class="dropdown-item" *ngFor="let currency of currencies" (click)="changeCurrency(currency)">{{ currency }}</li>
+    </ul>
+  </div>
+</nb-card-header>
+<nb-card-body>
+  <div class="chart-info">
+    <div class="title">当前产量</div>
+    <div class="value">{{ currentValue | ngxNumberWithCommas }}</div>
+    <div class="delta"
+         [class.up]="delta.up"
+         [class.down]="!delta.up">
+      {{ delta.value }}%
+    </div>
+  </div>
+  <mes-output-live-update-chart
+    [liveUpdateChartData]="liveUpdateChartData">
+  </mes-output-live-update-chart>
+</nb-card-body>

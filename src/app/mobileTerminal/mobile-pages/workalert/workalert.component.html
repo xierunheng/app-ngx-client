@@ -1,0 +1,25 @@
+<ActionBar class="action-bar">
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+    (tap)="backToHome()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="告警列表" horizontalAlignment="left"></Label>
+</ActionBar>
+
+<ScrollView class="page">
+  <ListView class="list-group" [items]="workalertList" (itemTap)="onItemTap($event)">
+    <ng-template let-item="item" let-i="index">
+      <GridLayout class="list-group-item" rows="*" columns="1/10*, 3/10*, 3/10*,2/10*, 1/10*">
+        <Label row="0" col="0" class="label1" [text]="i+1"></Label>
+        <Label row="0" col="1" class="label2" [text]="item.messageText"></Label>
+        <Label row="0" col="2" class="label2" [text]="item.updatedAt | date:'yy-MM-dd HH:mm:ss'"></Label>
+        <Image row="0" col="3" *ngIf="item.state=='processed'" src="~/app/mobileTerminal/fonts/已处理告警.png" class="thumb img-status"></Image>
+        <Image row="0" col="3" *ngIf="item.state=='Processing'" src="~/app/mobileTerminal/fonts/正在处理告警.png" class="thumb img-status"></Image>
+        <Image row="0" col="3" *ngIf="item.state=='To be processed'" src="~/app/mobileTerminal/fonts/未处理告警.png" class="thumb img-status"></Image>
+        <Image row="0" col="3" *ngIf="item.state=='Not processed yet'" src="~/app/mobileTerminal/fonts/已清除告警.png" class="thumb img-status"></Image>
+        <Image row="0" col="4" src="~/app/mobileTerminal/fonts/跳转箭头灰色.png" class="thumb img-circle"></Image>
+      </GridLayout>
+    </ng-template>
+  </ListView>
+</ScrollView>

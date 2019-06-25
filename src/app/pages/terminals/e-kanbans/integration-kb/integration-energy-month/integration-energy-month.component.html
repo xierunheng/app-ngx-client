@@ -1,0 +1,10 @@
+<nb-card>
+    <nb-card-header>
+        <span>综合能耗</span>
+    </nb-card-header>
+    <nb-card-body>
+        <mes-chart-summary [summary]="summary"></mes-chart-summary>
+        <!-- <mes-integration-qty-month-show [data]="qtyData"></mes-integration-qty-month-show> -->
+        <div echarts [options]="options" class="echart"></div>
+    </nb-card-body>
+</nb-card>

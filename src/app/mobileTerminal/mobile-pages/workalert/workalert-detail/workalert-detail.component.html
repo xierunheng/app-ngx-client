@@ -1,0 +1,70 @@
+<ActionBar class="action-bar">
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+    (tap)="backToWorkalert()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="告警详情" horizontalAlignment="left"></Label>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout>
+    <StackLayout>
+      <StackLayout>
+        <Label text="打磨机故障" paddingTop="20" fontSize="30" color="#595959" horizontalAlignment="center"></Label>
+      </StackLayout>
+      <GridLayout rows="*" columns="19/29*,20/29*">
+        <Image col="0" row="0" src="~/app/mobileTerminal/fonts/已处理告警.png" horizontalAlignment="right"></Image>
+        <Label col="1" row="0" text="已处理" paddingTop="20" fontSize="20" horizontalAlignment="left"></Label>
+      </GridLayout>
+<!--      <StackLayout>-->
+<!--        <Label class="laybelTop" textAlignment="center" text="告警等级1"></Label>-->
+<!--      </StackLayout>-->
+    </StackLayout>
+    <GridLayout rows="*, *, *, *, *, *, *, *, *, *" columns="1/5*,2/5*, 2/5*">
+      <Image row="0" col="0" src="~/app/mobileTerminal/fonts/category.png" class="thumb img-circle"></Image>
+      <Label row="0" col="1" class="labelLayout laybelBorder labelName" text="告警的类型"></Label>
+      <Label row="0" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.workAlertDef.oid:''"></Label>
+
+      <Image row="1" col="0" src="~/app/mobileTerminal/fonts/priority.png" class="thumb img-circle"></Image>
+      <Label row="1" col="1" class="labelLayout laybelBorder labelName" text="告警等级"></Label>
+      <Label row="1" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.priority:''"></Label>
+
+<!--      <Image row="2" col="0" src="~/app/mobileTerminal/fonts/messageText.png" class="thumb img-circle"></Image>-->
+<!--      <Label row="2" col="1" class="labelLayout labelName" text="告警信息"></Label>-->
+<!--      <Label row="2" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.messageText:''"></Label>-->
+
+      <Image row="2" col="0" src="~/app/mobileTerminal/fonts/equipment.png" class="thumb img-circle"></Image>
+      <Label row="2" col="1" class="labelLayout laybelBorder labelName" text="设备报警源"></Label>
+      <Label row="2" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.equipment.name:''"></Label>
+
+      <Image row="3" col="0" src="~/app/mobileTerminal/fonts/receiveHs.png" class="thumb img-circle"></Image>
+      <Label row="3" col="1" class="labelLayout laybelBorder labelName" text="接收部门"></Label>
+      <Label row="3" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.receiveHs[0].name:''"></Label>
+
+      <Image row="4" col="0" src="~/app/mobileTerminal/fonts/receivers.png" class="thumb img-circle"></Image>
+      <Label row="4" col="1" class="labelLayout laybelBorder labelName" text="接收人"></Label>
+      <Label row="4" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.receivers.length>0 ? workAlert.receivers[0].name : '':''"></Label>
+
+      <Image row="5" col="0" src="~/app/mobileTerminal/fonts/category.png" class="thumb img-circle"></Image>
+      <Label row="5" col="1" class="labelLayout laybelBorder labelName" text="告警类型"></Label>
+      <Label row="5" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.category:''"></Label>
+
+<!--      <Image row="7" col="0" src="~/app/mobileTerminal/fonts/state.png" class="thumb img-circle"></Image>-->
+<!--      <Label row="7" col="1" class="labelLayout labelName" text="报警的状态"></Label>-->
+<!--      <Label row="7" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?workAlert.state:''"></Label>-->
+
+      <Image row="6" col="0" src="~/app/mobileTerminal/fonts/createdAt.png" class="thumb img-circle"></Image>
+      <Label row="6" col="1" class="labelLayout laybelBorder labelName" text="创建时间"></Label>
+      <Label row="6" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?(workAlert.createdAt|date:'yy-MM-dd HH:mm:ss'):''"></Label>
+
+      <Image row="7" col="0" src="~/app/mobileTerminal/fonts/updatedAt.png" class="thumb img-circle"></Image>
+      <Label row="7" col="1" class="labelLayout laybelBorder labelName" text="更新时间"></Label>
+      <Label row="7" col="2" class="labelLayout laybelBorder labelText" [text]="workAlert?(workAlert.updatedAt|date:'yy-MM-dd HH:mm:ss'):''"></Label>
+    </GridLayout>
+    <GridLayout columns="1/2*, 1/2*" paddingTop="10">
+      <Button col="0" text="确定" (tap)="confirm($event)" class="weui-btn weui-btn_primary" borderRadius="5" marginLeft="10"></Button>
+      <Button col="1" text="取消" (tap)="cancel($event)" class="weui-btn weui-btn_primary" borderRadius="5" marginLeft="10"></Button>
+    </GridLayout>
+  </StackLayout>
+</ScrollView>

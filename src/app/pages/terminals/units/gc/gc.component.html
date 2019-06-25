@@ -1,0 +1,30 @@
+<nb-card>
+  <nb-card-header>
+    <terminal-header [title]="bodyOp.name" [person]="user.person" [logo]="'传奇陶瓷We-'" (titleClick)="reload()"></terminal-header>
+  </nb-card-header>
+</nb-card>
+<nb-card *ngFor="let mlot of mlots">
+  <nb-card-header class="d-flex justify-content-between">
+    <span class="title">{{mlot.oid}}: {{mlot.mdef.oid}}</span>
+    <button type="button" class="btn btn-primary" (click)="addTest(mlot)">新增记录</button>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-bordered table-striped" *ngIf="mlot">
+      <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let test of mlot.propSpec['胶量配比']">
+            <div class="text-center">{{test.desc}}</div>
+            <div class="text-center"><small>{{test.testTime | date:"yy-MM-dd HH:mm:ss"}}</small></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <th class="text-nowrap" scope="row">{{item}}</th>
+          <td *ngFor="let test of mlot.propSpec[item]" class="text-center" [ngClass]="{'bg-danger': test.result[0].key==='NG'}">{{test.result[0].valueStr}}{{test.result[0].unit}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>

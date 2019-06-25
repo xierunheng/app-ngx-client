@@ -1,0 +1,57 @@
+<nb-card>
+  <nb-card-header>
+    <div>
+      坯体统计
+    </div>
+    <form #f="ngForm" class="row" (ngSubmit)="onSubmit(f.value)">
+      <div class="col-md-4">
+        <div class="form-group row">
+          <select class="col-sm-4 form-control" id="period" [(ngModel)]="period" name="period" required>
+            <option *ngFor="let item of periods" [ngValue]="item.value">{{item.name}}</option>
+          </select>
+          <div class="col-sm-8 input-group">
+            <input type="{{period}}" class="form-control" id="periodTime" name="periodTime" [ngModel]="periodTime" (ngModelChange)="onPeriodTimeChange($event)">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label for="startTime" class="col-sm-2 col-form-label">起止</label>
+          <div class="col-sm-10 input-group">
+            <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="startTime=$event" name="startTime">
+            <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="endTime = $event" name="endTime">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary "> 统计 </button>
+      </div>
+    </form>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>总体质量统计</span>
+      </nb-card-header>
+      <nb-card-body *ngIf="qcs">
+        <mes-smart-table [resource]="qcs" [columns]="qccolumns"></mes-smart-table>
+      </nb-card-body>
+    </nb-card>
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>总体缺陷统计</span>
+      </nb-card-header>
+      <nb-card-body *ngIf="reasons">
+        <mes-smart-table [resource]="reasons" [columns]="rcolumns"></mes-smart-table>
+      </nb-card-body>
+    </nb-card>
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>停滞坯体统计</span>
+      </nb-card-header>
+      <nb-card-body *ngIf="idles">
+        <mes-smart-table [resource]="idles" [columns]="idlecolumns"></mes-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-body>
+</nb-card>

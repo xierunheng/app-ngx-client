@@ -1,0 +1,68 @@
+.mb1{
+    margin-bottom: 1rem;
+}
+
+.error-msg{
+    position: fixed;
+    left: 50%;
+    margin-left: -7rem;
+    top: 56px;
+    width: 14rem;
+}
+.error{
+    font-size: 1.2rem;
+    margin-left:0;
+    margin-top: .2rem;
+    text-align: center;
+}
+form{
+    font-size: 1.2rem;
+}
+.form-control{
+    font-size: 1.2rem
+}
+.entries{
+    display: flex;
+    justify-content: space-between;
+}
+.forgot-password{
+    padding: 6px 0;
+}
+.btn-hero-success{
+    font-size: 1.4rem
+}
+
+@media (max-width: 550px) {
+    input::-webkit-input-placeholder{ /*WebKit browsers*/
+        // color:red !important;
+        // line-height: 4rem !important;
+        font-size: 2rem !important;
+    }
+
+    .form-control{
+        font-size: 1.8rem;
+        padding-top: 0;
+        padding-bottom: 0;
+        height: 4rem !important;
+    }
+    .form-group{
+        margin-bottom: 1.2rem;
+    }
+
+    .btn-hero-success{
+        font-size: 2rem;
+        padding: 1.4rem 0;
+    }
+    .entries{
+        font-size: 1.4rem;
+    }
+    .error{
+        font-size: 1.6rem;
+        
+    }
+   /deep/ .toast-message{
+        text-align: center;
+        font-size: 1.6rem;
+    }
+
+}

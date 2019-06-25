@@ -1,0 +1,65 @@
+<ng-template #popContent>
+  <div class="form-group col-12" *ngFor="let pv of processValues">
+    {{pv.oid}}:
+    <ngb-progressbar showValue="true" [value]="100 * pv.actQty.quantity / pv.qty.quantity | ngxRound" type="showStatus" [striped]="true" [animated]="true" height="2rem"></ngb-progressbar>
+    <span class="progress-num">{{pv.actQty.quantity}} / {{pv.qty.quantity}}</span>
+  </div>
+</ng-template>
+<div class="row" *ngIf="wres && wreq">
+  <h1 class="text-center middle">{{wres.oid}}执行汇总</h1>
+  <div class="form-group col-12">
+    <ngb-progressbar showValue="true" placement="bottom-left" [ngbPopover]="popContent" popoverTitle="工单进度        查看" [value]="processValue" type="showStatus" [striped]="true" [animated]="true" height="2rem"></ngb-progressbar>
+  </div>
+    <div class="col-md-4">
+    <nb-card>
+      <nb-card-header>
+        <span>作业名片</span>
+      </nb-card-header>
+      <nb-card-body>
+        <p>作业号：{{wres.oid}}</p>
+        <p>状态：{{wres.state}}</p>
+        <p>工位：{{wres.hs.name}}</p>
+        <p>工时：{{wres.startTime | date:'yyyy-MM-dd HH:mm'}} - {{wres.endTime | date:'yyyy-MM-dd HH:mm'}}</p>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-4">
+    <mes-work-show-total title="本作业产量" [value]="lastGQ" [total]="POQ"></mes-work-show-total>
+  </div>
+  <div class="col-md-4">
+    <mes-work-show-total title="作业缺陷" [value]="SQ" [total]="firstPQ"></mes-work-show-total>
+  </div>
+  <div class="col-md-12">
+  	<mes-work-show-qty [wreq]="wreq" [wres]="wres"></mes-work-show-qty>
+  </div>
+  <div class="col-md-12">
+  	<mes-work-show-qci [wreq]="wreq" [wres]="wres"></mes-work-show-qci>
+  </div>
+<!--   <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <span>作业进程</span>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-output-time [output]="outputsTime"></mes-output-time>
+      </nb-card-body>
+    </nb-card>
+  </div> -->
+  <div class="col-md-12">
+    <ul class="nav justify-content-center border p-4">
+      <li class="nav-item back" (click)="goBack()">
+        <span class="nav-link green">返回</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#/pages/works/workreq/{{wres.req._id}}" [ngbTooltip]="wres.req.oid">作业请求</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#/pages/ops/opres/{{wres.opRes?._id}}" [ngbTooltip]="wres.opRes?.oid">操作响应</a>
+      </li>
+      <li class="nav-item" *ngFor="let jr of wres.jobResponse">
+        <a class="nav-link" href="/#/pages/works/jobresponse/{{jr._id}}" [ngbTooltip]="jr.oid">{{jr.oid}}</a>
+      </li>
+
+    </ul>
+  </div>
+</div>

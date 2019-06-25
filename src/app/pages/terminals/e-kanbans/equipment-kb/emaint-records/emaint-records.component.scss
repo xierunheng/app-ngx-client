@@ -1,0 +1,26 @@
+.equip-info{
+  display: flex;
+  align-items: center;
+}
+
+.icon-equip{
+    width: 34px;
+    height: 34px;
+    border-radius: 34px;
+    border: 1px solid #4ca6ff;
+    line-height: 34px;
+    background: #4ca6ff;
+    color: #fff;
+    text-align: center;
+    font-size: 1.2rem;
+    float: left;
+}
+
+.penyou{
+  background:#ffa36b;
+  border: 1px solid #ffa36b;
+}
+
+.visited-date {
+  margin-left: 20px;
+}

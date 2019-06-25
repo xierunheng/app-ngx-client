@@ -1,0 +1,143 @@
+<nb-card *ngIf="model">
+  <nb-card-header>
+    {{vConfig.title}}
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-6">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+          <div class="form-group row">
+            <label for="mtSpec" class="col-sm-3 col-form-label">物料检测规格</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="mtSpec" [(ngModel)]="model.mtSpec" name="mtSpec" (change)="onMtSpecChange($event)" #mtSpec="ngModel" [compareWith]="idCmpFn">
+                <option>--请选择物料检测规格--</option>
+                <option *ngFor="let item of mtSpecs" [ngValue]="item">{{item.name}}-{{item.ver}}</option>
+              </select>
+              <div *ngIf="mtSpec.invalid && (mtSpec.dirty || mtSpec.touched)" class="alert alert-danger">
+                <div *ngIf="mtSpec.errors.required">
+                  物料检测规格 不能为空！
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="oid" class="col-sm-3 col-form-label">编号</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="oid" placeholder="编号（必填）" required [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+              <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+                <div *ngIf="oid.errors.required">
+                  编号不能为空！
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="tester" class="col-sm-3 col-form-label">测试人/单位</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="tester" placeholder="名称（必填）" [(ngModel)]="model.tester" name="tester" #tester="ngModel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="testTime" class="col-sm-3 col-form-label">测试日期</label>
+            <div class="col-sm-9 input-group">
+              <input type="date" class="form-control" id="testTime" [ngModel]="model.testTime | date:'yyyy-MM-dd'" (ngModelChange)="model.testTime = $event" name="testTime">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="sampleOid" class="col-sm-3 col-form-label">样品编号</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="sampleOid" placeholder="样本编号" [(ngModel)]="model.sampleOid" name="sampleOid" #sampleOid="ngModel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="sampleSpec" class="col-sm-3 col-form-label">样品规格</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="sampleSpec" placeholder="样品规格" [(ngModel)]="model.sampleSpec" name="sampleSpec" #sampleSpec="ngModel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="mlot" class="col-sm-3 col-form-label">物料批次</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="mlot" placeholder="物料批次号" [(ngModel)]="model.mlot.oid" name="mlot" #mlot="ngModel" (change)="onLotOidChange($event)">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="msublot" class="col-sm-3 col-form-label">物料子批次</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="msublot" placeholder="物料子批次" [(ngModel)]="model.msublot.oid" name="msublot" #msublot="ngModel" (change)="onSublotOidChange($event)">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="desc" class="col-sm-3 col-form-label">描述</label>
+            <div class="col-sm-9">
+              <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+              </mes-tree-select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="loc" class="col-sm-3 col-form-label">存储位置</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="loc" [(ngModel)]="model.loc" [compareWith]="idCmpFn" required>
+              </mes-tree-select>
+            </div>
+          </div>
+          <div *ngIf="testContext">
+            <div class="form-group row" *ngFor="let key of objectKeys(testContext)">
+              <label for="{{key}}" class="col-sm-3 col-form-label">{{key}}</label>
+              <div class="input-group col-sm-9">
+                <input [attr.list]="key + 'list'" type="text" class="form-control" id="{{key}}" placeholder="{{key}}" [(ngModel)]="testContext[key].testResult[0].result[0].valueStr" name="{{key}}">
+                <datalist id="{{key + 'list'}}">
+                  <option *ngFor="let v of strSplit(testContext[key].value.valueStr, ',')" [ngValue]="v">{{v}}</option>
+                </datalist>
+                <span class="col-3 text-left">&nbsp;{{testContext[key].testResult[0].result[0].unit}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row d-flex justify-content-around">
+            <button type="button" class="btn btn-primary" (click)="goBack()"> 返回 </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{vConfig.buttonText}}</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-6">
+        <div *ngIf="testParas">
+          <div class="form-group row" *ngFor="let key of objectKeys(testParas)">
+            <label for="{{key}}" class="col-sm-3 col-form-label">{{key}}</label>
+            <div class="input-group col-sm-9">
+              <input [attr.list]="key + 'list'" type="text" class="form-control" id="{{key}}" placeholder="{{key}}" [(ngModel)]="testParas[key].testResult[0].result[0].valueStr" name="{{key}}">
+              <datalist id="{{key + 'list'}}">
+                <option *ngFor="let v of strSplit(testParas[key].value.valueStr, ',')" [ngValue]="v">{{v}}</option>
+              </datalist>
+              <span class="col-3 text-left">&nbsp;{{testParas[key].testResult[0].result[0].unit}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="reason" class="col-sm-3 col-form-label">原因（状况）</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="reason" placeholder="原因（状况）" [(ngModel)]="model.reason[0].value.valueStr" name="reason" #reason="ngModel">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="result" class="col-sm-3 col-form-label">结果（评价）</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="result" placeholder="结果（评价）" [(ngModel)]="model.result.valueStr" name="result" #result="ngModel">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="imgs" class="col-sm-3 col-form-label">照片</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="imgs" placeholder="导入照片" [(ngModel)]="model.imgs" name="imgs" #imgs="ngModel">
+          </div>
+        </div>
+        <!-- <i-upload (file)="getDa($event)"></i-upload> -->
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

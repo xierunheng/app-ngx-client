@@ -1,0 +1,20 @@
+ <div class="row">
+    <div class="col-12">
+        <div class="content">
+          <div class="flex">
+            <div class="item">               
+              <div class="value">{{ qc_statistics[0].total }}
+              </div>
+              <div class="title">生产总量:</div>
+            </div>
+            <div class="item">
+              <div class="value">{{ qc_statistics[0].rate_Passed }}%</div>
+              <div class="title">合格率:</div>               
+              </div>
+          </div>
+          <mes-qc-data></mes-qc-data>
+        </div>
+        <div echarts [options]="options" class="echart"></div>
+    </div>
+  </div>
+

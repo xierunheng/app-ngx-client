@@ -1,0 +1,61 @@
+<form class="pda-qc" (ngSubmit)="onQCSubmit()">
+  <div class="row">
+    <label class="col-12 col-form-label text-center">{{ model.msublot.oid }}[{{model.msublot.mdef?.oid}}]</label>
+  </div>
+  <div>
+    <ngb-tabset #t="ngbTabset" (tabChange)="onTabChange($event)">
+      <ngb-tab id="selfps" title="本工序">
+        <ng-template ngbTabContent>
+          <div class="form-group row">
+            <div [(ngModel)]="selDefect" ngbRadioGroup class="btn-group-toggle" name='selfReason'>
+              <label ngbButtonLabel class="col-my btn btn-info" *ngFor="let item of selfReasons" [class.scraped]="isScraped" title="isScraped">
+                <input ngbButton type="radio" [value]='item' (click)="onReasonClick(item.oid)">{{item.oid}}
+              </label>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="preps" title="上工序" *ngIf="reasons && reasons.length > 1">
+        <ng-template ngbTabContent>
+          <div class="form-group row">
+            <div [(ngModel)]="selDefect" ngbRadioGroup class="btn-group-toggle" name='reason'>
+              <label ngbButtonLabel class="col-my btn btn-info" *ngFor="let item of reasons" [class.scraped]="isScraped">
+                <input ngbButton type="radio" [value]='item' (click)="onReasonClick(item.oid)">{{item.oid}}
+              </label>
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+  <div class="form-group row">
+    <div class="col-6" *ngIf="!isCX">
+      <button type="submit" class="btn bgc-yellow btn-xxlg" [disabled]="!selDefect || isScraped" *ngIf="!isCX">缺陷确认</button>
+      <nb-badge *ngIf="selDefect && !isScraped" [text]="selDefect.oid"></nb-badge>
+    </div>
+    <div [class.col-6]="!isCX" [class.col-12]="isCX" class="mb1">
+      <button type="button" class="btn bgc-red  btn-xxlg" [disabled]="!selDefect || !isScraped" (click)="onQCScrap()">报废</button>
+      <nb-badge *ngIf="isScraped" [text]="selDefect.oid"></nb-badge>
+    </div>
+    <div class="col-12">
+      <button type="button" class="btn bgc-green btn-xxlg" (click)="onQCCancel()">误扫返回</button>
+    </div>
+  </div>
+</form>
+<div class="pop" *ngIf="popStatus">
+  <div class="layer"></div>
+  <div class="pop-wrap">
+    <div class="pop-content">
+      <div class="text-center title">其他缺陷</div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb1" id="otherValue" name="otherValue" placeholder="缺陷描述" [(ngModel)]="otherReason">
+<!--         <image-upload [max]="100" [buttonCaption]="'选择图片'" [extensions]="['jpeg','png','gif']" (uploadFinished)="onUploadFinished($event)" (uploadStateChanged)="onUploadStateChanged($event)">
+        </image-upload> -->
+      </div>
+      <div class="btn-box mb1">
+        <button class="btn btn-success" (click)="confirm()">确定</button>
+        <button class="btn btn-error" (click)="cancel()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

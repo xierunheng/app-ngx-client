@@ -1,0 +1,113 @@
+<ActionBar class="action-bar">
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+    (tap)="backToWorkOrder()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="作业呈现" horizontalAlignment="left"></Label>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout>
+    <StackLayout class="backgroundLine">
+      <StackLayout paddingBottom="5">
+        <Label [text]="wres?wres.oid:''" paddingTop="20" fontSize="30" color="#07C160" fontWeight="bold"
+               horizontalAlignment="center" isLoaded="false"></Label>
+        <Button [text]="processText" width="100%" color="#000000" fontSize="20" borderRadius="10" [style]="persentStyle" borderStyle="solid"
+                borderWidth="2px" borderColor="#07C160" isLoaded="false"></Button>
+      </StackLayout>
+      <GridLayout rows="*" columns="1/10*,9/10*" backgroundColor="#f5f5f5">
+        <Image row="0" col="0" src="~/app/mobileTerminal/fonts/菜单32#07C160.png" horizontalAlignment="left"></Image>
+        <Label row="0" col="1" text="作业名片" fontSize="20" fontWeight="bold" color="#07C160" height="40" paddingTop="10"></Label>
+      </GridLayout>
+
+      <GridLayout rows="*,*,*,*" columns="2/10*,8/10*">
+        <Label row="0" col="0" text="作业号：" fontSize="17" paddingTop="10" horizontalAlignment="right"></Label>
+        <Label row="0" col="1" [text]="wres?wres.oid:''" fontSize="17" paddingTop="10" color="#000000"></Label>
+
+        <Label row="1" col="0" text="状态：" fontSize="17" paddingTop="10" horizontalAlignment="right"></Label>
+        <Label row="1" col="1" [text]="wres?wres.state:''" fontSize="17" paddingTop="10" color="#000000"></Label>
+
+        <Label row="2" col="0" text="工位：" fontSize="17" paddingTop="10" horizontalAlignment="right"></Label>
+        <Label row="2" col="1" [text]="wres?wres.hs.name:''" fontSize="17" paddingTop="10" color="#000000"></Label>
+
+        <Label row="3" col="0" text="工时：" fontSize="17" paddingTop="10" horizontalAlignment="right"></Label>
+        <Label row="3" col="1" [text]="wres?(wres.startTime?(wres.startTime | date:'yyyy-MM-dd HH:mm'):'')+' -- '+(wres.endTime?(wres.endTime | date:'yyyy-MM-dd HH:mm'):''):''" fontSize="17" paddingTop="10"
+               paddingBottom="10" color="#000000"></Label>
+      </GridLayout>
+
+      <StackLayout orientation="horizontal">
+        <GridLayout width="50%" rows="*" columns="2/10*,8/10*" backgroundColor="#f5f5f5">
+          <Image row="0" col="0" src="~/app/mobileTerminal/fonts/菜单32#07C160.png" horizontalAlignment="left"></Image>
+          <Label row="0" col="1" text="本作业产量" fontSize="20" fontWeight="bold" color="#07C160" height="40" paddingTop="10"></Label>
+        </GridLayout>
+        <GridLayout width="50%" rows="*" columns="2/10*,8/10*" backgroundColor="#f5f5f5">
+          <Image row="0" col="0" src="~/app/mobileTerminal/fonts/菜单32#07C160.png" horizontalAlignment="left"></Image>
+          <Label row="0" col="1" text="本作业缺陷" fontSize="20" fontWeight="bold" color="#07C160" height="40" paddingTop="10"></Label>
+        </GridLayout>
+      </StackLayout>
+
+      <GridLayout rows="*" columns="1/2*,1/2*" height="200">
+        <RadRadialGauge class="gauge" row="0" col="0" [title]="processText" [subtitle]="processSubtitle">
+          <TitleStyle tkRadialGaugeTitleStyle textColor="black" verticalOffset="-30"></TitleStyle>
+          <SubtitleStyle tkRadialGaugeSubtitleStyle textColor="black"></SubtitleStyle>
+
+          <RadialScale #myScale tkRadialGaugeScales startAngle="-90" sweepAngle="360" minimum="0" maximum="100" radius="0.9">
+            <ScaleStyle tkRadialScaleStyle ticksVisible="false" labelsVisible="false" lineThickness="0"></ScaleStyle>
+
+            <RadialBarIndicator tkRadialScaleIndicators minimum="0" maximum="100" location="0.8">
+              <BarIndicatorStyle tkRadialBarIndicatorStyle fillColor="rgba(7,193,96,0.5)" barWidth="0.2"></BarIndicatorStyle>
+            </RadialBarIndicator>
+
+            <RadialBarIndicator tkRadialScaleIndicators minimum="0" maximum="0" location="0.8" isAnimated="true">
+              <BarIndicatorStyle tkRadialBarIndicatorStyle cap="Round" fillColor="rgba(7,193,96,1)" barWidth="0.2"></BarIndicatorStyle>
+            </RadialBarIndicator>
+          </RadialScale>
+        </RadRadialGauge>
+
+        <RadRadialGauge class="gauge" row="0" col="1" [title]="qTitle" [subtitle]="qSubtitle">
+         <TitleStyle tkRadialGaugeTitleStyle textColor="black" verticalOffset="-30"></TitleStyle>
+          <SubtitleStyle tkRadialGaugeSubtitleStyle textColor="black"></SubtitleStyle>
+          <RadialScale #myScale1 tkRadialGaugeScales startAngle="-90" sweepAngle="360" minimum="0" maximum="100" radius="0.9">
+            <ScaleStyle tkRadialScaleStyle ticksVisible="false" labelsVisible="false" lineThickness="0"></ScaleStyle>
+
+              <RadialBarIndicator tkRadialScaleIndicators minimum="0" maximum="100" location="0.8">
+                <BarIndicatorStyle tkRadialBarIndicatorStyle fillColor="rgba(224,151,36,0.5)" barWidth="0.2"></BarIndicatorStyle>
+              </RadialBarIndicator>
+
+              <RadialBarIndicator tkRadialScaleIndicators minimum="0" maximum="0" location="0.8" isAnimated="true">
+                <BarIndicatorStyle tkRadialBarIndicatorStyle cap="Round" fillColor="rgba(224,151,36,1)" barWidth="0.2"></BarIndicatorStyle>
+              </RadialBarIndicator>
+          </RadialScale>
+        </RadRadialGauge>
+      </GridLayout>
+
+      <GridLayout rows="*" columns="1/10*,9/10*" backgroundColor="#f5f5f5">
+        <Image row="0" col="0" src="~/app/mobileTerminal/fonts/菜单32#07C160.png" horizontalAlignment="left"></Image>
+        <Label row="0" col="1" text="作业产出" fontSize="20" fontWeight="bold" color="#07C160" height="40" paddingTop="10"></Label>
+      </GridLayout>
+
+      <ListView [items]="jobs"
+                separatorColor="orangered" rowHeight="50"
+                class="list-group" id="listView" row="2">
+        <ng-template let-job="item" let-i="index" let-odd="odd" let-even="even">
+          <mes-m-job-show-qty [jo]="job.jo" [jr]="job.jr"></mes-m-job-show-qty>
+        </ng-template>
+      </ListView>
+
+      <GridLayout rows="*" columns="1/10*,9/10*" backgroundColor="#f5f5f5">
+        <Image row="0" col="0" src="~/app/mobileTerminal/fonts/菜单32#07C160.png" horizontalAlignment="left"></Image>
+        <Label row="0" col="1" text="作业缺陷 Pareto" fontSize="20" fontWeight="bold" color="#07C160" height="40" paddingTop="10"></Label>
+      </GridLayout>
+
+      <ListView [items]="jobs"
+                separatorColor="orangered" rowHeight="50"
+                class="list-group" id="listView" row="2">
+        <ng-template let-job="item" let-i="index" let-odd="odd" let-even="even">
+          <mes-m-job-show-qci [jr]="job.jr"></mes-m-job-show-qci>
+        </ng-template>
+      </ListView>
+
+    </StackLayout>
+  </StackLayout>
+</ScrollView>

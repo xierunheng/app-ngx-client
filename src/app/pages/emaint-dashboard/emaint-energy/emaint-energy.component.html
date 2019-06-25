@@ -1,0 +1,11 @@
+<nb-card size="xsmall" class="solar-card" *ngIf="TotalUse">
+      <nb-card-header>用电消耗</nb-card-header>
+      <nb-card-body>
+        <div echarts [options]="option" class="echart">
+        </div>
+        <div class="info">
+          <div class="value">{{PwrUse.value.quantity}}{{PwrUse.value.unit}}</div>
+          <div class="details"><span>out of</span> {{TotalUse.quantity}}{{TotalUse.unit}}</div>
+        </div>
+      </nb-card-body>
+    </nb-card>

@@ -1,0 +1,27 @@
+<form class="form-set" (ngSubmit)="onSCSubmit()">
+  <div class="row">
+    <label class="col-12 col-form-label text-center">条码: {{ model.msublot.oid }}</label>
+  </div>
+  <div class="form-group row">
+    <label class="col-12 col-form-label text-center">缺陷项: {{model.oplog.reason | oidPipe}}</label>
+  </div>
+  <div class="form-group row" *ngIf="model.msublot.repairType">
+    <label class="col-12 col-form-label">修复方式: {{model.msublot.repairType}}</label>
+  </div>
+  <div class="form-group row">
+    <div class="col-6 mb1">
+      <button type="button" class="btn bgc-yellow  col-11 btn-xxlg" (click)="onSCRepair()">已修复</button>
+    </div>
+    <div class="col-6 mb1">
+      <button type="submit" class="btn bgc-red col-11 btn-xxlg">报废</button>
+    </div>
+    <div class="col-12 mb1">
+      <button type="button" class="btn bgc-green  col-11 2rem btn-xxlg" (click)="onSCCancel()">误扫返回</button>
+    </div>
+  </div>
+  <!-- <div class="form-group row">
+    <div class="col-12">
+      <button type="button" class="btn bgc-green  col-11 2rem btn-xxlg" (click)="onSCCancel()">误扫返回</button>
+    </div>
+  </div> -->
+</form>

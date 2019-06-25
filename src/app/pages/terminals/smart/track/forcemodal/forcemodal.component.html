@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <span>巡检强制执行{{isSample ? '[样品]' : ''}}</span>
+  <button class="close" aria-label="Close" (click)="dismissModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row d-flex justify-content-around">
+    <button class="btn btn-set btn-warning" (click)="defectIt()">本工序返修</button>
+    <button class="btn btn-set btn-danger" (click)="scrapIt()">本工序报废</button>
+    <button class="btn btn-set btn-info" [disabled]="isSample" (click)="sampleIt()">样品认定</button>
+  </div>
+</div>

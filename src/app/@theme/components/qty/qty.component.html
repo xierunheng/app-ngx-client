@@ -1,0 +1,5 @@
+<div class="input-group" *ngIf="_qty">
+  <input type="number" class="form-control col-sm-8" id="quantity" placeholder="数量" [required]="required" [(ngModel)]="_qty.quantity" name="quantity" [min]="min" [max]="max" (change)="onQtyChange($event)" [disabled]="disabled" #quantity="ngModel">
+  <input type="text" class="form-control col-sm-4" id="unit" placeholder="单位" [(ngModel)]="_qty.unit" name="unit" (change)="onQtyChange($event)" [disabled]="disabled" #unit="ngModel">
+</div>
+

@@ -1,0 +1,9 @@
+<nb-card>
+  <nb-card-header>设备维保信息</nb-card-header>
+  <nb-card-body>
+    <div>
+      <ng2-smart-table [settings]="settings" [source]="data" (delete)="removeEc($event.data)" id="table">
+      </ng2-smart-table>
+    </div>
+  </nb-card-body>
+</nb-card>

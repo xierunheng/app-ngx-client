@@ -1,0 +1,63 @@
+.laybelTop{
+  padding-top: 10;
+  padding-bottom: 5;
+  height: 60;
+  font-size: 18;
+}
+
+.labelLayout{
+  padding-top: 20;
+  padding-bottom: 10;
+  height: 60;
+  font-size: 18;
+}
+.laybelBorder{
+  border-bottom-width:1em;
+  border-bottom-color:#e8e8e8;
+}
+.labelName{
+  line-height: 50;
+  color: black;
+  font-weight: bold;
+}
+.labelText{
+  line-height: 50;
+  color: #595959;
+  text-align: right;
+  padding-right: 20;
+}
+
+.img-status{
+  width: 15%;
+  float: left;
+}
+
+Image{
+  padding-top: 20;
+  padding-bottom: 10;
+  height: 60;
+  /*border-bottom-width:1em;*/
+  border-bottom-color:#ccc;
+}
+
+.weui-btn{
+  position:relative;
+  display:block;
+  width:20%;
+  margin-left:auto;
+  margin-right:auto;
+  padding:8px 24px;
+  box-sizing:border-box;
+  font-weight:700;
+  font-size:17px;
+  text-align:center;
+  text-decoration:none;
+  color:#FFFFFF;
+  line-height:1.41176471;
+  border-radius:4px;
+  -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+  overflow:hidden;
+}
+.weui-btn_primary{
+  background-color:#07C160;
+}

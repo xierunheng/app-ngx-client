@@ -1,0 +1,63 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header class="">
+    <div class="col-12 d-flex justify-content-between">
+      <span>窑炉列表数据</span>
+      <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+        <label ngbButtonLabel class="btn btn-outline-primary cursor">
+          <input ngbButton type="radio" value="table"> 表格
+        </label>
+        <label ngbButtonLabel class="btn btn-outline-primary cursor">
+          <input ngbButton type="radio" value="chart"> 图表
+        </label>
+      </div>
+    </div>
+
+      <form class="form-inline col-12">
+        <div class="form-group col-md-2 mt2">
+          <label for="equipName" class="col-sm-4 col-form-label ">设备:</label>
+          <div class="col-sm-8">
+            <select class="form-control w100" id="equipName" [(ngModel)]="equipName" name="equipName" required>
+              <option>--请选择设备--</option>
+              <option *ngFor="let item of equipNames">{{item}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-md-3 mt2">
+          <label for="equipPara" class="col-sm-4 col-form-label ">设备参数:</label>
+          <div class="col-sm-8">
+            <mes-tree-multi-select [items]="equipParas | mesTreeitem:'name'" name="equipPara" [(ngModel)]="equipPara" [compareWith]="nameCmpFn" (ngModelChange)="onEquipParaChange($event)" required>
+            </mes-tree-multi-select>
+          </div>
+        </div>
+        <div class="form-group col-md-3 mt2">
+          <label for="envPara" class="col-sm-4 col-form-label ">环境参数:</label>
+          <div class="col-sm-8">
+            <mes-tree-multi-select [items]="envParas | mesTreeitem:'name'" name="envPara" [(ngModel)]="envPara" [compareWith]="nameCmpFn" (ngModelChange)="onEnvParaChange($event)" required>
+            </mes-tree-multi-select>
+          </div>
+        </div>
+        <div class="form-group col-md-4 mt2">
+          <label for="startTime" class="col-sm-2 col-form-label">起止</label>
+          <div class="col-sm-10 input-group">
+            <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="onStartTimeChange($event)" name="startTime">
+            <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="onEndTimeChange($event)" name="endTime">
+          </div>
+        </div>
+      </form>
+    
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf=" showtype === 'table' ">
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="createPc()" (edit)="editPc($event.data)" (delete)="removePc($event.data)">
+      </ng2-smart-table>
+    </div>
+    <div *ngIf=" showtype === 'chart' ">
+
+      <nb-card>
+        <nb-card-body>
+          <div echarts [options]="option" class="echart"></div>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </nb-card-body>
+</nb-card>

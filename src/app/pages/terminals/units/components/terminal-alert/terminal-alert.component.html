@@ -1,0 +1,42 @@
+<div class="wrapper col-12 ">
+  <div class="input-group input-group-lg mt08">
+    <label class="col-4 label pt5" for="workAlertDef">类型: </label>
+    <select class="select col-8" id="workAlertDef" name="workAlertDef" select="selected" [compareWith]="idCmpFn" placeholder="沟通类型" [(ngModel)]="alert.workAlertDef" (change)="onWorkAlertDefChange($event)">
+      <option *ngFor="let item of workAlertDefs" [ngValue]="item">{{item.oid}}</option>
+    </select>
+    <div class="input-group input-group-lg mt08">
+      <label class="col-4 label pt5" for="priority">优先级: </label>
+      <select class="col-8 text-center select" id="priority" name="priority" select="selected" [(ngModel)]="alert.priority">
+        <option *ngFor="let key of objectKeys(priorities)" [ngValue]="priorities[key]">{{key}}</option>
+      </select>
+    </div>
+    <div class="input-group input-group-lg mt08">
+      <label class="col-4 label pt5" for="message">留言: </label>
+      <input type="text" class="col-8  message" placeholder="留言信息" id="message" [(ngModel)]="alert.messageText">
+    </div>
+    <button type="button" class="btn btn-success col-12 mt2 font" (click)="onRelease($event)">提交</button>
+  </div>
+  <p class="mt2 text-center">沟通记录(最近5条)</p>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>
+          <div class="text-center">沟通ID</div>
+        </th>
+        <th>
+          <div class="text-center">类型</div>
+        </th>
+        <th>
+          <div class="text-center">状态</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let al of alerts">
+        <td class="text-center">{{al.oid}}</td>
+        <td class="text-center">{{al.workAlertDef.oid}}</td>
+        <td class="text-center">{{states[al.state]}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

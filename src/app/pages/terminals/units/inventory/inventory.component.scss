@@ -1,0 +1,44 @@
+.form-control{
+    font-size: 2rem;
+}
+
+.bgc-blue{
+    background-color: #0088ff;
+}
+
+.hidden{
+    visibility: hidden;
+}
+.notify-select{
+    background: #fff;
+    border-radius: 5px;
+    color: #0c0b0b; 
+    padding: 0 15px;
+    border: 1px solid #0088ff;
+}
+.btn{
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    cursor: pointer !important;
+    font-size: 2rem !important;
+}    
+.font{
+    font-size: 1.8rem;
+}
+/deep/nb-tabset a {
+    font-size: 1.8rem;
+}
+
+/deep/ .dropdown-menu{
+    font-size: 1.8rem !important;
+}
+/deep/.dropdown-toggle {
+    font-size: 1.8rem !important;
+} 
+/deep/.dropdown-menu input{
+    font-size: 1.6rem !important;
+    padding: 0.2rem 1rem !important;
+} 
+/deep/ .fa{
+    margin-right: .6rem !important;
+}

@@ -1,0 +1,57 @@
+.wrapper{
+    height: 100vh;
+    background: #181818
+}
+
+.chart-box{
+    height: 100%;
+}
+.border-right{
+    border-right: 1px solid;
+}
+.border-bottom{
+    border-bottom: 1px solid;
+}
+nb-card-body{
+    background: #181818;
+}
+
+:host /deep/ .echart{
+    background: #181818 !important;
+}
+.head-value{
+    font-size: 3rem;
+    color: #40dc7e;
+    text-align: center;
+    margin-bottom: 0
+}
+.head-text{
+    font-size: 2rem;
+    color: #5dcfe3;
+    text-align: center;
+
+}
+.para-info{
+    font-size: 1.4rem;
+    text-align: center;
+    color: #5dcfe3;
+    // margin-top: 3rem;
+    border-top: 1px solid #4b4b4b;
+    padding: 2rem 0;
+}
+.para-key{
+  text-align: right;
+  margin-bottom: 0;
+}
+.para-val{
+  text-align: center;
+  color: #40dc7e;
+
+}
+.para-item{
+    border: 1px solid;
+    padding: 1rem 0;
+}
+.head{
+  border-bottom: 1px solid #4b4b4b;  
+}

@@ -1,0 +1,133 @@
+ <nb-card *ngIf="model" size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body class="_kb-ovehide">
+<!--     <div class="row"> -->
+<!--       <div class="col-sm-6"> -->
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+          <div class="form-group row">
+            <label for="oid" class="col-sm-3 col-form-label">名称</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" (change)="onOidChange($event)" #oid="ngModel">
+              <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+                <div *ngIf="oid.errors.required">
+                  名称不能为空！
+                </div>
+                <div *ngIf="oid.errors.fieldExists">
+                  该名称已存在，请重新输入！
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="desc" class="col-sm-3 col-form-label">描述</label>
+            <div class="col-sm-9">
+              <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="opDef" class="col-sm-3 col-form-label">操作定义</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="opDef" [compareWith]="idCmpFn" [(ngModel)]="model.opDef" name="opDef" (change)="onOpDefChange($event)" required>
+                <option *ngFor="let item of ods" [ngValue]="item">{{item.oid + '-' + item.ver}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="firstSeg" class="col-sm-3 col-form-label">首工序</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="firstSeg" placeholder="首工序" [ngModel]="model.firstSeg?.oid" name="firstSeg" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lastSeg" class="col-sm-3 col-form-label">尾工序</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="lastSeg" placeholder="尾工序" [ngModel]="model.lastSeg?.oid" name="lastSeg" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="opType" class="col-sm-3 col-form-label">操作类型</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="opType" placeholder="操作类型" [ngModel]="model.opType" name="opType" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+              </mes-tree-select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="startTime" class="col-sm-3 col-form-label">计划起时</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control" id="startTime" [ngModel]="model.startTime | date:'yyyy-MM-dd'" (ngModelChange)="model.startTime = $event" name="startTime">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="endTime" class="col-sm-3 col-form-label">计划终时</label>
+            <div class="col-sm-9 input-group">
+              <input type="date" class="form-control" id="endTime" [ngModel]="model.endTime | date:'yyyy-MM-dd'" (ngModelChange)="model.endTime=$event" name="endTime">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="priority" class="col-sm-3 col-form-label">优先级</label>
+            <div class="col-sm-9">
+              <input type="number" min="1" max="5" class="form-control" id="priority" placeholder="优先级" [(ngModel)]="model.priority" name="priority">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="reqState" class="col-sm-3 col-form-label">计划状态</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="reqState" [(ngModel)]="model.reqState" name="reqState">
+                <option *ngFor="let item of reqStates" [ngValue]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="model.opSchedule">
+            <label for="opRes" class="col-sm-3 col-form-label">布产单</label>
+            <div class="col-sm-9">
+              <label class="form-control"><a href="/#/pages/ops/opschedule/{{model.opSchedule._id}}">{{model.opSchedule.oid}}</a></label>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="model.opRes">
+            <label for="opRes" class="col-sm-3 col-form-label">操作响应</label>
+            <div class="col-sm-9">
+              <label class="form-control"><a href="/#/pages/ops/opres/{{model.opRes._id}}">{{model.opRes.oid}}</a></label>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="model.workReq">
+            <label for="workReq" class="col-sm-3 col-form-label nowrap">作业请求</label>
+            <div class="col-sm-9">
+              <div class="form-control">
+                <span *ngFor="let item of model.workReq">
+                  <a href="/#/pages/works/workreq/{{item._id}}">{{item.oid}},&nbsp;</a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row" *ngIf="model.mlot">
+            <label for="mlot" class="col-sm-3 col-form-label">产品批次</label>
+            <div class="col-sm-9">
+              <label class="form-control"><a href="/#/pages/resources/mlot/{{model.mlot._id}}">{{"[" + model.mlot.oid + "]" + model.mlot.qty.quantity + model.mlot.qty.unit + model.mlot.mdef.oid}}</a></label>
+            </div>
+          </div>
+          <div class="form-group row d-flex justify-content-around">
+            <button type="button" class="btn btn-primary" (click)="cancel()"> 返回 </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+          </div>
+        </form>
+<!--       </div> -->
+<!--       <div class="col-sm-6">
+        <ngb-accordion activeIds="segReq">
+          <ngb-panel id="segReq" title="操作段计划">
+            <ng-template ngbPanelContent>
+              <mes-smart-table [resource]="model.segReq" [columns]="sRColunms" [url]="sRurl" ></mes-smart-table>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div> -->
+<!--     </div> -->
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,40 @@
+<nb-card size="medium">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="产线事件">
+      <ul class="user-activity-list">
+        <li *ngFor="let item of singleEvents; let i = index">
+          <div class="visited-date">
+            {{ item.createdAt | date:"HH:mm" }}
+          </div>
+          <div class="visited-pages-count">
+            <div class="title">{{ item.eventType }}</div>
+            <div class="value">{{ item.eventSubType }}</div>
+          </div>
+          <div class="visited-percentages">
+            <div class="title">{{ item.hs.name }}</div>
+            <div class="delta value" [class.up]="item.deltaUp" [class.down]="!item.deltaUp">
+              {{ item.alarmData[0].priority }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nb-tab>
+    <nb-tab tabTitle="过程参数">
+      <ul class="user-activity-list">
+        <li *ngFor="let item of paras">
+          <div class="visited-date">
+            {{ item.name }}
+          </div>
+          <div class="visited-pages-count">
+            <div class="value">{{ item.value.quantity}}{{item.value.unit}}</div>
+          </div>
+          <div class="visited-percentages">
+            <div class="delta value" [class.up]="item.deltaUp" [class.down]="!item.deltaUp">
+              {{ item.value.quantity }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

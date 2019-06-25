@@ -1,0 +1,46 @@
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange" id="item.text">
+  <div class="form-check overy-hide form-reset bg-change" [class.tree-close-bg]="item.checked">
+    <div class="content-box">
+      <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa arrow" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
+      <label class="form-check-label kb-cusor text-label">
+        <input type="checkbox" class="form-check-input form-check-reset kb-cusor" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" [indeterminate]="item.indeterminate" /> {{item.text}}
+      </label>
+    </div>
+    <div class="operate-box">
+      <label class="form-check-label pull-right f-size2" *ngIf="item.value.oid">
+        <i class="nb-trash kb-cusor" aria-hidden="true" title="删除 [{{item.text}}]" (click)="removeItem(item.value)"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-edit kb-cusor" aria-hidden="true" title="修改 [{{item.text}}]" (click)="editItem(item.value)"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2" *ngIf="!item.value.reqState" >
+        <i class="nb-plus kb-cusor" aria-hidden="true" title="[{{item.text}}] 新增" (click)="addItem(item.value)"></i>
+      </label>
+    </div>
+  </div>
+</ng-template>
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header class="d-flex justify-content-between">
+    <span>维护计划(主计划)管理</span>
+    <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="table"> 表格
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="tree"> 树状
+      </label>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf=" showtype === 'table' ">
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="createOpSched()" (edit)="editOpSched($event.data)" (delete)="removeOpSched($event.data)">
+      </ng2-smart-table>
+    </div>
+    <div *ngIf=" showtype === 'tree' ">
+      <ngx-treeview [config]="singleConfig" [items]="schedTree" [itemTemplate]="itemTemplate" (filterChange)="onFilterChange($event)" (selectedChange)="onSelChange($event)" id="tree">
+      </ngx-treeview>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+

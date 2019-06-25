@@ -1,0 +1,14 @@
+<nb-card-header>
+  产量
+</nb-card-header>
+<nb-card-body>
+  <div class="chart-info">
+    <div class="title" [style.color]="color">{{ name }}</div>
+    <div class="time-period">Last week</div>
+    <div class="value">{{ value }}%</div>
+  </div>
+  <mes-output-pie-chart [values]="earningPieChartData"
+                         (selectPie)="changeChartInfo($event)"
+                         [defaultSelectedCurrency]="defaultSelectedCurrency">
+  </mes-output-pie-chart>
+</nb-card-body>

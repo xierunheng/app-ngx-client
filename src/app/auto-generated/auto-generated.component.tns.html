@@ -1,0 +1,20 @@
+<!--<Button text="auto-generated works!" class="btn btn-primary"></Button>-->
+<TextView editable="false">
+  <FormattedString>
+    <Span text="This is a text view that uses attributed text. You can use text attributes such as "></Span>
+    <Span text="bold, " fontWeight="Bold"></Span>
+    <Span text="italic " fontStyle="Italic"></Span>
+    <Span text="and " ></Span>
+    <Span text="underline." textDecoration="Underline"></Span>
+
+    <Span text="" ></Span>
+  </FormattedString>
+</TextView>
+<ListView class="list-group" [items]="iHierarchyScope" style="height:1250px">
+  <ng-template let-country="item">
+    <FlexboxLayout flexDirection="row" class="list-group-item">
+<!--      <Image [src]="country.imageSrc" class="thumb img-circle"></Image>-->
+      <Label [text]="country.name" class="list-group-item-heading" verticalAlignment="center" style="width: 60%"></Label>
+    </FlexboxLayout>
+  </ng-template>
+</ListView>

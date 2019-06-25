@@ -1,0 +1,83 @@
+<nb-card>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="pclass" class="col-sm-3 col-form-label">员工类型</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="pcs | mesTreeitem:'oid'" name="pclass" [(ngModel)]="model.pclass" [compareWith]="idCmpFn" (valueChange)="onPclassChange($event)" required>
+          </mes-tree-multi-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="ID（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel" (change)="onOidChange($event)">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              ID不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该ID已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="code" class="col-sm-3 col-form-label">编码</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="code" placeholder="编码（两位且成型工必填）" maxlength="2" fieldExists [service]="service" [(ngModel)]="model.code" name="code" #code="ngModel">
+          <div *ngIf="code.invalid && (code.dirty || code.touched)" class="alert alert-danger">
+            <div *ngIf="code.errors.fieldExists">
+              该编码已存在，请重新输入！
+            </div>
+            <div *ngIf="code.errors.maxlength">
+              编码长度必须为2位！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">姓名</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="name" placeholder="姓名（必填）" required [ngModel]="model.name" name="name" #name="ngModel" (change)="onNameChange($event)">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+              姓名不能为空！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="mobile" class="col-sm-3 col-form-label">手机号码</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="mobile" placeholder="手机号码" [(ngModel)]="model.mobile" name="mobile" #mobile="ngModel">
+          <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+            <div *ngIf="mobile.errors.required">
+              手机号码不能为空！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

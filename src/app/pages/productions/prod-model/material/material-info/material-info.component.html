@@ -1,0 +1,55 @@
+<nb-card>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="mclass" class="col-sm-3 col-form-label">物料类型</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="mcs | mesTreeitem:'oid'" name="mclass" [(ngModel)]="model.mclass" [compareWith]="idCmpFn" (valueChange)="onMclassChange($event)" required>
+          </mes-tree-multi-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required [(ngModel)]="model.oid" name="oid" #oid="ngModel" >
+          <div class="input-group-append">
+            <nb-checkbox [(ngModel)]="isSample" name="isSample" class="btn form-control" status="warning" (ngModelChange)="model.code= isSample ? 'SAMP' : ''">
+              样品
+            </nb-checkbox>
+          </div>
+        </div>
+        <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+          <div *ngIf="oid.errors.required">
+            名称不能为空！
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="code" class="col-sm-3 col-form-label">编码</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="code" placeholder="编码, 样品请输入 SAMP" [(ngModel)]="model.code" name="code" >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,15 @@
+<nb-card size="medium">
+  <nb-card-header>
+    <div class="title">损失分析</div>
+    <div class="sub-title">Consumption</div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-container">
+      <mes-i-loss-analytics-chart [data]="lineData"></mes-i-loss-analytics-chart>
+    </div>
+  </nb-card-body>
+
+  <ngx-slide-out [showVisitorsStatistics]="true">
+    <mes-i-loss-statistics [data]="pieData"></mes-i-loss-statistics>
+  </ngx-slide-out>
+</nb-card>

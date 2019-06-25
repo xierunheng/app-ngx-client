@@ -1,0 +1,74 @@
+<nb-card>
+  <nb-card-header>
+    <div>
+      设备故障统计
+    </div>
+  </nb-card-header>
+  <nb-card-body >
+    <form #f="ngForm" class="row" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row col-md-6 mt2">
+        <label for="hs" class="col-md-3 col-form-label text-center">层级结构</label>
+        <div class="col-md-9">
+          <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="hs" (ngModelChange)="onHsChange($event)" [compareWith]="idCmpFn">
+          </mes-tree-select>
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3">
+        <div class="form-group row">
+          <button type="submit" class="btn btn-primary "> 统 计 </button>
+        </div>
+      </div>
+      <div class="col-md-4 mr1">
+        <div class="form-group row">
+          <select class="col-sm-3 form-control" id="period" [(ngModel)]="period" name="period" required>
+            <option *ngFor="let item of periods" [ngValue]="item.value">{{item.name}}</option>
+          </select>
+        <div class="col-sm-7 input-group">
+           <input type="{{period}}" class="form-control" placeholder="查询年份" id="periodTime" name="periodTime" [(ngModel)]="periodTime" (ngModelChange)="onPeriodTimeChange($event)">
+        </div>
+      </div>
+      </div>
+      <div class="col-md-7">
+        <div class="form-group row">
+          <label for="startTime" class="col-sm-2 col-form-label">起止</label>
+          <div class="col-sm-10 input-group">
+            <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="startTime=$event" name="startTime">
+            <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="endTime = $event" name="endTime">
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="divider"></div>
+    <div class="mr2">
+      <label for="total" class="col-sm-2 col-form-label desc">故障总数：{{total}}次</label>
+    </div>
+    <div class="col-md-12 form-group row">
+      <div class="col-md-6">
+        <nb-card>
+          <nb-card-header class="d-flex justify-content-between">
+            <span>故障Top3</span>
+          </nb-card-header>
+          <nb-card-body *ngIf="alerts">
+            <mes-e-fault-show [alerts]="alerts" [total]=total [Checkoid]="Checkoid1"></mes-e-fault-show>
+            <div class="divider"></div>
+            <mes-smart-table [resource]="alerts" [columns]="alertcolumns"></mes-smart-table>
+          </nb-card-body>
+        </nb-card>
+      </div>
+  <!--   <div class = "col-md-1"></div> -->
+      <div class="col-md-6">
+        <nb-card>
+          <nb-card-header class="d-flex justify-content-between">
+            <span>发生故障的设备Top3</span>
+          </nb-card-header>
+          <nb-card-body *ngIf="alertequips">
+            <mes-e-fault-show [alerts]="alertequips" [total]=total [Checkoid]="Checkoid2"></mes-e-fault-show>
+            <div class="divider"></div>
+            <mes-smart-table [resource]="alertequips" [columns]="aequipcolumns"></mes-smart-table>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

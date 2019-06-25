@@ -1,0 +1,27 @@
+
+.box{
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+.title{
+    font-family: Exo;
+    color: #181818;
+    font-weight: 500;
+    font-size: 2rem;
+    margin: 0.67rem 0;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    width: 400px;
+}
+.env-info{
+    font-size: 1.6rem;
+    margin: 0.67rem 0;
+    label{
+        color: #181818;
+    };
+    span {
+        color: #0088ff;
+        margin-right: 1rem;
+    }
+}

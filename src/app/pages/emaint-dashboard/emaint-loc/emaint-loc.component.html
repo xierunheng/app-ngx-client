@@ -1,0 +1,18 @@
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    工位跟踪
+  </nb-card-header>
+  <nb-card-body>
+    <nb-stepper orientation="horizontal">
+      <nb-step [label]="labelOne" *ngFor="let loc of locs">
+        <ng-template #labelOne>
+          <div class="title">{{ loc.TypToi }}</div>
+          <div class="value">{{ loc.NoToi }}</div>
+          <div class="description">
+            <bdi>{{ loc.MSkToi }}</bdi>
+          </div>
+        </ng-template>
+      </nb-step>
+    </nb-stepper>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,96 @@
+<nb-card  *ngIf="model">
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="eclass" class="col-sm-3 col-form-label">设备类型</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="ecs | mesTreeitem:'oid'" name="eclass" [(ngModel)]="model.eclass" [compareWith]="idCmpFn" (valueChange)="onEclassChange($event)" required>
+          </mes-tree-multi-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="supplier" class="col-sm-3 col-form-label">供应商</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="supplier" required [compareWith]="supplierCmpFn" [(ngModel)]="model.supplier" name="supplier" (change)='onSupplierChange($event)'>
+            <option *ngFor="let item of suppliers" [ngValue]="item">{{item.oid}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">设备ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="ID（必填）" minlength="9" maxlength="9" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              设备ID不能为空！
+            </div>
+            <div *ngIf="oid.errors.minlength">
+              供设备ID长度必须为9位！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该设备ID已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">设备名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.name" name="name" #name="ngModel">
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+              设备名称不能为空！
+            </div>
+            <div *ngIf="name.errors.fieldExists">
+              该设备名称已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="status" class="col-sm-3 col-form-label">使用状态</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="status" [(ngModel)]="model.status" name="status">
+            <option *ngFor="let item of statuses" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+<!--       <div class="col-sm-6">
+        <ngb-accordion activeIds="datas, prop">
+          <ngb-panel id="datas" title="设备作业列表" *ngIf="vConfig.type === 'update' ">
+            <ng-template ngbPanelContent>
+              <mes-smart-table [resource]="model.esubs" [columns]="esubcolumns" [url]="esuburl" (delete)="onDelete($event)">
+              </mes-smart-table>
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel id="prop" title="属性">
+            <ng-template ngbPanelContent>
+              <mes-pop-smart-table [resource]="model.prop" [columns]="propcolumns" [tags]="tags">
+              </mes-pop-smart-table>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div> -->
+  </nb-card-body>
+</nb-card>

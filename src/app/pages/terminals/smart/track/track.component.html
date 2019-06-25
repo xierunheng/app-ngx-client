@@ -1,0 +1,101 @@
+<nb-card>
+  <nb-card-header>
+    <terminal-header [title]="bodyOp.name" [person]="user.person" [logo]="'传奇We-'" (titleClick)="reload()"></terminal-header>
+  </nb-card-header>
+  <nb-card-body *ngIf="model">
+    <div class="input-group input-group-lg code-box">
+      <select class="code-select" id="inputType" name="inputType" select="selected" [(ngModel)]="inputType" (change)="onInputTypeChange($event)">
+        <option *ngFor="let item of inputTypesArr" [ngValue]="item.text">{{item.text}}</option>
+      </select>
+      <input #codeInput type="text" placeholder="扫码或手动录入" id="codeInput" [disabled]="inputType==='扫码'" [(ngModel)]="strBody" class="form-control form-control-success code-input" #codeInput>
+    </div>
+    <!-- 
+    <div class="current-info" *ngIf="model">
+      <div *ngIf="model.reason && model.reason.length > 0"><label class="item-label">缺陷项：</label>{{model.reason | oidPipe }}</div>
+      <div><label class="item-label">物料类型：</label>{{model.mclass[0].oid}}</div>
+      <div><label class="item-label">物料定义：</label>{{model.mdef.oid}}</div>
+      <div><label class="item-label">成型工：</label>{{model.molder.oid}}[{{model.molder.name}}]</div>
+      <div><label class="item-label">当前工位：</label>{{model.loc?.name || model.hs.name}}</div>
+      <div><label class="item-label">当前状态：</label>{{model.opState | zhState}}</div>
+      <div><label class="item-label">创建时间：</label>{{model.createdAt | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+      <div><label class="item-label">更新时间：</label>{{model.updatedAt | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+      <div><label class="item-label">数量：</label>{{model.qty.quantity}}{{model.qty.unit}}</div>
+      <div *ngIf="model.kiln"><label class="item-label">窑烧窑炉：</label>{{model.kiln.oid}}</div>
+      <div><label class="item-label">曾用ID: </label>{{model.usedOid | oidPipe }}</div>
+    </div> -->
+    <div *ngIf="model.msublot && model.msublot.oplog">
+      <div class="text-center text-info recode-title">
+        日志记录[{{model.msublot.mdef.oid}}]{{isSample ? '样品' : ''}}
+      </div>
+      <div class="log-item" *ngFor="let item of model.msublot.oplog">
+        <!-- <div class="log-title" [class.bgc-red]="item.reason && item.reason.length > 0">{{item.op | zhOp}} -->
+        <div class="log-title d-flex justify-content-between" [ngClass]="{'bgc-red': item.op==='scrap', 'bgc-yellow': item.op==='pass' || item.op==='undo' || item.op==='reject' || item.op==='track'}">
+          <span>{{item.op | zhOp}}</span>
+          <button (click)="onOp(item)">执行</button>
+        </div>
+        <div class="log-detail">
+          <span *ngIf="item.hs">工位：{{item.hs.name}}</span>
+          <span *ngIf="item.psub && item.psub.person">工号：{{item.psub.person.name}}-[{{item.psub.person.oid}}]</span>
+          <span *ngIf="item.esub && item.esub.equipment">{{item.esub.equipment.name}}-[{{item.esub.equipment.oid}}]</span>
+          <span *ngIf="item.jr">工单：{{item.jr.oid}}</span>
+          <span >时间：{{item.date | date:"yy-MM-dd HH:mm:ss"}}</span>
+          <span *ngIf="item.reason && item.reason.length > 0">缺陷项：[{{item.reason | oidPipe }}]{{item.reason[0].value.valueStr}}</span>
+        </div>
+      </div>
+      <input type="text" id="focus">
+    </div>
+    <div *ngIf="cartonSubLot && cartonSubLot.length > 0">
+      <div class="text-center text-info recode-title">
+        装配详情{{isSample ? '样品' : ''}}
+      </div> 
+      <div class="text-left log-item">
+          <div class="log-title d-flex justify-content-between bgc-blue">
+            <span>装配统计</span> 
+          </div>
+          <div class="log-detail">
+            <span>[{{assCount | json}}]</span>
+          </div>
+       </div>   
+      
+
+        <div class="text-left log-item" *ngFor="let item of cartonSubLot; let i = index">
+        <!-- <div class="log-title" [class.bgc-red]="item.reason && item.reason.length > 0">{{item.op | zhOp}} -->
+          <div class="log-title d-flex justify-content-between">
+            <span>包装件{{i+1}}：{{item.oid}}({{item.assSubLot.length}})</span>
+          </div>
+          <!-- div class="log-workalert-detail">
+            <span>序号：{{i + 1}}</span>
+          </div>
+          <div class="log-workalert-detail">
+            <span>条形码：{{item.oid}}</span>
+          </div> -->
+          <div class="log-detail" *ngFor="let ass of item.assSubLot">
+            <span>物料：{{ass.mdef?.oid}} | {{ass.oid}}</span>
+          </div>
+          <!-- <div class="log-workalert-detail">
+            <span>纸箱：{{item.carton?.oid}}</span>
+          </div> -->
+        </div>
+
+        <!-- <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>条形码</th>
+              <th>物料名称</th>
+              <th>纸箱</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of model.msublot.assSubLot; let i = index">
+              <td class="text-nowrap" scope="row">{{i + 1}}</td>
+              <td>{{item.oid}}</td>
+              <td>{{item.mdef?.oid}}</td>
+              <td>{{item.carton?.oid}}</td>
+            </tr>
+          </tbody>
+        </table> -->
+      
+    </div>
+  </nb-card-body>
+</nb-card>

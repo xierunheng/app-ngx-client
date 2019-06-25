@@ -1,0 +1,41 @@
+@import '../../styles/themes';
+
+@include nb-install-component() {
+  text-align: center;
+
+  .dropdown,
+  .dropup,
+  .btn-group {
+    margin-bottom: 1rem;
+  }
+
+  .dropdown button {
+    margin-top: 0;
+  }
+
+  .nb-theme-default .dropdown .dropdown-menu {
+    border: 1px solid #bbc0c6;
+    background-color: #ffffff;
+    color: #212529;
+  }
+  
+
+  nb-card-body {
+    overflow: visible;
+  }
+
+  .label {
+    width: 100%;
+    margin-bottom: 0;
+    cursor: pointer;
+    padding-bottom: .5rem;
+  }
+
+  .tree-close-bg {
+    background: #F5F7FC;
+  }
+}
+
+/deep/.nb-theme-corporate .dropdown .dropdown-menu {
+  color: #220202;
+}

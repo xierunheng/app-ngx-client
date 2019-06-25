@@ -1,0 +1,15 @@
+<nb-flip-card [showToggleButton]="false" [flipped]="flipped">
+  <nb-card-front>
+    <nb-card size="xsmall">
+      <mes-takt-front-side></mes-takt-front-side>
+      <i class="nb-arrow-right" (click)="toggleFlipView()"></i>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card size="xsmall">
+      <mes-takt-back-side></mes-takt-back-side>
+      <i class="nb-arrow-right" (click)="toggleFlipView()"></i>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>
+

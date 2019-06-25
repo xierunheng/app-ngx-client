@@ -1,0 +1,41 @@
+<nb-card size="xxsmall">
+  <div class="form-group row col-md-6 mt2">
+    <label for="hs" class="col-md-2 col-form-label text-center">层级结构</label>
+    <div class="col-md-8">
+      <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="hs" (ngModelChange)="onHsChange($event)" [compareWith]="idCmpFn">
+      </mes-tree-select>
+    </div>
+  </div>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12" *ngIf="hs">
+	<nb-card-header>
+		工单实时
+	</nb-card-header>
+	<nb-card-body>
+		<mes-realtime-job [hs]="hs"></mes-realtime-job>
+  </nb-card-body>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12" *ngIf="hs">
+	<nb-card-header>
+		员工实时
+	</nb-card-header>
+	<nb-card-body>
+		<mes-realtime-person [hs]="hs"></mes-realtime-person>
+  </nb-card-body>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12" *ngIf="hs">
+	<nb-card-header>
+		设备实时
+	</nb-card-header>
+	<nb-card-body>
+		<mes-realtime-equipment [hs]="hs"></mes-realtime-equipment>
+  </nb-card-body>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12" *ngIf="hs">
+	<nb-card-header>
+		物料流转实时
+	</nb-card-header>
+	<nb-card-body>
+		<mes-realtime-material [hs]="hs"></mes-realtime-material>
+  </nb-card-body>
+</nb-card>

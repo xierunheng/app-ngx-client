@@ -1,0 +1,22 @@
+<nb-card size="large">
+  <nb-tabset fullWidth (changeTab)="changeTab($event)">
+    <nb-tab tabTitle="产量">
+      <div class="chart-container">
+        <mes-chart-panel-summary [summary]="chartPanelSummary"></mes-chart-panel-summary>
+        <mes-chart-panel-header [type]="period"
+                                (periodChange)="setPeriodAndGetChartData($event)">
+        </mes-chart-panel-header>
+        <mes-yield-chart #ordersChart [ordersChartData]="ordersChartData"></mes-yield-chart>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="质量" [lazyLoad]="true">
+      <div class="chart-container">
+        <mes-chart-panel-summary [summary]="chartPanelSummary"></mes-chart-panel-summary>
+        <mes-chart-panel-header [type]="period"
+                                (periodChange)="setPeriodAndGetChartData($event)">
+        </mes-chart-panel-header>
+        <mes-qc-chart #profitChart [profitChartData]="profitChartData"></mes-qc-chart>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

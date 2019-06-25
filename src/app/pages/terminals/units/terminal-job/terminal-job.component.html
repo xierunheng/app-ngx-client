@@ -1,0 +1,121 @@
+<nb-flip-card *ngIf="model" [flipped]="flipped">
+  <nb-card-front [ngSwitch]="tState">
+    <nb-card>
+      <div class="wrapper" [class.hidden]="flipped">
+        <div *ngSwitchCase="'run'">
+          <form #f="ngForm" novalidate>
+            <nb-card-header>
+              <terminal-header [title]="bodyOp.name" [person]="user.person" (titleClick)="reload()" [logo]="'传奇We-'"></terminal-header>
+            </nb-card-header>
+            <div class="form-set order-wrapper">
+              <div class="input-group input-group-lg pt08">
+                <label class="col-3 pr0" for="hs">工位: </label>
+                <span class="col-8" id="hs" name="hs">{{model.oplog.hs.name}}</span>
+              </div>
+              <div class="input-group input-group-lg pt08">
+                <label class="col-3 pr0" for="jo">工单: </label>
+                <span class="col-8 no-wrap jorder" id="jo" name="jo" *ngIf="jo" [ngClass]="jo?.txtClass">{{jo.oid}}-[{{jo.qty.quantity}}{{jo.qty.unit}}]</span>
+              </div>
+              <div class="input-group input-group-lg pt08" *ngIf="isPY">
+                <label class="col-3  pr0 pt10" for="color">颜色:</label>
+                <div class="col-9">
+                  <select class="form-control color-select" id="color" name="color" select="selected" [(ngModel)]="model.color" (change)="colorChange($event)" [required]="isPY">
+                    <option *ngFor="let item of colors" [ngValue]="item">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-group input-group-lg pt08" *ngIf="isDY">
+                <label class="col-3 pt10 pr0" for="equipment">窑炉:</label>
+                <div class="col-9">
+                  <select class="form-control color-select" id="equipment" name="equipment" select="selected" [(ngModel)]="model.kiln" [compareWith]="idCmpFn" (change)="equipChange($event)" >
+                    <option *ngFor="let item of kilns" [ngValue]="item">{{item.name}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-group input-group-lg pt16 col-12 mb1">
+                <select class="col-4 code-select" id="inputType" name="inputType" select="selected" [(ngModel)]="inputType" (change)="onInputTypeChange($event)">
+                  <option *ngFor="let item of inputTypesArr" [ngValue]="item.text">{{item.text}}&nbsp;&nbsp;-&nbsp;&nbsp;{{item.desc}}</option>
+                </select>
+                <input #codeInput type="text" placeholder="扫码或手动录入" [disabled]="inputType==='扫码' || inputType==='退出' || inputType==='换色'" [(ngModel)]="strBody" class="form-control code-input" [ngClass]="stateClass" id="code-input" name="code-input" [ngModelOptions]="{standalone: true}">
+                <nb-badge *ngIf="model.jr" [text]="strQty"></nb-badge>
+              </div>
+              <div class="col-12" *ngIf="inputType==='换码'">
+                <input type="text" placeholder="新条码录入" [(ngModel)]="newBarcode" class="form-control" [ngClass]="stateClass" id="newBarcode" name="newBarcode" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="text-center work-tips" *ngIf="tips">{{tips}}</div>
+            </div>
+            <nb-card-footer *ngIf="tState == 'run'">
+
+              <div class="row">
+                <div class="dropdown col-7" placement="top-left" ngbDropdown>
+                  <button class="btn btn-primary btn-xxlg" type="button" ngbDropdownToggle [disabled]="!jos"> 选择工单 </button>
+                  <ul class="dropdown-menu" ngbDropdownMenu>
+                    <li class="dropdown-item" *ngFor="let item of jos" (click)="onJOSelect(item)">
+                      {{item.oid}}
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-5">
+                  <button type="button" class="btn btn-success  btn-xxlg" [disabled]="!jo || !f.valid || !isManager" (click)="onJOClick($event)">
+                    {{buttonText}}
+                  </button>
+                </div>                
+              </div>
+              <span class="copyright">{{logo}}</span>
+            </nb-card-footer>
+          </form>
+        </div>
+        <!-- </nb-card> -->
+        <div *ngSwitchCase="'qc'">
+          <!-- 跳去质检 -->
+          <div class="form-set  err-wrapper">
+            <mes-terminal-qc [model]="model" [bodyOp]="bodyOp" [tag]="bodyOp.pre" [op]="bodyOp.text" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-qc>
+          </div>
+        </div>
+        <div *ngSwitchCase="'sc'">
+          <!-- 跳去报废 -->
+          <div class="form-set err-wrapper">
+            <mes-terminal-scrap [model]="model" [op]="bodyOp.text" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-scrap>
+          </div>
+        </div>
+        <div *ngSwitchCase="'err'">
+          <!-- 跳去错误操作，不应该出现在当前的终端的条码 -->
+          <div class="form-set err-wrapper">
+            <mes-terminal-err [model]="model" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-err>
+          </div>
+        </div>
+      </div>
+      <i class="nb-arrow-dropright i-arrowright" (click)="flipClick($event)"></i>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card>
+      <div class="back-wrapper">
+        <div class="col-12 text-center ordertime ">{{jo?.startTime | date:'yyyy-MM-dd'}} 至 {{jo?.endTime | date:'yyyy-MM-dd'}}
+        </div>
+        <div class="font-mid load-wrap" *ngIf="jo">
+          <div *ngIf="this.model.jr" class="mt08">
+            <label for="" class="col-12">总进度：</label>
+            <div class="col-12">
+              <ngb-progressbar type="success" [showValue]="true" [value]="100 * this.model.jr.qty.quantity / jo.qty.quantity | ngxRound" height="3rem" [striped]="true" [animated]="true"><b class="load-speed"> {{this.model.jr.qty.quantity}} / {{jo.qty.quantity}}</b></ngb-progressbar>
+            </div>
+          </div>
+          <div class="childitem-wrap">
+            <div *ngFor="let pv of pvs" class="mt08">
+              <label for="" class="col-12">{{pv.oid}}:</label>
+              <div class="col-12">
+                <ngb-progressbar [showValue]="true" [value]="100 * pv.acount / pv.count | ngxRound" height="2rem"><b class="load-speed">{{pv.acount}} / {{pv.count}}</b></ngb-progressbar>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 finish-button" *ngIf="isDY">
+          <button type="button" class="btn btn-success btn-xxlg" (click)="onLoadComplete($event)">
+            登窑完毕
+          </button>
+        </div>
+      </div>
+      <i class="nb-arrow-dropleft i-arrowleft" (click)="flipClick($event)"></i>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

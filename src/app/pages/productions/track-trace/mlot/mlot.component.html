@@ -1,0 +1,69 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <span>物料子批次管理</span>
+    </div>
+    <form #f="ngForm" class="row" (ngSubmit)="search()">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="oid" class="col-sm-3 col-form-label ">子批次号:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="oid" placeholder="子批次号" [(ngModel)]="searchModel.oid" name="oid">
+          </div>
+        </div>
+      </div>
+      <!--      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="mdef" class="col-sm-3 col-form-label ">型号:</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="mdef" placeholder="型号" [(ngModel)]="searchModel.mdef.oid" name="mdef">
+          </div>
+        </div>
+      </div> -->
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="mdef" class="col-form-label ">物料定义:</label>
+          <div class="col-sm-9 ">
+            <mes-tree-select [items]="mtree" name="mdef" [(ngModel)]="searchModel.mdef" [nodeOnly]="true" [compareWith]="idCmpFn">
+            </mes-tree-select>
+          </div>
+        </div>
+      </div>
+<!--       <div class="form-group row">
+            <label for="mdef" class="col-sm-3 col-form-label">物料名称</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="mtree" name="mdef" [(ngModel)]="model.mdef" [nodeOnly]="true" (ngModelChange)="onMdefMChange($event)" [compareWith]="idCmpFn" required>
+              </mes-tree-select>
+            </div>
+          </div> -->
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="molder" class="col-sm-3 col-form-label ">成型工:</label>
+          <div class="col-sm-9">
+            <mes-tree-select [items]="ptree" name="molder" [(ngModel)]="searchModel.molder" [nodeOnly]="true" [compareWith]="idCmpFn">
+            </mes-tree-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="opState" class="col-sm-3 col-form-label ">操作状态:</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="opState" [(ngModel)]="searchModel.opState" name="opState">
+              <option>--请选择状态--</option>
+              <option *ngFor="let item of opStatuses" [ngValue]="item">{{item}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <button type="submit" class="btn btn-primary "> 查询 </button>
+      </div>
+    </form>
+  </nb-card-header>
+  <nb-card-body *ngIf="msublots">
+    <ng2-smart-table [settings]="settings" [source]="source" (create)="create()" (edit)="edit($event.data)" (delete)="remove($event.data)">
+    </ng2-smart-table>
+    <!-- <mes-smart-table [resource]="msublots" [columns]="columns" (delete)="onDelete($event)" [add]=false></mes-smart-table> -->
+  </nb-card-body>
+</nb-card>

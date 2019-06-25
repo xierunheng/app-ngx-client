@@ -1,0 +1,9 @@
+<RadAutoCompleteTextView #autocomplete [items]="dataItems" suggestMode="Suggest" displayMode="Plain">
+  <SuggestionView tkAutoCompleteSuggestionView suggestionViewHeight="300">
+    <ng-template tkSuggestionItemTemplate let-item="item">
+      <StackLayout orientation="vertical" padding="10">
+        <Label [text]="item.text"></Label>
+      </StackLayout>
+    </ng-template>
+  </SuggestionView>
+</RadAutoCompleteTextView>

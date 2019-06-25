@@ -1,0 +1,16 @@
+<nb-reveal-card [showToggleButton]="false" [revealed]="revealed">
+  <nb-card-front>
+    <nb-card size="small">
+      <mes-i-th-cards-header [type]="period" (periodChange)="setPeriodAngGetData($event)"></mes-i-th-cards-header>
+      <mes-i-th-front-side [frontCardData]="trafficListData"></mes-i-th-front-side>
+      <i class="nb-arrow-up" (click)="toggleView()"></i>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card size="small">
+      <mes-i-th-cards-header [type]="period" (periodChange)="setPeriodAngGetData($event)"></mes-i-th-cards-header>
+      <mes-i-th-back-side [trafficBarData]="trafficBarData"></mes-i-th-back-side>
+      <i class="nb-arrow-down" (click)="toggleView()"></i>
+    </nb-card>
+  </nb-card-back>
+</nb-reveal-card>

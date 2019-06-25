@@ -1,0 +1,214 @@
+.code-input::-webkit-input-placeholder{ /*WebKit browsers*/
+    font-size: 1.8rem !important;
+
+}
+.newBarcode::-webkit-input-placeholder{ /*WebKit browsers*/
+    font-size: 1.8rem !important;
+
+}
+:host nb-card-header,nb-card-body,nb-card-footer{
+    display: block
+}
+
+:host nb-card-footer{
+    bottom: 0;
+    width: 100%;
+}
+.clearfix:after{
+  content: "020"; 
+  display: block; 
+  height: 0; 
+  clear: both; 
+  visibility: hidden;  
+  }
+
+.clearfix {
+  /* 触发 hasLayout */ 
+  zoom: 1; 
+  }
+
+.pt08{
+  margin-top: .8rem;
+}
+.mb02{
+    margin-bottom: .2rem
+}
+.mb1{
+    margin-bottom: 1rem;
+}
+.mt08{
+    margin-top: .8rem;
+}
+.pt12{
+    padding-top: 1.2rem
+}
+.mt10{
+    margin-top: 10px;
+}
+.code-input{
+    padding: 10px !important;
+    margin-left: 1rem;
+    font-size: 1.8rem !important;
+}
+.select{
+    padding: 10px 15px 20px;
+    font-size: 1.6rem;
+    color: #4b4b4b;
+    height: auto !important;
+}
+.code-select{
+    background: #40dc7e;
+    border-radius: 5px;
+    color: #ffff; 
+    outline: none;
+}
+.time{
+    font-size: 1.6rem;
+    padding: 10px;
+}
+.work-tips{
+    width: 40rem;
+    padding: 20px;
+    position: fixed;
+    left: 50%;
+    top: 13%;
+    background: red;
+    z-index: 1;
+    color: white;
+    margin-left: -20rem;
+    opacity: .9;
+}
+
+.btn-xxlg{    
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    font-size: 2rem !important;
+}
+
+
+.btn{
+    font-size: 1.8rem;
+}
+.dropdown-item{
+    font-size: 2rem !important;
+}
+// defect btn 
+/deep/ .nav-link{
+    padding: 0.5rem .3rem;
+    font-size: 1.2rem;
+}
+
+.btn.bgc-red.active,.btn.bgc-red:active:focus{
+    background-color: #fff;
+    border: 1px solid red;
+    color: #221f1f;
+    
+}
+.btn.bgc-red{
+    background-color: #f4081f;
+    color: #2a2a2a;
+    border-color: #f4081f;
+}
+.btn.bgc-red.scraped.active,.btn.bgc-red.scraped:active:focus{
+    background-color: #f4081f !important;
+    color: #2a2a2a;
+    border-color: #f4081f;
+}
+.btn:disabled{
+    background-color: #e4e3e3;
+    border-color:#e4e3e3;
+    color: #fff;
+}
+.col-my{
+    width: 19%;
+    margin: .6rem 1rem;
+    padding: 8px 0;
+    font-size: 1.6rem;
+}
+
+.bgc-yellow{
+    background-color: #f6f710;
+    color: #2a2a2a;
+}
+.bgc-red{
+    background-color: #f4081f;
+    color: #2a2a2a;
+}
+
+.bgc-green{
+    background-color: #1cf20b;
+}
+.bgc-blue{
+    background-color: #0088ff;
+}
+// defect btn end
+// 
+/deep/ .nb-arrow-dropleft {
+    position: absolute;
+    right: 20px;
+    bottom: 44px;
+    padding: .4rem;
+    font-size: 2.2rem;
+}
+.load-speed{
+    position: absolute;
+    top: -24px;
+    right: 40px;
+    color: #28a745;
+    font-size: 1.4rem;
+}
+.hidden{
+    visibility: hidden;
+}
+/deep/.nb-arrow-dropleft{
+    display: none;
+}
+/deep/.flip-button{
+    display: none !important;
+}
+.flipped .i-arrowright{
+    display: none ;
+}
+.i-arrowright{
+    position: absolute;
+    color:#0088ff;
+    right: 0;
+    bottom: -4px;
+    padding: .4rem;
+    font-size: 4rem;
+    display: block;
+}
+.i-arrowleft{
+    position: absolute;
+    color:#0088ff;
+    right: 0;
+    bottom: -4px;
+    padding: .4rem;
+    font-size: 4rem;
+    display: block;
+}
+
+.ui-keyboard {
+    text-align: center;
+    padding: .3em;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 16000;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+.none{
+    display: none;
+}
+.copyright{
+    position: fixed;
+    bottom: 10px;
+    color: #212529;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-align: center;
+    right: 44px;
+}

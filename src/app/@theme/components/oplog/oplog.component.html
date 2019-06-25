@@ -1,0 +1,32 @@
+<nb-flip-card *ngIf="oplog" [flipped]="flipped">
+  <nb-card-front>
+    <nb-card [status]="status" [size]="size" [accent]="accent">
+      <!-- <nb-card-header (click)="isCollapsed = !isCollapsed"> -->
+      <nb-card-header (click)="flipClick($event)">
+        {{oplog.op | zhOp}}
+      </nb-card-header>
+      <nb-card-body [ngbCollapse]="isCollapsed">
+        <p *ngIf="oplog.hs">工位：{{oplog.hs.name}}</p>
+        <p *ngIf="oplog.psub && oplog.psub.person">工号:{{oplog.psub.person.name}}-[{{oplog.psub.person.oid}}]</p>
+        <p *ngIf="oplog.esub && oplog.esub.equipment">设备：{{oplog.esub.equipment.name}}-[{{oplog.esub.equipment.oid}}]</p>
+        <p *ngIf="oplog.jr">工单：{{oplog.jr.oid}}</p>
+        <p *ngIf="oplog.date">时间：{{oplog.date | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+        <p *ngIf="oplog.reason && oplog.reason > 0">缺陷项：[{{oplog.reason | oidPipe }}]{{oplog.reason[0].value.valueStr}}</p>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card [status]="status" [size]="size" [accent]="accent">
+      <!-- <nb-card-header (click)="isCollapsed = !isCollapsed"> -->
+      <nb-card-header (click)="flipClick($event)">
+        {{oplog.op | zhOp}}-[{{oplog.date | date:"yyyy-MM-dd"}}]
+      </nb-card-header>
+      <nb-card-body [ngbCollapse]="isCollapsed" *ngIf='accent'>
+        <!-- <div class="row d-flex justify-content-around"> -->
+          <button type="button" class="btn btn-danger btn-xxlg col-4" (click)="scrapIt()">本工序报废</button>
+          <button type="button" class="btn btn-warning btn-xxlg col-4" (click)="defectIt()">本工序返修</button>
+        <!-- </div> -->
+      </nb-card-body>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

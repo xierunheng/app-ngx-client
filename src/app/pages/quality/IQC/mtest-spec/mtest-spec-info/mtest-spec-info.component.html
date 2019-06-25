@@ -1,0 +1,111 @@
+<nb-card *ngIf="model">
+  <nb-card-header>
+    {{vConfig.title}}
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-6">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+          <div class="form-group row">
+            <label for="oid" class="col-sm-3 col-form-label">编号</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="oid" placeholder="编号（必填）" required [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+              <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+                <div *ngIf="oid.errors.required">
+                  编号不能为空！
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label">名称</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="name" placeholder="名称（必填）" required [(ngModel)]="model.name" name="name" #name="ngModel">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                <div *ngIf="name.errors.required">
+                  名称不能为空！
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="ver" class="col-sm-3 col-form-label">版本</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="ver" placeholder="版本（必填）" required [(ngModel)]="model.ver" name="ver" #ver="ngModel">
+              <div *ngIf="ver.invalid && (ver.dirty || ver.touched)" class="alert alert-danger">
+                <div *ngIf="ver.errors.required">
+                  版本不能为空！
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="desc" class="col-sm-3 col-form-label">描述</label>
+            <div class="col-sm-9">
+              <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="tester" class="col-sm-3 col-form-label">检测单位/人</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="tester" placeholder="名称（必填）" [(ngModel)]="model.tester" name="tester" #tester="ngModel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="reason" class="col-sm-3 col-form-label">原因（状况）</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="reason" placeholder="原因（状况）" [(ngModel)]="model.reason[0].value.valueStr" name="reason" #reason="ngModel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="result" class="col-sm-3 col-form-label">结果（评价）</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="result" placeholder="结果（评价）" [(ngModel)]="model.result.valueStr" name="result" #result="ngModel">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+              </mes-tree-select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="loc" class="col-sm-3 col-form-label">存储位置</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="loc" [(ngModel)]="model.loc" [compareWith]="idCmpFn" >
+              </mes-tree-select>
+            </div>
+          </div>
+          <div class="form-group row d-flex justify-content-around">
+            <button type="button" class="btn btn-primary" (click)="goBack()"> 返回 </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{vConfig.buttonText}}</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-6">
+        <ngb-accordion activeIds="testedMclassProp, testedMdefProp">
+          <ngb-panel id="testedMclassProp" title="物料类型检测项">
+            <ng-template ngbPanelContent>
+              <mes-modal-smart-table [oid]="model.oid" [resource]="model.testedMclassProp" [columns]="tmcpColumns" [modalComponent]="tmmodal" title="物料类型检测项">
+              </mes-modal-smart-table>
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel id="testedMdefProp" title="物料定义检测项">
+            <ng-template ngbPanelContent>
+              <mes-modal-smart-table [oid]="model.oid" [resource]="model.testedMdefProp" [columns]="tmdpColumns" [modalComponent]="tmmodal" title="物料定义检测项">
+              </mes-modal-smart-table>
+            </ng-template>
+          </ngb-panel>
+          <ngb-panel id="testedMlotProp" title="物料批次检测项">
+            <ng-template ngbPanelContent>
+              <mes-modal-smart-table [oid]="model.oid" [resource]="model.testedMlotProp" [columns]="tmlpColumns" [modalComponent]="tmmodal" title="物料批次检测项">
+              </mes-modal-smart-table>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+

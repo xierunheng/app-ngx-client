@@ -1,0 +1,27 @@
+.content{
+    font-size: 20px;
+    color: #edf2f5;
+    border-bottom: 1px solid #4b4b4b;
+}
+.content>div{
+    margin-bottom: 1rem;
+    border: 1px solid #6c757d;
+    padding: 10px;
+}
+.item{
+    padding: 0 1rem 0 1rem;
+}
+.title{
+    text-align: center;
+    color: #5dcfe3
+}
+
+.value{
+    color: #40dc7e;
+    text-align: center;
+    font-size: 2rem;
+}
+.flex{
+    display: flex;
+    justify-content: space-around;    
+}

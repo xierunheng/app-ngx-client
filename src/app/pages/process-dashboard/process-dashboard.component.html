@@ -1,0 +1,90 @@
+<nb-card>
+  <form class="form-inline">
+    <div class="form-group row col-md-6 mt2">
+      <label for="hs" class="col-md-2 col-form-label text-center">层级结构</label>
+      <div class="col-md-8">
+        <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="hs" (ngModelChange)="onHsChange($event)" [compareWith]="idCmpFn">
+        </mes-tree-select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group row mt2">
+        <label for="startTime" class="col-sm-2 col-form-label">起止</label>
+        <div class="col-sm-10 input-group">
+          <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="onStartTimeChange($event)" name="startTime">
+          <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="onEndTimeChange($event)" name="endTime">
+        </div>
+      </div>
+    </div>
+  </form>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="作业">
+      <div class="row">
+        <div class="chart-container col-md-5">
+          <process-work-state [hs]="hs" [startTime]="startTime" [endTime]="endTime">
+          </process-work-state>
+        </div>
+        <div class="chart-container col-md-7">
+          <process-work-type [hs]="hs" [startTime]="startTime" [endTime]="endTime">
+          </process-work-type>
+        </div>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="工单">
+      <div class="row">
+        <div class="chart-container col-md-5">
+          <process-job-state [hs]="hs" [startTime]="startTime" [endTime]="endTime">
+          </process-job-state>
+        </div>
+        <div class="chart-container col-md-7">
+          <process-job-master [hs]="hs" [startTime]="startTime" [endTime]="endTime">
+          </process-job-master>
+        </div>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <div class="title">员工生产过程</div>
+    <div class="sub-title">产量统计</div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-container">
+      <mes-psub-pclass [hs]="hs" [startTime]="startTime" [endTime]="endTime" (pclassChange)="pclass= $event"></mes-psub-pclass>
+    </div>
+  </nb-card-body>
+  <ngx-slide-out [showVisitorsStatistics]="true">
+    <mes-psub-person [hs]="hs" [startTime]="startTime" [endTime]="endTime" [pclass]="pclass"></mes-psub-person>
+  </ngx-slide-out>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <div class="title">设备生产过程</div>
+    <div class="sub-title">产量统计</div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-container">
+      <mes-esub-eclass [hs]="hs" [startTime]="startTime" [endTime]="endTime" (eclassChange)="eclass= $event"></mes-esub-eclass>
+    </div>
+  </nb-card-body>
+  <ngx-slide-out [showVisitorsStatistics]="true">
+    <mes-esub-equipment [hs]="hs" [startTime]="startTime" [endTime]="endTime" [eclass]="eclass"></mes-esub-equipment>
+  </ngx-slide-out>
+</nb-card>
+<nb-card class="col-md-12 col-lg-12 col-xxxl-12">
+  <nb-card-header>
+    <div class="title">物料生产过程</div>
+    <div class="sub-title">产量统计</div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-container">
+      <mes-msub-mclass [hs]="hs" [startTime]="startTime" [endTime]="endTime" (mclassChange)="mclass= $event"></mes-msub-mclass>
+    </div>
+  </nb-card-body>
+  <ngx-slide-out [showVisitorsStatistics]="true">
+    <mes-msub-mdef [hs]="hs" [startTime]="startTime" [endTime]="endTime" [mclass]="mclass"></mes-msub-mdef>
+  </ngx-slide-out>
+</nb-card>

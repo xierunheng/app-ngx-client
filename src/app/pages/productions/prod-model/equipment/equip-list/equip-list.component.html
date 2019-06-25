@@ -1,0 +1,10 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header>
+    <a routerLink="./" routerLinkActive="active">设备列表</a>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (create)="create()" (edit)="edit($event.data)" (delete)="remove($event.data)">
+    </ng2-smart-table>
+    <!--     <mes-smart-table [resource]="persons" [columns]="columns" (delete)="onDelete($event)"></mes-smart-table> -->
+  </nb-card-body>
+</nb-card>

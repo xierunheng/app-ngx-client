@@ -1,0 +1,8 @@
+<nb-card>
+  <nb-card-header class="d-flex justify-content-between">
+    <span>物料检验规格</span>
+  </nb-card-header>
+  <nb-card-body *ngIf="mts">
+    <mes-smart-table [resource]="mts" [columns]="columns" (delete)="onDelete($event)" ></mes-smart-table>
+  </nb-card-body>
+</nb-card>

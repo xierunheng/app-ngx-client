@@ -1,0 +1,21 @@
+<nb-reveal-card [showToggleButton]="false" [revealed]="revealed">
+  <nb-card-front>
+    <nb-card>
+    	<nb-card-header>
+    		<span>产量</span>
+    	</nb-card-header>
+    	<!-- <mes-integration-qty-week-front [frontCardData]="trafficListData"></mes-integration-qty-week-front> -->
+      <mes-integration-qty-week-back [trafficBarData]="trafficBarData"></mes-integration-qty-week-back>
+      <i class="nb-arrow-up" (click)="toggleView()"></i>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card size="large">
+      <nb-card-header>
+    		<span>产量</span>
+    	</nb-card-header>
+      <mes-integration-qty-week-back [trafficBarData]="trafficBarData"></mes-integration-qty-week-back>
+      <i class="nb-arrow-down" (click)="toggleView()"></i>
+    </nb-card>
+  </nb-card-back>
+</nb-reveal-card>

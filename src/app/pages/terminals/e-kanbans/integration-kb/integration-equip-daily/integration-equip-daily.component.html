@@ -1,0 +1,20 @@
+<nb-card>
+  <nb-card-header>
+    <span>设备</span>
+    <div class="status-tip">
+      <label class="icon primary"></label><span>全开机</span>
+      <label class="icon warning"></label><span>部分开机</span>
+      <label class="icon danger"></label><span>异常停机</span>
+      <label class="icon secondary"></label><span>全停机</span>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-xxxl-4 col-md-6" *ngFor="let statusCard of statusCards">
+        <mes-integration-equip-show [title]="statusCard.title" [type]="statusCard.type" [desc]="statusCard.desc">
+          <i [ngClass]="statusCard.iconClass"></i>
+        </mes-integration-equip-show>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

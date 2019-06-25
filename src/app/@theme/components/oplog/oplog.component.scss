@@ -1,0 +1,11 @@
+:host nb-card{
+    margin-bottom: 0;
+}
+:host nb-card-header{
+    cursor: pointer;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+nb-flip-card{
+    margin: 0 -.5px;
+}

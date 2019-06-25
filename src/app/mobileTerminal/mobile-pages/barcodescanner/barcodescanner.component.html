@@ -1,0 +1,49 @@
+<ActionBar class="action-bar">
+  <ActionItem text="Item" ios.position="right" android.position="popup"></ActionItem>
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+    (tap)="backToHome()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="产品扫码" horizontalAlignment="left"></Label>
+</ActionBar>
+
+<GridLayout backgroundColor="#ccc">
+  <StackLayout orientation="horizontal" verticalAlignment="top" height="50">
+    <TextField [(ngModel)]="oid" marginLeft="5" hint="单号" top="5" width="50%" height="40"
+               backgroundColor="#fff" (tap)="onChange()"></TextField>
+    <button height="40" borderRadius="5" marginLeft="10" text="扫码" (tap)="openBarcodesScanner()"
+            class="weui-btn weui-btn_primary"></button>
+    <button height="40" borderRadius="5" marginLeft="10" text="查询" (tap)="getMsubLotByOid()"
+            class="weui-btn weui-btn_primary"></button>
+  </StackLayout>
+  <StackLayout paddingTop="50">
+    <ScrollView class="page">
+      <StackLayout *ngIf="oplogData.length>0">
+        <StackLayout orientation="horizontal" *ngFor="let item of oplogData;let i = index">
+          <Label [text]="i+1" id="itemStepper1" height="40" width="40"
+                 class="item-stepper current-step"></Label>
+          <CardView class="card" elevation="40" radius="10" ios:shadowRadius="3" width="85%">
+            <StackLayout class="card-layout">
+              <Label class="h2" [text]="item.name"></Label>
+              <StackLayout class="body">
+                <Label *ngIf="item.hsname" text="工位：{{item.hsname}}"></Label>
+                <Label *ngIf="item.psubperson" text="工号：{{item.psubperson}}"></Label>
+                <Label *ngIf="item.date" text="时间：{{item.date | date:'yy-MM-dd HH:mm:ss'}}"></Label>
+              </StackLayout>
+            </StackLayout>
+          </CardView>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout *ngIf="oplogData.length==0" borderColor="lime">
+        <GridLayout columns="250, 250, *" rows="250, 30, 30, *" width="600" height="780" backgroundColor="lightgray">
+          <Label text="" row="0" col="0" colSpan="3"></Label>
+          <Label [text]="oid" row="1" col="0" colSpan="3" textAlignment="center" fontSize="20"></Label>
+          <Label [text]="errorResult" row="2" col="0" colSpan="3" textAlignment="center" fontSize="20"></Label>
+          <Label text="" row="3" col="0" colSpan="3"></Label>
+        </GridLayout>
+      </StackLayout>
+
+    </ScrollView>
+  </StackLayout>
+</GridLayout>

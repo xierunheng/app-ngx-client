@@ -1,0 +1,37 @@
+<form class="form-set" *ngIf="model">
+  <div class="row">
+    <label class="col-12 col-form-label">条码: <span> {{ model.msublot.oid }}</span></label>
+  </div>
+  <div class="form-group row">
+    <label class="col-12 col-form-label">错误: <span class="text-danger"> {{ model.err.message }}</span></label>
+    <div *ngIf="model.err.type==='trans'">
+      <label class="col-12 col-form-label">当前状态： <span class="text-info"> {{ model.err.current }}</span>
+      </label>
+      <label class="col-12 col-form-label">可执行操作： </label>
+        <div class="col-12">
+            <span *ngFor="let t of model.err.transitions" class="pull-left text-info">{{t}};</span>
+         </div>
+    </div>
+    <div *ngIf="model.err.type==='mismatch'">
+      <label class="col-sm-12 col-form-label">条码物料： {{ model.err.entity.mdef?.oid}}</label>
+      <div class="form-group">
+        <label class="col-sm-6 col-form-label">工单指定物料： </label>
+        <div class="col-sm-6">
+          <li *ngFor="let md of model.validMdef">{{md.mdef?.oid}}-[{{md.mclass.oid}}]</li>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="model.err.type==='color'">
+      <label class="col-sm-12 col-form-label">条码物料： {{ model.err.entity.mdef?.oid}}</label>
+    </div>
+    <div *ngIf="model.err.type==='kiln'">
+      <label class="col-sm-12 col-form-label">当前质检窑炉：{{ model.esub.equipment?.name}}[{{ model.esub.equipment?.oid}}]</label>
+      <label class="col-sm-12 col-form-label">烧成窑炉：{{model.err.entity.kiln?.name}}[{{ model.err.entity.kiln?.oid}}]</label>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-12 text-center">
+      <button type="button" class="btn bgc-green col-11" (click)="onErrCancel()">误扫返回</button>
+    </div>
+  </div>
+</form>

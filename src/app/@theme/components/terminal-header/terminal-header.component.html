@@ -1,0 +1,12 @@
+<div class="border row justify-content-between " *ngIf="user">
+  <div>
+    <p [hidden]="user.person === undefined">{{user.person?.name}}</p>
+    <p [hidden]="user.person === undefined">[{{user.person?.oid}}]</p>
+  </div>
+  <h2 class="align-middle text-center">{{user.ps?.oid}}终端</h2>
+  <div>
+    <button [hidden]="user.person === undefined" type="button" class="close" aria-label="Close" (click)="logout()">
+      <span aria-hidden="true"><i class="fa fa-sign-out"></i></span>
+    </button>
+  </div>
+</div>

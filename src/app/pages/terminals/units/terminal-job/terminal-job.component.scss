@@ -1,0 +1,54 @@
+
+:host nb-card-footer{
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    background: #fff;
+
+}
+.order-wrapper{
+    height: 432px;
+    // border: 1px solid #666;
+    overflow: scroll;
+}
+.form-control{
+    font-size: 2rem;
+}
+.color-select{
+    padding: 0 10px !important;
+    height: 68px !important;
+}
+:host-context(.nb-theme-default) .dropdown-menu{
+    width: 18rem;
+    padding: 0;
+    max-height: 384px;
+    overflow-y: scroll;
+}
+.dropdown-item{
+    font-size: 2rem !important;
+    color: #212529 !important;
+    border-bottom: 1px solid #fff !important;
+}
+.pr0{
+    padding-right: 0;
+}
+.ordertime{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.jorder{
+    font-size: 1.7rem;
+    line-height: 48px;
+    color: #0088ff;
+}
+.load-end{
+    position: fixed;
+    bottom: 118px;
+}
+
+.finish-button {
+    border-top: 1px solid #ebeef2;
+    margin-top: 1.6rem;
+    padding-top: 1.6rem;
+    padding-bottom: 1.6rem;
+}

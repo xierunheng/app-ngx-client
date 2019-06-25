@@ -1,0 +1,86 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body *ngIf="model" class="_kb-ovehide">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+            <label for="oid" class="col-sm-3 col-form-label">名称</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="oid" [(ngModel)]="model.oid" name="oid" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="desc" class="col-sm-3 col-form-label">描述</label>
+            <div class="col-sm-9">
+              <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="firstJob" class="col-sm-3 col-form-label">首工序</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="firstJob" placeholder="首工序" [ngModel]="model.firstJob?.oid" name="firstJob" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="lastJob" class="col-sm-3 col-form-label">尾工序</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="lastJob" placeholder="尾工序" [ngModel]="model.lastJob?.oid" name="lastJob" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="workType" class="col-sm-3 col-form-label">作业类型</label>
+            <div class="col-sm-9">
+              <label class="form-control ">{{model.workType}}</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn">
+              </mes-tree-select>
+            </div>
+          </div>
+          <!--           <div class="form-group row">
+            <label for="directive" class="col-sm-3 col-form-label">作业指导</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="directive" placeholder="作业指导" [(ngModel)]="model.directive.oid" name="directive">
+            </div>
+          </div> -->
+          <div class="form-group row">
+            <label for="startTime" class="col-sm-3 col-form-label">起始时间</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="startTime" [ngModel]="model.startTime | date:'yyyy-MM-dd HH:mm:ss'" name="startTime" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="endTime" class="col-sm-3 col-form-label">结束时间</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="endTime" [ngModel]="model.endTime | date:'yyyy-MM-dd HH:mm:ss'" name="endTime" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="state" class="col-sm-3 col-form-label">状态</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="state" [ngModel]="model.state" name="state" readonly>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="req" class="col-sm-3 col-form-label">作业请求</label>
+            <div class="col-sm-9">
+              <label class="form-control "><a href="/#/pages/works/workreq/{{model.req._id}}">{{model.req.oid}}</a></label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="opRes" class="col-sm-3 col-form-label">操作响应</label>
+            <div class="col-sm-9">
+              <label class="form-control "><a href="/#/pages/ops/opres/{{model.opRes._id}}">{{model.opRes.oid}}</a></label>
+            </div>
+          </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <!-- <button type="submit" class="btn btn-primary" [disabled]="!f.valid">确定</button> -->
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

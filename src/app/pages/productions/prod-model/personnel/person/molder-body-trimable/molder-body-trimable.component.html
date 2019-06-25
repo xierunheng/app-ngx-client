@@ -1,0 +1,34 @@
+<nb-card>
+  <nb-card-header>
+    <div>
+      可交坯查询
+    </div>
+    <form #f="ngForm" class="row" (ngSubmit)="onSubmit(f.value)">
+      <div class="col-md-4">
+        <div class="form-group row">
+          <label for="startTime" class="col-sm-3 col-form-label">干燥起时</label>
+          <div class="col-sm-9 input-group">
+            <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="startTime = $event" name="startTime">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group row">
+          <label for="endTime" class="col-sm-3 col-form-label">交坯时间</label>
+          <div class="col-sm-9 input-group">
+            <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddThh:mm'" (ngModelChange)="endTime = $event" name="endTime">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button type="submit" class=" btn btn-primary" [disabled]="!f.valid"> 查询 </button>
+        <button class="btn btn-primary btn-md" type="button" (click)="goBack()">
+        返回
+      </button>
+      </div>
+    </form>
+  </nb-card-header>
+  <nb-card-body *ngIf="bodys">
+    <mes-smart-table [resource]="bodys" [columns]="bodycolumns" ></mes-smart-table>
+  </nb-card-body>
+</nb-card>

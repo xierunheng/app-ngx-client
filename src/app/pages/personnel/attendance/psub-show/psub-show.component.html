@@ -1,0 +1,61 @@
+<div class="row" *ngIf="psub">
+  <h1 class="text-center middle col-12">{{psub.person.name}}的一天[{{psub.person.oid}}]</h1>
+  <div class="col-md-4">
+    <nb-card size="xsmall">
+      <nb-card-header>
+        <span>工作名片</span>
+      </nb-card-header>
+      <nb-card-body>
+        <p>工作号：{{psub.oid}}</p>
+        <p>工位：{{psub.hs.name}}</p>
+        <p>员工类型：{{psub.pclass[0].oid}}</p>
+        <p>描述：{{psub.desc}}</p>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-4">
+    <mes-psub-show-total title="作业产量" [value]="psub.qty" [total]="psub.qty"></mes-psub-show-total>
+  </div>
+  <div class="col-md-4">
+    <mes-psub-show-total title="作业缺陷率" [value]="psub.ngqty" [total]="psub.qty"></mes-psub-show-total>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>产量详情</span>
+        <div class="dropdown ghost-dropdown m-adjust" ngbDropdown>
+          <button type="button" ngbDropdownToggle class="btn btn-outline-success">
+            {{ qtyType }}
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let t of qtyTypes" (click)="qtyType=t">{{ t }}</li>
+          </ul>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-psub-show-qty [psub]="psub" [type]="qtyType"></mes-psub-show-qty>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <span>缺陷Pareto图</span>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-psub-show-qci [reasons]="psub.reasons"></mes-psub-show-qci>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <span>工作进程</span>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-psub-show-oplog [oplog]="psub.oplog"></mes-psub-show-oplog>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+

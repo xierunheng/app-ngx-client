@@ -1,0 +1,95 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row" >
+      <div class="col-sm-6">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+          <div class="form-group row">
+            <label for="workAlertDef" class="col-sm-3 col-form-label">报警定义</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="workAlertDef" placeholder="报警定义" [compareWith]="idCmpFn" [(ngModel)]="model.workAlertDef" name="workAlertDef" (change)="onWorkAlertDefChange($event)" required>
+                <option *ngFor="let item of workAlertDefs" [ngValue]="item">{{item.oid}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="oid" class="col-sm-3 col-form-label">报警ID</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="oid"  required [(ngModel)]="model.oid" name="oid">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="messageText" class="col-sm-3 col-form-label">报警信息</label>
+            <div class="col-sm-9">
+              <textarea rows="3" class="form-control" id="messageText" placeholder="报警信息" [(ngModel)]="model.messageText" name="messageText"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="receiveHs" class="col-sm-3 col-form-label">接收部门</label>
+            <div class="col-sm-9">
+              <mes-tree-multi-select [items]="hstree" name="receiveHs" [(ngModel)]="model.receiveHs" [compareWith]="idCmpFn"></mes-tree-multi-select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="receivers" class="col-sm-3 col-form-label">接收人</label>
+            <div class="col-sm-9">
+              <mes-tree-multi-select [items]="ptree" name="receivers" [(ngModel)]="model.receivers" [compareWith]="idCmpFn"></mes-tree-multi-select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="model.hs" [compareWith]="idCmpFn"></mes-tree-select>
+            </div>
+          </div>
+          <!-- <div class="form-group row">
+            <label for="person" class="col-sm-3 col-form-label">员工</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="ptree" name="person" [(ngModel)]="model.person" [nodeOnly]="true" (ngModelChange)="onPersonChange($event)" [compareWith]="idCmpFn" >
+              </mes-tree-select>
+            </div>
+          </div> -->
+          <div class="form-group row">
+            <label for="equipment" class="col-sm-3 col-form-label">设备</label>
+            <div class="col-sm-9">
+              <mes-tree-select [items]="etree" name="equipment" [(ngModel)]="model.equipment" [nodeOnly]="true" (ngModelChange)="onEquipmentChange($event)" [compareWith]="idCmpFn" >
+              </mes-tree-select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="priority" class="col-sm-3 col-form-label">等级</label>
+            <div class="col-sm-9">
+              <input type="number" min="1" max="5" class="form-control" id="priority" placeholder="等级" [(ngModel)]="model.priority" name="priority">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="category" class="col-sm-3 col-form-label">类型</label>
+            <div class="col-sm-9">
+              <!-- <input type="text" class="form-control" id="category" placeholder="报警类型" [(ngModel)]="model.category" name="category"> -->
+              <select class="form-control" id="category" placeholder="报警类型" [compareWith]="idCmpFn" [(ngModel)]="model.category" name="category"  required>
+                <option *ngFor="let item of categorys" [ngValue]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="state" class="col-sm-3 col-form-label">状态</label>
+            <div class="col-sm-9">
+              <label class="form-control" id="state" name="state">
+                {{model.state}}
+              </label>
+            </div>
+          </div>
+          <div class="form-group row d-flex justify-content-around">
+            <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!f.valid">确定</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+

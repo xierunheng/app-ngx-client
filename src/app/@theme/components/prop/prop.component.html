@@ -1,0 +1,27 @@
+<div class="p-4">
+  <form *ngIf="_model">
+    <div class="form-group">
+      <select class="form-control" id="oid" placeholder="属性项" required [(ngModel)]="_model.oid" name="oid" (change)="onOidChange($event)" [disabled]="this.buttonText!=='新建'">
+        <option *ngFor="let para of paras" [ngValue]="para.oid">{{para.oid}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <mes-value id="value" name="value" [value]="_model.value" [vs]="vs"></mes-value>
+    </div>
+    <div class="form-group">
+      <label for="desc" class="sr-only">描述</label>
+      <textarea rows="2" class="form-control" id="desc" placeholder="描述" [(ngModel)]="_model.desc" name="desc"></textarea>
+    </div>
+    <div class="form-group" *ngIf="showQty">
+      <label for="qty" class="sr-only">数量</label>
+      <mes-qty id="qty" name="qty" [(qty)]="_model.qty"></mes-qty>
+    </div>
+    <div class="form-group">
+      <nb-checkbox id="showSame" name="showSame" [ngModel]="showSame" (ngModelChange)="onShowSameChange($event)" status="warning">显示已选属性</nb-checkbox>
+    </div>
+    <div class="form-group d-flex justify-content-around">
+      <button type="button" class="btn btn-md btn-primary col-offset-1 col-sm-5" (click)="onCancel()">取消</button>
+      <button type="button" class="btn btn-primary col-sm-5" (click)="onConfirm()">{{buttonText}}</button>
+    </div>
+  </form>
+</div>

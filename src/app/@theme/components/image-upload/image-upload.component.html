@@ -1,0 +1,7 @@
+<image-upload
+  [max]="100"
+  [buttonCaption]="'选择图片'"
+  [extensions]="['jpeg','png','gif']"
+  (uploadFinished)="onUploadFinished($event)"
+  (uploadStateChanged)="onUploadStateChanged($event)">
+</image-upload>

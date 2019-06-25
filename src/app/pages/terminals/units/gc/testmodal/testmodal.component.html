@@ -1,0 +1,40 @@
+<div class="modal-header d-flex justify-content-between">
+  <span>[{{mlot.mdef.oid}}:{{mlot.oid}}]配釉检测项</span>
+  <div class="form-group flex col-4">
+    <label for="desc" class="col-sm-6 label">检验次数:</label>
+    <div class="col-sm-6 flex">
+      <select class="form-control value " id="desc" name="desc" select="selected" placeholder="检验次数" required [(ngModel)]="desc">
+        <option>--请选择检验次数--</option>
+        <option *ngFor="let item of times" [ngValue]="item">{{item}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <form #f="ngForm">
+    <div class="row">
+      <div class="form-group flex col-4" *ngFor="let key of objectKeys(env)">
+        <label for="{{key}}" class="col-sm-4 label text-right">{{key}}:</label>
+        <div class="col-sm-8 flex">
+          <input type="number" class="form-control col-8" id="{{key}}" placeholder="{{env[key].range}}" required [(ngModel)]="env[key].result.valueStr" name="{{key}}" (change)="onEnvChange($event)">
+          <span class="col-3 text-left">&nbsp;{{env[key].result.unit}}</span>
+        </div>
+      </div>
+      <div class="form-group flex col-4" *ngFor="let key of objectKeys(obj)" [ngClass]="obj[key].width">
+        <label for="{{key}}" class="col-sm-4 label text-right">{{key}}:</label>
+        <div class="col-sm-8 flex">
+          <input type="number" class="form-control col-8" id="{{key}}" placeholder="{{obj[key].range}}" required [(ngModel)]="obj[key].result.valueStr" name="{{key}}">
+          <span class="col-3 text-left">&nbsp;{{obj[key].result.unit}}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-md btn-primary" (click)="help()">
+    检验方法
+    <i class="far fa-question-circle"></i>
+  </button>
+  <button class="btn btn-md btn-primary" [disabled]="!f.valid && compulsory" (click)="dismissModal()">返回</button>
+  <button class="btn btn-md btn-primary" [disabled]="!f.valid" (click)="closeModal()">确认</button>
+</div>

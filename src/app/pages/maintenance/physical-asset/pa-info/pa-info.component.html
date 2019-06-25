@@ -1,0 +1,107 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="paclass" class="col-sm-3 col-form-label">工装类型</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="pacs | mesTreeitem:'oid'" name="paclass" [(ngModel)]="model.paclass" [compareWith]="idCmpFn" (valueChange)="onPaclassChange($event)" required>
+          </mes-tree-multi-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">工装ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="工装ID（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              ID不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该ID已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">工装名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="name" placeholder="工装名称（必填）" required [(ngModel)]="model.name" name="name" #name="ngModel" >
+          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+            <div *ngIf="name.errors.required">
+              名称不能为空！
+            </div>
+            <div *ngIf="name.errors.fieldExists">
+              该名称已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="loc" class="col-sm-3 col-form-label">存储位置</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="loc" [(ngModel)]="model.loc" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <!-- <div class="form-group row">
+        <label for="eaMapping" class="col-sm-3 col-form-label">关联设备</label>
+        <div class="col-sm-9">
+          <ngx-dropdown-treeview [items]="etree" [config]="multiConfig" (selectedChange)="onSelectedChange($event)">
+          </ngx-dropdown-treeview> -->
+
+          <!-- <mes-tree-multi-select [items]="etree"  [compareWith]="idCmpFn" [(ngModel)]="model.eaMapping" name= "eaMapping">
+          </mes-tree-multi-select> -->
+
+        <!-- </div>
+      </div> -->
+      <div class="form-group row">
+        <label for="fixedAssetID" class="col-sm-3 col-form-label">固定资产ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="fixedAssetID" placeholder="fixedAssetID（必填）" required fieldExists [service]="service" [(ngModel)]="model.fixedAssetID" name="fixedAssetID" #fixedAssetID="ngModel">
+          <div *ngIf="fixedAssetID.invalid && (fixedAssetID.dirty || fixedAssetID.touched)" class="alert alert-danger">
+            <div *ngIf="fixedAssetID.errors.required">
+              ID不能为空！
+            </div>
+            <div *ngIf="fixedAssetID.errors.fieldExists">
+              该ID已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="vendorID" class="col-sm-3 col-form-label">供应商ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="vendorID" placeholder="供应商ID（必填）" required fieldExists [service]="service" [(ngModel)]="model.vendorID" name="vendorID" #vendorID="ngModel">
+          <div *ngIf="vendorID.invalid && (vendorID.dirty || vendorID.touched)" class="alert alert-danger">
+            <div *ngIf="vendorID.errors.required">
+              ID不能为空！
+            </div>
+            <div *ngIf="vendorID.errors.fieldExists">
+              该ID已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

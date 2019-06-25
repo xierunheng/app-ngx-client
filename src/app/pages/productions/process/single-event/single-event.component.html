@@ -1,0 +1,9 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header>
+    <a routerLink="./" routerLinkActive="active">事件一览表</a>
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (create)="create()" (edit)="edit($event.data)" (delete)="remove($event.data)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

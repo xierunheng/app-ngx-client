@@ -1,0 +1,12 @@
+@import '../../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+
+  
+  /deep/ .dropdown{
+            .dropdown-menu{
+                color: #220202
+            }
+        }        
+  
+}

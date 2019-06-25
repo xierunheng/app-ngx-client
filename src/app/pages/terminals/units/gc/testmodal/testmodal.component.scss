@@ -1,0 +1,28 @@
+.flex{
+    display: flex;
+    padding: 0 10px 0 0 !important;
+}
+.modal-header{
+    font-size: 1.2rem;
+}
+.modal-body span{
+    word-break:keep-all; 
+    margin-top: 14px;  
+}
+.modal-body{
+    font-size: 1.2rem;
+}
+input{
+    font-size: 1.2rem !important;
+    padding-left:3px;
+    padding-right: 3px; 
+}
+.value{
+    margin-left: -20px !important
+}
+.label{
+    margin-top: 10px;
+}
+/deep/ .modal-lg{
+    max-width: 84% !important;
+}

@@ -1,0 +1,33 @@
+<GridLayout rows="*" columns="*" height="400">
+  <RadCartesianChart seriesSelectionMode="Multiple" tkExampleTitle tkToggleNavButton>
+    <CategoricalAxis tkCartesianHorizontalAxis lineColor="#595959" lineThickness="1"></CategoricalAxis>
+    <LinearAxis tkCartesianVerticalAxis lineColor="Blue" lineThickness="1" lineHidden="true"></LinearAxis>
+
+    <BarSeries tkCartesianSeries seriesName="myBar" selectionMode="DataPoint" legendTitle="计划/件"
+               [items]="planArray" categoryProperty="oid" valueProperty="quantity" showLabels="true">
+      <PointLabelStyle tkBarLabelStyle margin="1" fontStyle="Bold" fillColor="#0050b3" textSize="10" textColor="White"></PointLabelStyle>
+    </BarSeries>
+    <BarSeries tkCartesianSeries seriesName="myBar" selectionMode="DataPointMultiple" legendTitle="实际/件"
+               [items]="actArray" categoryProperty="oid" valueProperty="quantity" showLabels="true">
+      <PointLabelStyle tkBarLabelStyle margin="1" fontStyle="Bold" fillColor="#07C160" textSize="10" textColor="White"></PointLabelStyle>
+    </BarSeries>
+    <RadLegendView tkCartesianLegend position="Top" title="作业产出：" height="70" enableSelection="false"></RadLegendView>
+
+    <!-- >> chart-angular-styling-series-selection -->
+    <Palette tkCartesianPalette seriesName="myBar">
+      <PaletteEntry tkCartesianPaletteEntry strokeWidth="1" strokeColor="#0050b3" fillColor="#0050b3"></PaletteEntry>
+      <PaletteEntry tkCartesianPaletteEntry strokeWidth="3" strokeColor="#07C160" fillColor="#07C160"></PaletteEntry>
+    </Palette>
+    <Palette tkCartesianPalette seriesName="myBar" seriesState="Selected">
+      <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="#0050b3" fillColor="#0050b3"></PaletteEntry>
+      <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="#07C160" fillColor="#07C160"></PaletteEntry>
+    </Palette>
+
+    <RadCartesianChartGrid tkCartesianGrid
+                           horizontalLinesVisible="true" verticalLinesVisible="false"
+                           horizontalStripLinesVisible="false" verticalStripLinesVisible="false"
+                           horizontalStrokeColor="#e5e5e5"
+                           horizontalStripLineColor="#e5e5e5">
+    </RadCartesianChartGrid>
+  </RadCartesianChart>
+</GridLayout>

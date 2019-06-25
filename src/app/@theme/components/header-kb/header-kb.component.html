@@ -1,0 +1,18 @@
+<div class="header-container"
+     [class.left]="position === 'normal'"
+     [class.right]="position === 'inverse'">
+  <div class="logo-containter">
+    <div class="logo" (click)="goToHome()">陶卫<span>MES</span>综合看板</div>
+  </div>
+</div>
+
+<div class="header-container">
+  <ngx-theme-switcher></ngx-theme-switcher>
+  <nb-actions
+    size="large"
+    [class.right]="position === 'normal'"
+    [class.left]="position === 'inverse'">
+    <nb-action class="control-item" icon="nb-notifications" badgeText="5" badgeStatus="danger"></nb-action>
+    <nb-action class="control-item" icon="nb-email" badgeText="12" badgeStatus="info"></nb-action>
+  </nb-actions>
+</div>

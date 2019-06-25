@@ -1,0 +1,15 @@
+.mb1{
+    margin-bottom: 1rem;
+}
+/deep/.img-ul-upload {
+    margin-right: 16px;
+}
+
+
+:host ::ng-deep .img-ul-drag-box-msg{
+    display: none !important;
+}
+
+:host ::ng-deep .img-ul-clear{
+    display: none !important;
+}

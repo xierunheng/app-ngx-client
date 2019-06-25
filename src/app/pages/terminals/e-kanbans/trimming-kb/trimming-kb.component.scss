@@ -1,0 +1,27 @@
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  mes-echarts-pie,
+  mes-echarts-bar,
+  mes-echarts-line {
+    display:block;
+    //height: nb-theme(card-height-medium);//设置该高度后面deep中设置100%只有第一张能完整显示,若后面设置具体高度显示正常
+    height: 100%;
+    width: 100%;
+  }
+  
+  /deep/ .bar {//mes-echart里面的div，需设置宽度才能撑开盒子
+    // position: absolute;
+    height: 100vh;
+    width: 100vw;
+    margin: 0 auto;
+  }
+  /deep/ .pie{
+    height: 100vh;
+    width: 100vw;
+  }
+  /deep/ .line2{
+    height: 40vh;
+    width: 40vw;
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  input {
+    width: 100%;
+  }
+
+  nb-card {
+    min-width: 456px;
+  }
+
+  .btn-success {
+    margin-left: 1rem;
+  }
+}

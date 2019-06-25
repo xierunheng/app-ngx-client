@@ -1,0 +1,26 @@
+<div class="w800 col-12" *ngIf="model">
+  <terminal-header [title]="title" [person]='model.oplog.person'></terminal-header>
+  <form class="row form-set">
+    <div class="col-6">
+      <div class="form-group row">
+        <label class="col-12">工位: {{model.oplog.hs.name}}</label>
+      </div>
+      <div class="form-group row" *ngIf="model.jo">
+        <label placement="bottom-left" [ngbPopover]="popContent" [popoverTitle]="model.jo?.oid" class="label col-12">工单:
+          <span [ngClass]="model.jo.txtClass">{{model.jo?.oid}}-[{{model.jo.qty.quantity}}{{model.jo.qty.unit}}]</span>
+        </label>
+      </div>
+      <!-- <mes-terminal-jobOrder [model]="model" [jos]="jos"></mes-terminal-jobOrder> -->
+    </div>
+    <div class="col-6">
+      <div class="form-group row" *ngIf="model.jr">
+        <label for="oid" class="col-12">成品条码: {{model.oids.length}}/{{model.jr.qty.quantity}}{{model.jr.qty.unit}}</label>
+        <div class="col-12 ">
+          <textarea rows="3" class="form-control font-16" id="oid" name="oid" [disabled]="model.jr.state !== 'Running'" placeholder="点击此处扫码或键盘输入编号" required [ngModel]="strBody" (ngModelChange)="onOidChange($event)" autocomplete="off" autofocus #oidCtrl="ngModel">
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+ <!-- <mes-terminal-qcs [model]="model" [op]="op"></mes-terminal-qcs>  -->
+</div>

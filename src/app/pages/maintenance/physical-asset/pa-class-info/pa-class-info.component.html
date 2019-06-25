@@ -1,0 +1,74 @@
+<nb-card>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body *ngIf="model">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">工装类型名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="工装类型名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              名称不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              名称已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="code" class="col-sm-3 col-form-label">类型编号</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="code" placeholder="编号-4位（必填）" minlength="4" maxlength="4" required fieldExists [service]="service"  [(ngModel)]="model.code" name="code" #code="ngModel">
+          <div *ngIf="code.invalid && (code.dirty || code.touched)" class="alert alert-danger">
+            <div *ngIf="code.errors.required">
+              编号不能为空！
+            </div>
+            <div *ngIf="code.errors.minlength">
+               编号长度必须为4位！
+            </div>
+            <div *ngIf="code.errors.fieldExists">
+              该编号已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required>
+          </mes-tree-select>
+        </div>
+      </div>
+      <!-- 实例：emmoda.component.html -->
+<!--       <div class="form-group row">
+        <label for="manufacture" class="col-sm-3 col-form-label">生产厂家</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="mtree"  [compareWith]="idCmpFn" [(ngModel)]="EMM" (valueChange)="onEmmChange($event)" name= "EMM">
+          </mes-tree-multi-select>
+        </div>
+      </div> -->
+
+      <div class="form-group row">
+        <label for="manufacture" class="col-sm-3 col-form-label">生产厂家</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="manufacture" required [compareWith]="manufactureCmpFn" [(ngModel)]="model.manufacture" name="manufacture">
+            <option *ngFor="let item of manufactures" [ngValue]="item">{{item.oid}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

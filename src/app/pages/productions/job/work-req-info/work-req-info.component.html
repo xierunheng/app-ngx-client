@@ -1,0 +1,93 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body *ngIf="model" class="_kb-ovehide">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              名称不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该名称已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="firstJob" class="col-sm-3 col-form-label">首工序</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="firstJob" placeholder="首工序" [ngModel]="model.firstJob?.oid" name="firstJob" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="lastJob" class="col-sm-3 col-form-label">尾工序</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="lastJob" placeholder="尾工序" [ngModel]="model.lastJob?.oid" name="lastJob" readonly>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="workType" class="col-sm-3 col-form-label">作业类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="workType" required [(ngModel)]="model.workType" name="workType">
+            <option *ngFor="let item of workTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="model.hs" [compareWith]="idCmpFn"> </mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="startTime" class="col-sm-3 col-form-label">起始时间</label>
+        <div class="col-sm-9 input-group">
+          <input type="date" class="form-control" id="startTime" [ngModel]="model.startTime | date:'yyyy-MM-dd'" (ngModelChange)="model.startTime = $event" name="startTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="endTime" class="col-sm-3 col-form-label">结束时间</label>
+        <div class="col-sm-9 input-group">
+          <input  type="date" class="form-control" id="endTime" [ngModel]="model.endTime | date:'yyyy-MM-dd'" (ngModelChange)="model.endTime = $event" name="endTime">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="priority" class="col-sm-3 col-form-label">优先级</label>
+        <div class="col-sm-9">
+          <input type="number" min="1" max="5" class="form-control" id="priority" placeholder="优先级" [(ngModel)]="model.priority" name="priority">
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="model.res">
+        <label for="res" class="col-sm-3 col-form-label">作业执行</label>
+        <div class="col-sm-9">
+          <label class="form-control "><a href="/#/pages/works/workres/{{model.res._id}}">{{model.res.oid}}</a></label>
+        </div>
+      </div>
+      <!-- <div class="form-group row" *ngIf="model.opReq">
+        <label for="opReq" class="col-sm-3 col-form-label nowrap">操作计划</label>
+        <div class="col-sm-9">
+           <div class="form-control">
+             <span *ngFor="let item of model.opReq">
+               <a href="/#/pages/ops/opreq/{{item._id}}">{{item.oid}},&nbsp;</a>
+             </span>
+           </div>
+        </div>
+      </div> -->
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

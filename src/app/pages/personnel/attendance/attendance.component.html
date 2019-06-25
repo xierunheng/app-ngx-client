@@ -1,0 +1,61 @@
+<nb-card>
+  <form class="form-inline">
+    <div class="form-group row col-md-4 mt2">
+      <label for="hs" class="col-md-3 col-form-label text-center">层级结构</label>
+      <div class="col-md-9">
+        <mes-tree-select [items]="hstree" name="hs" required [(ngModel)]="hs" (ngModelChange)="onHsChange($event)" [compareWith]="idCmpFn">
+        </mes-tree-select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row mt2">
+        <label for="startTime" class="col-sm-2 col-form-label">起止</label>
+        <div class="col-sm-10 input-group">
+          <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="onStartTimeChange($event)" name="startTime">
+          <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="onEndTimeChange($event)" name="endTime">
+        </div>
+      </div>
+    </div>
+  </form>
+</nb-card>
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange" id="item.text">
+  <div class="form-check overy-hide form-reset bg-change" [class.tree-close-bg]="item.checked">
+    <div class="content-box">
+      <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa arrow" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
+      <label class="form-check-label kb-cusor text-label">
+        <input type="checkbox" class="form-check-input form-check-reset kb-cusor" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" [indeterminate]="item.indeterminate" /> {{item.text}}
+      </label>
+    </div>
+    <div class="operate-box">
+      <nb-actions size="medium" fullWidth="false">       
+        <nb-action icon="nb-bar-chart" badgeText="{{item.children?.length}}" aria-hidden="true" title="呈现 [{{item.text}}]" (click)="showItem(item.value)"></nb-action>
+        <nb-action icon="nb-edit" aria-hidden="true" title="修改 [{{item.text}}]" (click)="editItem(item.value)"></nb-action>
+
+      </nb-actions>
+    </div>
+  </div>
+</ng-template>
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header class="d-flex justify-content-between">
+    <span>工时概览</span>
+    <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="table"> 表格
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="tree"> 树状
+      </label>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf=" showtype === 'table' ">
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="createPc()" (edit)="editPc($event.data)" (delete)="removePc($event.data)">
+      </ng2-smart-table>
+    </div>
+    <div *ngIf=" showtype === 'tree' ">
+      <ngx-treeview [config]="singleConfig" [items]="psubtree" [itemTemplate]="itemTemplate" (filterChange)="onFilterChange($event)" (selectedChange)="onSelChange($event)" id="tree">
+      </ngx-treeview>
+    </div>
+  </nb-card-body>
+</nb-card>
+

@@ -1,0 +1,20 @@
+<ActionBar class="action-bar">
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+    (tap)="backToWorkOrder()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="工单概览" horizontalAlignment="left"></Label>
+</ActionBar>
+
+<ScrollView class="page">
+  <ListView class="list-group" [items]="jobOrders" >
+    <ng-template let-item="item" let-i="index">
+      <GridLayout class="list-group-item" rows="*" columns="1/10*, 7/10*, 2/10*">
+        <Label row="0" col="0" class="label1" [text]="i+1"></Label>
+        <Label row="0" col="1" class="label2" [text]="item.oid"></Label>
+        <Image row="0" col="2" src="~/app/mobileTerminal/fonts/图表200#0e932e.png" class="thumb img-circle" (tap)="onChartTap(item.oid)"></Image>
+      </GridLayout>
+    </ng-template>
+  </ListView>
+</ScrollView>

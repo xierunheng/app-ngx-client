@@ -1,0 +1,6 @@
+<nb-card [size]="breakpoint.width >= breakpoints.md ? 'medium' : 'xxlarge'">
+    <mes-i-loc-products-map (select)="selectByLoc($event)">
+    </mes-i-loc-products-map>
+    <mes-i-loc-products-chart [loc]="loc?.name" [data]="prodData">
+    </mes-i-loc-products-chart>
+</nb-card>

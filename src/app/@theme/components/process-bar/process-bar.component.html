@@ -1,0 +1,8 @@
+<div class="checkout-wrap">
+  <ul class="checkout-bar">
+    <li *ngFor="let st of states" [ngClass]="st.stateClass" >{{ st.state }}
+        <span class="tips">{{st.stateTips}}</span>
+        <span class="cicle" [nbPopover]="oplogComponent" [nbPopoverContext]="lll" [nbPopoverMode]="st.oplog ? 'hover' : 'click'" nbPopoverPlacement="bottom"></span>
+    </li>
+  </ul>
+</div>

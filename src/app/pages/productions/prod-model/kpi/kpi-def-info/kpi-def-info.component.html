@@ -1,0 +1,86 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="name" class="col-sm-3 col-form-label">名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="name" [(ngModel)]="model.name" name="name" #name="ngModel">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="oid" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" readonly="readonly" id="desc" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="scope" class="col-sm-3 col-form-label">范围</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="scope" [(ngModel)]="model.scope" name="scope">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="formula" class="col-sm-3 col-form-label">公式</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="formula" [(ngModel)]="model.formula" name="formula" #formula="ngModel">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="unit" class="col-sm-3 col-form-label">单位</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="unit" [(ngModel)]="model.unit" name="unit" #unit="ngModel">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="range" class="col-sm-3 col-form-label">值域</label>
+        <div class="col-sm-9 ">
+          <mes-value id="lower" name="lower" [(value)]="model.range.lower"></mes-value>
+          <mes-value id="upper" name="upper" [(value)]="model.range.upper"></mes-value>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="trend" class="col-sm-3 col-form-label">趋势</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="trend" name="trend" [(ngModel)]="model.trend" trend="ngModel">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="timing" class="col-sm-3 col-form-label">时间设置</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="timing" name="timing" [(ngModel)]="model.timing">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="audience" class="col-sm-3 col-form-label">用户</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="audience" name="audience" [(ngModel)]="model.audience">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="prodMethodology" class="col-sm-3 col-form-label">生产方式</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" readonly="readonly" id="prodMethodology" name="prodMethodology" [(ngModel)]="model.prodMethodology">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">备注</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" readonly="readonly" id="notes" [(ngModel)]="model.notes" name="notes"></textarea>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 返回 </button>
+        <!-- <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button> -->
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

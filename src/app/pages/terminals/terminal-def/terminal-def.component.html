@@ -1,0 +1,9 @@
+<nb-card >
+  <nb-card-header>
+    终端定义管理
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (create)="createTD()" (edit)="editTD($event.data)" (delete)="removeTD($event.data)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

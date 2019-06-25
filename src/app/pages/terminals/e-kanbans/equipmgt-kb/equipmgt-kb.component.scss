@@ -1,0 +1,61 @@
+// 公共样式start
+::-webkit-scrollbar{
+  display:none;
+}  
+.info-box{
+    background: #181818;
+    max-height: 450px;
+    overflow-y: scroll;
+}
+.user-activity-list {
+  padding: 0;
+  margin: 0;  
+  font-size: 1.2rem;
+  li {    
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px;
+    border-bottom:1px solid #4b4b4b;    
+
+    &:first-child {
+      border-top:1px solid #4b4b4b;
+    }
+    &:last-child {
+      border-bottom:1px solid #4b4b4b; 
+    }
+
+
+    &:hover {
+      background-color: #4b4b4b;
+
+      &::before {
+        position: absolute;
+        content: '';
+        height: 100%;
+        width: 6px;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+}
+
+
+.visited-date {
+  color: #edf2f5;
+  width: 140px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+
+.value {
+  margin-top: 0.5rem;
+  color: #40dc7e;
+}
+
+// 公共样式end

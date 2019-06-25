@@ -1,0 +1,84 @@
+<nb-card>
+  <nb-card-header>
+    <div>
+      质量数据统计
+    </div>
+    <form #f="ngForm" class="row" (ngSubmit)="onSubmit(f.value)">
+      <div class="col-md-4">
+        <div class="form-group row">
+          <select class="col-sm-4 form-control" id="period" [(ngModel)]="period" name="period" required>
+            <option *ngFor="let item of periods" [ngValue]="item.value">{{item.name}}</option>
+          </select>
+          <div class="col-sm-8 input-group">
+            <input type="{{period}}" class="form-control" id="periodTime" name="periodTime" [ngModel]="periodTime" (ngModelChange)="onPeriodTimeChange($event)">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group row">
+          <label for="startTime" class="col-sm-2 col-form-label">起止</label>
+          <div class="col-sm-10 input-group">
+            <input type="datetime-local" class="form-control" id="startTime" [ngModel]="startTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="startTime=$event" name="startTime">
+            <input type="datetime-local" class="form-control" id="endTime" [ngModel]="endTime | date:'yyyy-MM-ddTHH:mm'" (ngModelChange)="endTime = $event" name="endTime">
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="mdef" class="col-form-label ">物料定义:</label>
+          <div class="col-sm-9 ">
+            <mes-tree-select [items]="mtree" id="mdef" name="mdef" [(ngModel)]="searchModel.mdef" [nodeOnly]="true" [compareWith]="idCmpFn">
+            </mes-tree-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label for="molder" class="col-sm-3 col-form-label ">成型工:</label>
+          <div class="col-sm-9">
+            <mes-tree-select [items]="ptree" id="molder" name="molder" [(ngModel)]="searchModel.molder" [nodeOnly]="true" [compareWith]="idCmpFn">
+            </mes-tree-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary "> 统计 </button>
+      </div>
+    </form>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>总体质量统计</span>
+      </nb-card-header>
+      <nb-card-body *ngIf="qcs">
+        <mes-smart-table [resource]="qcs" [columns]="qccolumns"></mes-smart-table>
+      </nb-card-body>
+    </nb-card>
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>总计</span>
+      </nb-card-header>
+      <nb-card-body *ngIf="qc_statistics">
+        <mes-smart-table [resource]="qc_statistics" [columns]="qc_statistics_columns"></mes-smart-table>
+      </nb-card-body>
+    </nb-card>
+    <nb-card-body>
+      <ngx-myechart-bar [barData]="reason_Statistics"  [optionSet]="optionSet"></ngx-myechart-bar>
+    </nb-card-body>
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>总体缺陷统计</span>
+      </nb-card-header>
+      <nb-card-body *ngIf="reasons">
+        <mes-smart-table [resource]="reasons" [columns]="rcolumns"></mes-smart-table>
+      </nb-card-body>
+      <!-- <nb-card-body>
+        <ngx-myechart-bar [barData]="defectData"></ngx-myechart-bar>
+      </nb-card-body> -->
+
+    </nb-card>
+  </nb-card-body>
+</nb-card>
+
+

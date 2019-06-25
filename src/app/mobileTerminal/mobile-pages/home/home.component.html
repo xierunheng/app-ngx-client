@@ -1,0 +1,57 @@
+<ActionBar class="action-bar">
+  <Label class="action-bar-title" text="功能展示"></Label>
+</ActionBar>
+
+<FlexboxLayout flexWrap="wrap" alignContent="flex-start" class="page">
+  <StackLayout class="rooms" (tap)="onProductionManagementTap($event)">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/生产管理200.png"></Image>
+    <Label class="rooms-brand" text="生产管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms" (tap)="onEquipmentManagementTap($event)">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/设备管理200.png"></Image>
+    <Label class="rooms-brand" text="设备管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/质量管理200.png"></Image>
+    <Label class="rooms-brand" text="质量管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/人力资源管理210.png"></Image>
+    <Label class="rooms-brand" paddingTop="15" text="人力资源管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms" (tap)="onWarningManagementTap($event)">
+    <Image class="rooms-image " src="~/app/mobileTerminal/fonts/预警管理200.png"></Image>
+    <Label class="rooms-brand" text="预警管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/能源管理200.png"></Image>
+    <Label class="rooms-brand" text="能源管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/交互终端200.png"></Image>
+    <Label class="rooms-brand" text="交互终端管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/系统配置管理200.png"></Image>
+    <Label class="rooms-brand" text="系统配置管理"></Label>
+  </StackLayout>
+  <StackLayout class="rooms" (tap)="onWorkOrderOverviewTap($event)">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/工单200.png"></Image>
+    <Label class="rooms-brand" text="工单概览"></Label>
+  </StackLayout>
+  <StackLayout class="rooms">
+    <Image class="rooms-image" src="~/app/mobileTerminal/fonts/设备概览200.png"></Image>
+    <Label class="rooms-brand" text="设备概览"></Label>
+  </StackLayout>
+</FlexboxLayout>
+
+<!--<ScrollView class="page">-->
+<!--  <ListView class="list-group" [items]="data" (itemTap)="onItemTap($event)">-->
+<!--    <ng-template let-item="item">-->
+<!--      <GridLayout class="list-group-item" rows="*" columns="auto, *">-->
+<!--&lt;!&ndash;        <Image row="0" col="0" [src]="item.src" class="thumb img-circle"></Image>&ndash;&gt;-->
+<!--        <Label row="0" col="1" [text]="item.text"></Label>-->
+<!--      </GridLayout>-->
+<!--    </ng-template>-->
+<!--  </ListView>-->
+<!--</ScrollView>-->

@@ -1,0 +1,16 @@
+<nb-card size="medium">
+  <nb-card-header>
+    <div class="title">员工生产过程</div>
+    <div class="sub-title">产量统计</div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="chart-container">
+      <mes-psub-pclass></mes-psub-pclass>
+    </div>
+  </nb-card-body>
+
+  <ngx-slide-out [showVisitorsStatistics]="true">
+  	<mes-psub-person></mes-psub-person>
+  </ngx-slide-out>
+</nb-card>
+

@@ -1,0 +1,145 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">ID</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="ID（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              ID不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该ID已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="objectType" class="col-sm-3 col-form-label">项目类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="objectType" required [(ngModel)]="model.objectType" name="objectType">
+            <option *ngFor="let item of objectTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="eventType" class="col-sm-3 col-form-label">事件类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="eventType" required [(ngModel)]="model.eventType" name="eventType">
+            <option *ngFor="let item of eventTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="eventSubType" class="col-sm-3 col-form-label">事件子类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="eventSubType" required [(ngModel)]="model.eventSubType" name="eventSubType">
+            <option *ngFor="let item of eventSubTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="category" class="col-sm-3 col-form-label">类别</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="categorys | mesTreeitem" name="category" [(ngModel)]="model.category" required></mes-tree-multi-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="equipID" class="col-sm-3 col-form-label">设备名称</label>
+        <div class="col-sm-9">
+          <mes-tree-multi-select [items]="etree" name="equipID" [(ngModel)]="model.equipID" [compareWith]="idCmpFn"></mes-tree-multi-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="eventSubType" class="col-sm-3 col-form-label">现值</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" id="valueStr" required [(ngModel)]="model.value[0].valueStr" name="valueStr">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="dataType" required [(ngModel)]="model.value[0].dataType" name="dataType">
+        </div>
+        <div class="col-sm-2" >
+          <input type="text" class="form-control" id="unit" required [(ngModel)]="model.value[0].unit" name="unit">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="key" required [(ngModel)]="model.value[0].key" name="key">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="eventSubType" class="col-sm-3 col-form-label">前值</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" id="valueStr" required [(ngModel)]="model.previousValue[0].valueStr" name="valueStr">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="dataType" required [(ngModel)]="model.previousValue[0].dataType" name="dataType">
+        </div>
+        <div class="col-sm-2" >
+          <input type="text" class="form-control" id="unit" required [(ngModel)]="model.previousValue[0].unit" name="unit">
+        </div>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" id="key" required [(ngModel)]="model.previousValue[0].key" name="key">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="alarmEvent" class="col-sm-3 col-form-label">报警事件</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="alarmEvent" required [(ngModel)]="model.alarmData[0].alarmEvent" name="alarmEvent">
+            <option *ngFor="let item of alarmEvents" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="alarmType" class="col-sm-3 col-form-label">报警类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="alarmType" required [(ngModel)]="model.alarmData[0].alarmType" name="alarmType">
+            <option *ngFor="let item of alarmTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <div class="form-group row"  >
+          <label for="valueStr" class="col-sm-3 col-form-label">限值</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="valueStr" required [(ngModel)]="model.alarmData[0].alarmLimit[0].valueStr" name="valueStr">
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="dataType" required [(ngModel)]="model.alarmData[0].alarmLimit[0].dataType" name="dataType">
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="unit" required [(ngModel)]="model.alarmData[0].alarmLimit[0].unit" name="unit">
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" id="key" required [(ngModel)]="model.alarmData[0].alarmLimit[0].key" name="key">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="priority" class="col-sm-3 col-form-label">等级</label>
+          <div class="col-sm-9">
+            <input type="number" min="1" max="5" class="form-control" id="priority" placeholder="等级" [(ngModel)]="model.alarmData[0].priority" name="priority">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="messageText" class="col-sm-3 col-form-label">消息</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="messageText" [(ngModel)]="model.messageText" name="messageText"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required></mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>
+

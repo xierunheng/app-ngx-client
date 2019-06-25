@@ -1,0 +1,109 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">名称-版本</label>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required groupExists [service]="service" [group]="oidver" [(ngModel)]="model.oid" name="oid" #oid="ngModel">
+            <input type="text" class="form-control" id="ver" placeholder="版本（必填）" required groupExists [service]="service" [group]="oidver" [(ngModel)]="model.ver" name="ver" #ver="ngModel" (change)="onVerChange($event)">
+          </div>
+          <div *ngIf="(oid.invalid && (oid.dirty || oid.touched)) || (ver.invalid && (ver.dirty || ver.touched))" class="alert alert-danger">
+            <div *ngIf="oid.errors?.required">
+              名称不能为空！
+            </div>
+            <div *ngIf="ver.errors?.required">
+              版本不能为空！
+              </div>
+              <div *ngIf="oid.errors?.groupExists || ver.errors?.groupExists">
+                该 名称-版本 已存在，请重新输入！
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="desc" class="col-sm-3 col-form-label">描述</label>
+          <div class="col-sm-9">
+            <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="code" class="col-sm-3 col-form-label">编码</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="code" placeholder="编号-2位（必填）" minlength="2" maxlength="2" required [(ngModel)]="model.code" name="code" #code="ngModel">
+            <div *ngIf="code.invalid && (code.dirty || code.touched)" class="alert alert-danger">
+              <div *ngIf="code.errors.required">
+                编码不能为空！
+              </div>
+              <div *ngIf="code.errors.minlength">
+                编码长度必须为2位！
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="opType" class="col-sm-3 col-form-label">操作类型</label>
+          <div class="col-sm-9">
+            <select class="form-control" id="opType" [(ngModel)]="model.opType" name="opType" required>
+              <option *ngFor="let item of opTypes" [ngValue]="item">{{item}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+          <div class="col-sm-9">
+            <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required></mes-tree-select>
+          </div>
+        </div>
+        <!-- <div class="form-group row" *ngIf="vConfig.type === 'create' "> -->
+        <div class="form-group row">
+          <label for="opseg" class="col-sm-3 col-form-label">工艺段</label>
+          <div class="col-sm-9">
+            <mes-tree-multi-select [items]="pss | mesTreeitem:'code,oid,no'" name="proseg" [ngModel]="proseg" [compareWith]="idCmpFn" (ngModelChange)="onPsChange($event)" required>
+            </mes-tree-multi-select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="firstSeg" class="col-sm-3 col-form-label">首工序</label>
+          <div class="col-sm-9">
+            <mes-tree-select [items]="osOids | mesTreeitem:'oid'" name="firstSeg" [(ngModel)]="model.firstSeg" [compareWith]="oidCmpFn" required></mes-tree-select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="lastSeg" class="col-sm-3 col-form-label">尾工序</label>
+          <div class="col-sm-9">
+            <mes-tree-select [items]="osOids | mesTreeitem:'oid'" name="lastSeg" [(ngModel)]="model.lastSeg" [compareWith]="oidCmpFn" required></mes-tree-select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="pubDate" class="col-sm-3 col-form-label">发布时间</label>
+          <div class="col-sm-9 input-group">
+            <input type="date" class="form-control" id="pubDate" [ngModel]="model.pubDate | date:'yyyy-MM-dd'" (ngModelChange)="model.pubDate = $event" name="pubDate">
+          </div>
+        </div>
+        <!-- <div class="form-group row">
+            <label for="bom" class="col-sm-3 col-form-label">物料清单</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="bom" [compareWith]="bomCFn" [(ngModel)]="model.bom" name="bom">
+                <option *ngFor="let item of boms" [ngValue]="item">{{item.oid}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="bor" class="col-sm-3 col-form-label">资源清单</label>
+            <div class="col-sm-9">
+              <select class="form-control" id="bor" [compareWith]="borCFn" [(ngModel)]="model.bor" name="bor">
+                <option *ngFor="let item of bors" [ngValue]="item">{{item.oid}}</option>
+              </select>
+            </div>
+          </div> -->
+        <div class="form-group row d-flex justify-content-around">
+          <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+          <button type="submit" class="btn btn-primary" [disabled]="!f.valid"> 确定 </button>
+        </div>
+    </form>
+  </nb-card-body>
+</nb-card>

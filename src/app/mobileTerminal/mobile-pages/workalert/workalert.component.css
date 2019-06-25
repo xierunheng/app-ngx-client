@@ -1,0 +1,15 @@
+.label1{
+  width: 10%;
+  float: left;
+}
+.label2{
+  text-align: center;
+}
+.img-status{
+  width: 15%;
+  float: left;
+}
+.img-circle{
+  width: 15%;
+  float: right;
+}

@@ -1,0 +1,8 @@
+<nb-card>
+  <nb-card-header>
+    <span>{{vConfig.title}}</span>
+  </nb-card-header>
+  <nb-card-body class="_kb-ovehide" *ngIf="opreq">
+    <mes-smart-table [resource]="opreq" [columns]="columns" (delete)="onDelete($event)"></mes-smart-table>
+  </nb-card-body>
+</nb-card>

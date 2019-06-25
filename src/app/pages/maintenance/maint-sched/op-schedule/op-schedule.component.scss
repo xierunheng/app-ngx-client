@@ -1,0 +1,48 @@
+nb-card {
+  transform: translate3d(0, 0, 0);
+}
+.f-size2 {
+  font-size: 2em
+}
+
+
+.arrow{
+  width: 1rem;
+  font-size: 1.5em;
+}
+.form-check-input{
+  position: static;
+  margin-left: 0;
+}
+.form-check-reset{
+  width: 1.25rem;
+  height: 1rem;
+  margin-top: .4rem;
+}
+
+.tree-close-bg{
+  background:#F5F7FC;
+}
+
+.form-reset{
+  margin-bottom: .2rem;
+  height: 2rem;
+  line-height: 2rem;
+}
+.bg-change:hover{
+  background:#F5F7FC;
+}
+.content-box{
+    padding-right: 200px;
+}
+.text-label{
+  width: 100%;
+}
+
+.operate-box{
+    position: absolute;
+    right: 0;
+    width: 300px;
+    height: 2rem;
+    top: 0;
+}

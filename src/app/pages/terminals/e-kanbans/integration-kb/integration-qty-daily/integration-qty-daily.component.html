@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header>
+    <span>产量</span>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="summary-container">
+      <div class="col-12">
+        <ngb-progressbar showValue="true" [value]="processValue" type="showStatus" [striped]="true" [animated]="true" height="3.5rem"></ngb-progressbar>
+      </div>
+    </div>
+    <div echarts [options]="options" class="echart" (chartInit)="onChartInit($event)"></div>
+  </nb-card-body>
+</nb-card>

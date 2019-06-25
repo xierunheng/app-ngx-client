@@ -1,0 +1,26 @@
+<nb-card>
+  <nb-card-header>
+    <span>生产成本统计</span>
+  </nb-card-header>
+  <nb-card-body>
+    <!-- <ul class="user-activity-list">
+      <li *ngFor="let item of userActivity">
+        <div class="visited-date">
+          {{ item.date }}
+        </div>
+        <div class="visited-pages-count">
+          <div class="title">CEC</div>
+          <div class="value">{{ item.pagesVisitCount }}</div>
+        </div>
+        <div class="visited-percentages">
+          <div class="title">New visits, %</div>
+          <div class="delta value" [class.up]="item.deltaUp" [class.down]="!item.deltaUp">
+            {{ item.newVisits }}%
+          </div>
+        </div>
+      </li>
+    </ul> -->
+    <mes-chart-summary [summary]="summary"></mes-chart-summary>
+    <div echarts [options]="options" class="echart"></div>
+  </nb-card-body>
+</nb-card>

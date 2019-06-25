@@ -1,0 +1,11 @@
+<div class="dropdown col-6" placement="top-left" ngbDropdown>
+  <button class="btn btn-primary btn-xlg" type="button" ngbDropdownToggle> 选择工单 </button>
+  <ul class="dropdown-menu" ngbDropdownMenu>
+    <li class="dropdown-item" *ngFor="let jo of jos" (click)="onJOSelect(jo)">
+      {{jo.oid}}
+    </li>
+  </ul>
+</div>
+<div class="col-6">
+  <button type="button" class="btn btn-success btn-xlg mt2 ">开工</button>
+</div>

@@ -1,0 +1,50 @@
+ .chart-box{
+     height: 100%;
+ }
+
+@import '../../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  .chart-box{
+    background: nb-theme(black-bg);
+  }
+  nb-card-body{
+    display: block;
+    background: nb-theme(color-bg);
+  }
+  .weekly-forecast {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+
+    .day {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      .caption {
+        text-transform: uppercase;
+        font-family: nb-theme(font-secondary);
+        color: nb-theme(color-fg-heading);
+        font-weight: nb-theme(font-weight-bold);
+        font-size: 1.25rem;
+      }
+
+      i {
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+      }
+
+      .temperature {
+        color: nb-theme(color-fg-heading);
+        font-family: nb-theme(font-secondary);
+        font-weight: nb-theme(font-weight-bold);
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
+:host /deep/ .echart{
+    min-height: 300px;
+    // background: nb-theme(black-bg); 
+}

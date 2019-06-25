@@ -1,0 +1,30 @@
+:host .icon{
+    width: 18px;
+    height: 12px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 3px;
+}
+label{
+    margin:0;
+}
+.primary{
+    background: #73a1ff;
+}
+.warning{
+    background: #ffb080;
+}
+.danger{
+    background: #ff6b83;
+}
+.secondary{
+    background: #a4abb3;
+}
+nb-card-header{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.status-tip span{
+    margin-right: 10px;
+}

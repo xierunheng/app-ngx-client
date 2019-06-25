@@ -1,0 +1,16 @@
+<ngb-carousel>
+  <!-- <ng-template ngbSlide>   
+    <mes-echarts-pie></mes-echarts-pie>
+    <div class="carousel-caption">
+      <h3>第一</h3>
+      <p>This carousel uses customized default values.</p>
+    </div>
+  </ng-template> -->
+ <ng-template ngbSlide>
+    <mes-output-bar class="bar" [title]="title" [bodyState]="bodyState"></mes-output-bar>  
+  </ng-template>
+   
+  <ng-template ngbSlide>
+    <mes-quality-pie class="pie" [title]="title" [bodyState]="ngState"></mes-quality-pie>
+  </ng-template>
+</ngb-carousel>

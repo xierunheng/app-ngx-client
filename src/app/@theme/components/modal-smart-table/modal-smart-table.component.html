@@ -1,0 +1,9 @@
+<ng2-smart-table [settings]="settings" [source]="source" (create)="onCreate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)">
+</ng2-smart-table>
+<div [class.record-box]="!shouldShow()">
+  <span class="record-all" [class.record-over]="!shouldShow()">总计：<b>{{source.count()}}</b>&nbsp;条</span>
+</div>
+<div class="page-filter" *ngIf="shouldShow()">
+  <input class="page-number" type="number" min="1" [max]="maxLines" [ngModel]="perPage" (change)="onPerPageChange($event)">
+  <span class="page-remark">行&nbsp;/&nbsp;页</span>
+</div>

@@ -1,0 +1,16 @@
+<div class="info-box">
+  <ul class="user-activity-list">
+    <li *ngFor="let c of contacts">
+      <div class="equip-info">
+        <div class="icon-equip" [class.penyou]="c.equip.slice(0,2)=='喷釉'">
+            {{c.equip.slice(-2,-1)}}
+        </div>
+        <span class="visited-date">
+        {{ c.name }}
+      </span>
+      </div>               
+      <div class="value">{{ c.next | date: 'MM-dd HH:mm' }}</div>    
+    </li>
+  </ul>
+</div>
+

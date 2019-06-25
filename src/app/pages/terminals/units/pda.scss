@@ -1,0 +1,170 @@
+input::-webkit-input-placeholder{ /*WebKit browsers*/
+    line-height: 72px !important;
+    font-size: 1.8rem !important;
+
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+nb-card-header,nb-card-body,nb-card-footer{
+    display: block
+}
+
+.wrapper{
+    height: 630px;
+    overflow-y: scroll;
+    font-family: 黑体;
+    font-size: 2rem;
+}
+
+.back-wrapper{
+    height: 630px;
+    padding-top: 20px;
+    overflow-y:scroll;
+    font-size: 1.5rem;
+}
+.err-wrapper{
+  padding: 0 1rem;
+  font-size: 2rem;
+}
+.pt08{
+    padding-top: .8rem;
+}
+.mt08{
+    margin-top: .8rem;
+}
+.pt2{
+  padding-top: 2rem;
+}
+.pt5{
+    padding-top: 5px
+}
+.pt10{
+    padding-top: 10px
+}
+.pt16{
+    padding-top: 1.6rem;
+}
+.mb1{
+  margin-bottom: 1rem;
+}
+.mt1{
+    margin-top: 1rem;
+}
+.code-select{
+    background: #40dc7e;
+    border-radius: 5px;
+    color: #ffff; 
+}
+.select{
+    height: auto !important;
+    padding: 12px !important;
+}
+.code-input{
+    padding:0 10px !important;
+    font-size: 2rem !important;
+    margin-left: 1rem;
+    line-height: 68px;
+    border-radius: 2px;
+}
+
+
+/deep/.nb-arrow-dropleft{
+    display: none;
+}
+.flipped .i-arrowright{
+    display: none ;
+}
+.i-arrowright{
+    position: absolute;
+    color:#0088ff;
+    right: 0;
+    bottom: 110px;
+    padding: .4rem;
+    font-size: 4rem;
+    display: block;
+}
+.i-arrowleft{
+    position: absolute;
+    color:#0088ff;
+    right: 0;
+    bottom: 110px;
+    padding: .4rem;
+    font-size: 4rem;
+    display: block;
+}
+
+
+
+// btn color
+.btn:disabled{
+    background-color: #e4e3e3
+}
+.bgc-red{
+    background-color: #f4081f;
+    color: #2a2a2a;
+}
+.bgc-yellow{
+    background-color: #f6f710;
+    color: #2a2a2a;
+}
+.bgc-green{
+    background-color: #1cf20b;
+}
+// color end
+
+.load-speed{
+    position: absolute;
+    top: -24px;
+    right: 40px;
+    color: #28a745;
+    font-size: 1.4rem;
+}
+
+.btn-xxlg{    
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    font-size: 2rem !important;
+}
+
+.work-tips{
+    width: 100%;
+    padding: 20px;
+    position: fixed;
+    top: 10%;
+    background: red;
+    z-index: 1;
+    color: white;
+    opacity: .8;
+}
+
+.no-wrap{
+    white-space: nowrap;
+}
+.repair-type{
+    background: #fff;
+    border-radius: 5px;
+    border-color: #0088ff;
+    color: #666;
+    outline: none;
+    padding: 0 10px;
+    width: 100%;
+    height: 93%;
+    margin-left: -15px;
+}
+
+.hidden{
+    visibility: hidden;
+}
+.copyright{
+    position: fixed;
+    font-size: 1.4rem;
+    bottom: 12px;
+    right: 12px;
+}
+.none{
+    display:none;
+}

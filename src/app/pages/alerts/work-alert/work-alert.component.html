@@ -1,0 +1,11 @@
+<nb-card>
+  <nb-card-header>
+    工作报警信息管理
+  </nb-card-header>
+
+  <nb-card-body *ngIf="source">
+    <ng2-smart-table [settings]="settings" [source]="source" (create)="create()" (edit)="edit($event.data)" (delete)="remove($event.data)">
+      </ng2-smart-table>
+    <!-- <mes-smart-table [resource]="workalerts" [columns]="columns" (delete)="onDelete($event)"></mes-smart-table> -->
+  </nb-card-body>
+</nb-card>

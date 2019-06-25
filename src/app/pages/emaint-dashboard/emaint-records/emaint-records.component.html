@@ -1,0 +1,21 @@
+<nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'xlarge' : 'xlarge'">
+  <nb-tabset fullWidth>
+    <nb-tab tabTitle="维保">
+      <div class="contact" *ngFor="let c of contacts">
+        <nb-user [name]="c.name" [title]="c.equip" size="large"></nb-user>
+        <div class="visited-percentages">
+          <div class="title">{{ c.next | date: 'MM-dd HH' }}</div>
+          <div class="delta value" [class.up]="c.deltaUp" [class.down]="!c.deltaUp">
+            {{ c.duration }}天
+          </div>
+        </div>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="最近">
+      <div class="contact" *ngFor="let c of recent">
+        <nb-user [name]="c.name" [title]="c.equip" size="large"></nb-user>
+        <span class="time">{{ c.time | date: 'MM-dd HH:mm' }}</span>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+</nb-card>

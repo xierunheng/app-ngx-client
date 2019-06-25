@@ -1,0 +1,91 @@
+<nb-card size={{ssize}}>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
+  <nb-card-body class="_kb-ovehide">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+      <div class="form-group row">
+        <label for="oid" class="col-sm-3 col-form-label">名称</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="oid" placeholder="名称（必填）" required fieldExists [service]="service" [(ngModel)]="model.oid" name="oid" (change)="onOidChange($event)" #oid="ngModel">
+          <div *ngIf="oid.invalid && (oid.dirty || oid.touched)" class="alert alert-danger">
+            <div *ngIf="oid.errors.required">
+              名称不能为空！
+            </div>
+            <div *ngIf="oid.errors.fieldExists">
+              该名称已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="code" class="col-sm-3 col-form-label">编码</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="code" placeholder="编号-2位（必填）" minlength="2" maxlength="2" required fieldExists [service]="service" [(ngModel)]="model.code" name="code" #code="ngModel">
+          <div *ngIf="code.invalid && (code.dirty || code.touched)" class="alert alert-danger">
+            <div *ngIf="code.errors.required">
+              编码不能为空！
+            </div>
+            <div *ngIf="code.errors.minlength">
+              编码长度必须为2位！
+            </div>
+            <div *ngIf="code.errors.fieldExists">
+              该编码已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="no" class="col-sm-3 col-form-label">序号</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="no" placeholder="序号（必填）" required fieldExists [service]="service" [(ngModel)]="model.no" name="no" #no="ngModel">
+          <div *ngIf="no.invalid && (no.dirty || no.touched)" class="alert alert-danger">
+            <div *ngIf="no.errors.required">
+              序号不能为空！
+            </div>
+            <div *ngIf="no.errors.fieldExists">
+              该序号已存在，请重新输入！
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="desc" class="col-sm-3 col-form-label">描述</label>
+        <div class="col-sm-9">
+          <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="opType" class="col-sm-3 col-form-label">类型</label>
+        <div class="col-sm-9">
+          <select class="form-control" id="opType" required [(ngModel)]="model.opType" name="opType">
+            <option *ngFor="let item of opTypes" [ngValue]="item">{{item}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+        <div class="col-sm-9">
+          <mes-tree-select [items]="hstree" name="hs" [(ngModel)]="model.hs" [compareWith]="idCmpFn" required></mes-tree-select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="duration" class="col-sm-3 col-form-label">生产节拍</label>
+        <div class="col-sm-9">
+          <input type="number" min="0" class="form-control col-sm-8" id="duration" placeholder="时长" [(ngModel)]="model.duration.quantity" name="duration" style="float: left;">
+          <input type="text" class="form-control col-sm-4" id="dunit" placeholder="单位" [(ngModel)]="model.duration.unit" name="dunit" style="float: left;">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="pubDate" class="col-sm-3 col-form-label">发布时间</label>
+        <div class="col-sm-9 input-group">
+          <input type="date" class="form-control" id="pubDate" [ngModel]="model.pubDate | date:'yyyy-MM-dd'" (ngModelChange)="model.pubDate = $event" name="pubDate">
+        </div>
+      </div>
+      <div class="form-group row d-flex justify-content-around">
+        <button type="button" class="btn btn-primary" (click)="cancel()"> 取消 </button>
+        <button type="submit" class="btn btn-primary" [disabled]=" !f.valid"> 确定 </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

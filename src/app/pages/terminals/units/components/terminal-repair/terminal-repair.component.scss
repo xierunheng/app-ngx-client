@@ -1,0 +1,39 @@
+.btn-xxlg{
+	font-size:2rem !important;
+}
+.bgc-red{
+    background-color: #f4081f;
+    color: #2a2a2a;
+}
+.bgc-yellow{
+    background-color: #f6f710;
+    color: #2a2a2a;
+}
+.bgc-green{
+    background-color: #1cf20b;
+}
+.bgc-blue{
+    background-color: #0088ff;
+}
+.mb1{
+    margin-bottom: 1rem;
+}
+.repair-type{
+    outline: none;
+    padding:0 10px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    background: #0088ff;
+    border-color: #0088ff;
+    color: #fff;
+    border-right: 1px solid #fff;
+}
+.to-repair{
+    border-top-right-radius: 5px;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 0 !important;
+}
+.flex{
+    display: flex;
+}

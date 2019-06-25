@@ -1,0 +1,39 @@
+<form #f="ngForm" class="form-set" *ngIf="model" (ngSubmit)="onSubmit()">
+  <div class="form-group row mt10">
+    <label class="col-2">条码: </label>
+    <span class="col-10"> {{ model.msublot.oid }}</span>
+  </div>
+  <div class="form-group row">
+    <label class="col-2 ">警告: </label>
+    <span class="col-10 text-warning"> {{ model.warning.message }}</span>
+  </div>
+  <div class="mb30 row" *ngIf="model.warning.type==='emptyKiln' || model.warning.type==='emptyMdefKiln'">
+    <label class="col-2 mt10" for="equipment">窑炉:</label>
+    <div class="col-8">
+<!--       <select class="form-control select" id="equipment" name="equipment" select="selected" [compareWith]="idCmpFn" required [(ngModel)]="model.msublot.kiln">
+        <option value="">--请选择窑炉--</option>
+        <option *ngFor="let item of kilns" [ngValue]="item">{{item.name}}</option>
+      </select> -->
+      <div [(ngModel)]="model.msublot.kiln" ngbRadioGroup class="btn-group-toggle" name='kiln'>
+        <label ngbButtonLabel class="btn-col btn btn-info" *ngFor="let item of kilns" >
+          <input ngbButton type="radio" [value]='item'>{{item.name}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row mb30" *ngIf="model.warning.type==='emptyMdef'|| model.warning.type==='emptyMdefKiln' ">
+    <label class="col-4 mt10">成品型号：</label>
+    <div class="col-7">
+      <mes-tree-select [items]="mtree" name="mdef" [(ngModel)]="model.msublot.mdef" (ngModelChange)="onMdefChange($event)" [nodeOnly]="true" [compareWith]="idCmpFn" required>
+    </mes-tree-select>
+    </div>   
+  </div>
+  <div class="form-group row ">
+    <div class="col-12 text-center ">
+      <button type="submit" class="btn bgc-green col-10 " [disabled]="!f.valid ">继续</button>
+    </div>
+    <!--     <div class="col-6 text-center ">
+      <button type="button " class="btn bgc-green col-11 " (click)="onWarningCancel() ">误扫返回</button>
+    </div> -->
+  </div>
+</form>

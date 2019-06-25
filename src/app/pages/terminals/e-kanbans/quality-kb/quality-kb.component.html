@@ -1,0 +1,18 @@
+<mes-kb-title></mes-kb-title>
+<nb-card>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-5 b-right">
+        <mes-qc-total-statistics [data]="qcData" *ngIf = "qcData"></mes-qc-total-statistics>
+      </div>
+      <div class="col-7">
+        <div class="col-12 b-bottom">
+          <mes-qc-reason-statistics [data]="reasonData" *ngIf = "reasonData"></mes-qc-reason-statistics>
+        </div>
+        <div class="col-12">
+          <mes-qc-trend></mes-qc-trend>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

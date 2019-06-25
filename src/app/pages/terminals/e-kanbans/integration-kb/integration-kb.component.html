@@ -1,0 +1,79 @@
+<ngb-carousel [interval]="interval">
+  <ng-template ngbSlide>
+    <div class="row">
+      <div class="col-lg-6 col-md-12 chart-box">
+        <mes-integration-qty-daily [jo]="jo" [jr]="jr"></mes-integration-qty-daily>
+      </div>
+      <div class="col-lg-6 col-md-12 chart-box">
+      <!-- <mes-integration-qc-daily [jr]="jr"></mes-integration-qc-daily> -->
+        <mes-integration-qc-daily [qcs]="qcsDay" [reasons]="reasonsDay"></mes-integration-qc-daily>
+      </div>
+      <div class="col-lg-6 col-md-10 chart-box">
+        <mes-integration-equip-daily></mes-integration-equip-daily>
+      </div>
+      <div class="col-lg-4 chart-box">
+        <ngx-energy-consume></ngx-energy-consume>
+      </div>
+      <div class="col-lg-2 chart-box">
+        <nb-card>
+        <nb-card-body>
+            <h1>釉料统计</h1>
+            <div class="weekly-forecast">
+              <div class="day">
+                <p class="caption">消耗量</p>
+                <!-- <i class="ion-ios-cloudy-outline"></i> -->
+                <p class="temperature">23kg</p>
+              </div>
+              <div class="day">
+                <p class="caption">回收率</p>
+                <!-- <i class="ion-ios-sunny-outline"></i> -->
+                <p class="temperature">95%</p>
+              </div>
+            </div>
+            </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+    <div class="carousel-caption">
+      <h3>日看板</h3>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="row">
+      <div class="col-lg-5 col-md-12 chart-box">
+        <mes-integration-qty-month [jrs]="jrsWeek"></mes-integration-qty-month>
+      </div>
+      <div class="col-lg-7 col-md-12 chart-box">
+        <mes-integration-qc-week [qcs]="qcsWeek" [reasons]="reasonsWeek"></mes-integration-qc-week>
+      </div>
+      <div class="col-lg-6 col-md-12 chart-box">
+        <mes-integration-equip-week></mes-integration-equip-week>
+      </div>
+      <div class="col-lg-6 col-md-12 chart-box">
+        <mes-integration-energy-week [jrs]="jrsWeek"></mes-integration-energy-week>
+      </div>
+    </div>
+    <div class="carousel-caption">
+      <h3>周看板</h3>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="row">
+      <div class="col-lg-5 col-md-12 chart-box">
+        <mes-integration-qty-month [jrs]="jrsMonth"></mes-integration-qty-month>
+      </div>
+      <div class="col-lg-7 col-md-12 chart-box">
+        <mes-integration-qc-month [qcs]="qcsMonth" [reasons]="reasonsMonth"></mes-integration-qc-month>
+      </div>
+      <div class="col-lg-5 col-md-12 chart-box">
+        <mes-integration-equip-month></mes-integration-equip-month>
+      </div>
+      <div class="col-lg-7 col-md-12 chart-box">
+        <mes-integration-energy-month [jrs]="jrsMonth"></mes-integration-energy-month>
+      </div>
+    </div>
+    <div class="carousel-caption">
+      <h3>月看板</h3>
+    </div>
+  </ng-template>
+</ngb-carousel>

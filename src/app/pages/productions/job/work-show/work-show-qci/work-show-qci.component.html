@@ -1,0 +1,27 @@
+<nb-card size="xxlarge" >
+  <nb-card-header>
+    <div class="cameras-card-header">
+      <span class="cameras-card-title">作业缺陷 Pareto</span>
+      <span class="cameras-filter">
+        <a [class.active]="isSingleView" (click)="isSingleView = true">
+          <i class="nb-square"></i>
+        </a>
+        <a [class.active]="!isSingleView" (click)="isSingleView = false">
+          <i class="nb-grid-a"></i>
+        </a>
+      </span>
+    </div>
+  </nb-card-header>
+  <nb-card-body *ngIf="jobs && jobs.length > 0">
+    <div class="cameras single-view" *ngIf="isSingleView">
+      <div class="camera" >
+        <mes-job-show-qci [jr]="selectedOne.jr"></mes-job-show-qci>
+      </div>
+    </div>
+    <div class="cameras complex" *ngIf="!isSingleView">
+      <div class="col-sm-6" *ngFor="let job of jobs" (click)="selectOne(job)">
+        <mes-job-show-qci [jr]="job.jr"></mes-job-show-qci>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

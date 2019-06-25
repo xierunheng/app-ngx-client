@@ -1,0 +1,9 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header>
+    工艺段配置
+  </nb-card-header>
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="source" (create)="create()" (edit)="edit($event.data)" (delete)="remove($event.data)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,136 @@
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+ input::-webkit-input-placeholder{ /*WebKit browsers*/
+    font-size: 1.4rem !important;
+
+}
+
+:host nb-card{
+    font-size: 2rem;
+}
+
+.work-tips{
+    width: 40rem;
+    padding: 20px;
+    position: fixed;
+    left: 50%;
+    top: 23%;
+    background: red;
+    z-index: 1;
+    color: white;
+    margin-left: -20rem;
+    opacity: .9;
+}
+
+.code-btn{
+    font-size: 1.8rem !important;
+    padding-right: 3rem;
+
+}
+.time{
+    font-size: 1.6rem;
+    padding: 6px 10px 6px;
+}
+.order{
+    white-space: nowrap;
+    font-size: 1.6rem;
+}
+.dropdown-item{
+    font-size: 2rem !important;
+}
+.choose-job{
+    width: 25rem !important;
+}
+.code-input{
+    font-size: 1.4rem !important;
+    padding: 5px 10px;
+}
+.code-wrap{
+    display: flex;
+    justify-content: space-around;
+} 
+.process{
+    padding-top: 18px;
+}
+.load-speed{
+    position: absolute;
+    top: -24px;
+    right: 40px;
+    color: #28a745;
+    font-size: 1.4rem;
+}
+.font2{
+    font-size: 2rem;
+}
+.load-front{
+    position: absolute;
+    margin-top: 1.3rem;
+}
+.load-front1{
+    position: absolute;
+    margin-top: 4.6rem;
+}
+.load-speed-back{
+    position: absolute;
+    top: -24px;
+    right: 40px;
+    color: #28a745;
+    font-size: 1.4rem;
+}
+.mt2{
+    margin-top: 2rem;
+}
+/deep/ .nb-arrow-dropleft {
+    position: absolute;
+    right: 20px;
+    bottom: 44px;
+    padding: .4rem;
+    font-size: 2.2rem;
+}
+.code-select{
+    background: #40dc7e;
+    border-radius: 5px;
+    color: #ffff; 
+    outline: none;
+    height: 4rem;
+}
+.dropdown-menu{
+    max-height: 286px;
+    overflow-y: scroll;
+}
+.back-wrapper{
+   min-height: 600px;
+    overflow-y:scroll; 
+}
+.mt2{
+    margin-top: 2rem;
+}
+.i-arrowright,.i-arrowleft{
+    bottom: 44px;
+}
+.footbox{
+    justify-content:space-around;
+}
+
+.ml15{
+    margin-left: -12rem;
+}
+
+/deep/ .nb-theme-default .btn {
+    padding: 0.75rem 0.1rem;
+    font-size: 1.1rem;
+}
+
+/deep/ .selected-list .c-btn {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+/deep/ .pure-checkbox input[type=checkbox]+label {
+    padding-left: 0.5em;
+    font-weight: 300;
+    font-size: 1.2rem;
+}

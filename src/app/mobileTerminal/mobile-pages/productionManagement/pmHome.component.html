@@ -1,0 +1,17 @@
+<ActionBar class="action-bar">
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+    (tap)="backToHome()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="功能展示"></Label>
+</ActionBar>
+<ScrollView class="page">
+  <ListView class="list-group" [items]="data" (itemTap)="onItemTap($event)">
+    <ng-template let-item="item">
+      <GridLayout class="list-group-item" rows="*" columns="auto, *">
+        <Label row="0" col="1" [text]="item.text"></Label>
+      </GridLayout>
+    </ng-template>
+  </ListView>
+</ScrollView>

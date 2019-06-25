@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <span>抽检项</span>
+  <!-- <button class="close" aria-label="Close" (click)="dismissModal()">
+    <span aria-hidden="true">&times;</span>
+  </button> -->
+</div>
+<div class="modal-body">
+  <form #f="ngForm">
+    <div class="form-group " *ngFor="let key of objectKeys(obj)">
+      <div class="row" *ngIf="obj[key].show">
+        <label class="col-sm-3 col-form-label text-center">
+          {{key}}：
+        </label>
+        <div *ngIf="key!=='三孔一线'" class="col-sm-9 row">
+          <input placement="top-left" ngbTooltip="{{obj[key].range}}" type="text" class="form-control qc-input col-9" id="{{key}}" placeholder="{{obj[key].range}}" required [(ngModel)]="obj[key].result.valueStr" (blur)="obj[key].result.valueStr = $event.srcElement.value" name="{{key}}" virtualKeyboard="left center" autocomplete="off"/>
+          <span class="col-3">&nbsp;{{obj[key].result.unit}}</span>
+        </div>
+        <div *ngIf="key=='三孔一线'" class="col-sm-9 row">
+          <select (change)="spObj.key=$event.target.value" class="col-4">
+            <option value="" disabled selected>--请选择孔--</option>
+            <option value="0">不偏</option>
+            <option value="水龙头孔">水龙头孔</option>
+            <option value="下水孔">下水孔</option>
+            <option value="溢水孔">溢水孔</option>
+          </select>
+          <input [ngClass]="{'hide':spObj.key=='0'}" class="form-control col-6" virtualKeyboard="left center" (blur)="spObj.value=$event.target.value" placeholder="{{obj[key].range}}" autocomplete="off" [required]="spObj.key!='0'"/>
+          <span [ngClass]="{'hide':spObj.key=='0'}" class="col-2">&nbsp;{{obj[key].result.unit}}</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <!-- <button class="btn btn-md btn-primary" [disabled]="!f.valid" (click)="dismissModal()">返回</button> -->
+  <button class="btn btn-md btn-primary" (click)="dismissModal()">返回</button>
+  <button class="btn btn-md btn-primary" [disabled]="!f.valid" (click)="closeModal()">确认</button>
+</div>

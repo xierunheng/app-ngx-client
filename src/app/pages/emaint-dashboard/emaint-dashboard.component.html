@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-xxxl-3 col-sm-6" *ngFor="let statusCard of statusCards">
+    <mes-status-card [title]="statusCard.title" [type]="statusCard.type" [on]="statusCard.on">
+      <i [ngClass]="statusCard.iconClass"></i>
+    </mes-status-card>
+  </div>
+  <div class="col-xxxl-3 col-sm-6" *ngFor="let progress of progressData">
+    <mes-emaint-progress [title]="progress.title" [value]="progress.value">
+    </mes-emaint-progress>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxl-5">
+    <div class="row">
+      <div class="col-md-6">
+        <mes-output-card></mes-output-card>
+      </div>
+      <div class="col-md-6">
+        <mes-takt-card></mes-takt-card>
+      </div>
+      <div class="col-md-6">
+        <mes-emaint-events></mes-emaint-events>
+      </div>
+      <div class="col-md-6">
+        <mes-emaint-temperature></mes-emaint-temperature>
+      </div>
+    </div>
+  </div>
+  <div class="col-xxl-7">
+    <mes-emaint-charts-panel></mes-emaint-charts-panel>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xxxl-12">
+    <mes-emaint-loc></mes-emaint-loc>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
+    <mes-emaint-records></mes-emaint-records>
+  </div>
+
+  <div class="col-xxxl-3 col-xxl-4 col-md-5">
+    <mes-emaint-energy [chartValue]="solarValue"></mes-emaint-energy>
+    <mes-emaint-weather></mes-emaint-weather>
+  </div>
+
+  <div class="col-xxxl-6 col-xxl-12 col-md-7">
+    <mes-emaint-proseg></mes-emaint-proseg>
+  </div>
+</div>
+

@@ -1,0 +1,24 @@
+<nb-card-header>
+  <div class="header-container">
+    <span class="title">综合成品率</span>
+  </div>
+</nb-card-header>
+<nb-card-body class="p-0">
+  <div class="info">
+    <div class="period">
+      <span class="time-interval">Jun 1 - Jun 30</span>
+      <div class="value">
+        <span class="currency">$</span>
+        300
+      </div>
+    </div>
+    <div class="period latest">
+      <span class="time-interval">Jul 1 - Jul 31</span>
+      <div class="value">
+        <span class="currency">$</span>
+        860
+      </div>
+    </div>
+  </div>
+  <mes-i-qc-area-chart [points]="chartData"></mes-i-qc-area-chart>
+</nb-card-body>

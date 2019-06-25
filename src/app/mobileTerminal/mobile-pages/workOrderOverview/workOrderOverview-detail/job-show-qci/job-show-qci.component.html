@@ -1,0 +1,32 @@
+<GridLayout rows="*" columns="*" height="400">
+  <RadCartesianChart tkExampleTitle tkToggleNavButton>
+    <CategoricalAxis tkCartesianHorizontalAxis lineColor="#595959" lineThickness="1"></CategoricalAxis>
+    <LinearAxis tkCartesianVerticalAxis lineHidden="true"></LinearAxis>
+
+    <BarSeries tkCartesianSeries seriesName="myBar1" [items]="qciArray" categoryProperty="oid" valueProperty="num" showLabels="true" legendTitle="数量/件">
+      <PointLabelStyle tkBarLabelStyle margin="-30" fontStyle="Bold" fillColor="#E09724" textSize="10" textColor="White"></PointLabelStyle>
+    </BarSeries>
+
+    <LineSeries tkCartesianSeries seriesName="myLine1" [items]="percenArray" categoryProperty="oid" valueProperty="percen" showLabels="true" legendTitle="累计占比/%">
+      <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#0050b3" textSize="10" textColor="White"></PointLabelStyle>
+    </LineSeries>
+
+    <RadLegendView tkCartesianLegend position="Top" title="作业缺陷：" height="70" enableSelection="false"></RadLegendView>
+
+    <Palette tkCartesianPalette seriesName="myBar1">
+      <PaletteEntry tkCartesianPaletteEntry fillColor="#E09724" strokeColor="#E09724"></PaletteEntry>
+    </Palette>
+    <Palette tkCartesianPalette seriesName="myLine1">
+      <PaletteEntry tkCartesianPaletteEntry fillColor="#0050b3" strokeColor="#0050b3" strokeWidth="5"></PaletteEntry>
+    </Palette>
+
+    <RadCartesianChartGrid tkCartesianGrid
+                           horizontalLinesVisible="true" verticalLinesVisible="false"
+                           horizontalStripLinesVisible="false" verticalStripLinesVisible="false"
+                           horizontalStrokeColor="#e5e5e5"
+                           horizontalStripLineColor="#e5e5e5">
+    </RadCartesianChartGrid>
+  </RadCartesianChart>
+</GridLayout>
+
+

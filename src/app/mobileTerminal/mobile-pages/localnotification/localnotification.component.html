@@ -1,0 +1,17 @@
+<ActionBar class="action-bar">
+  <NavigationButton
+    ios:visibility="collapsed"
+    icon="~/app/mobileTerminal/fonts/返回.png"
+
+    (tap)="backToHome()"
+  ></NavigationButton>
+  <Label class="action-bar-title" text="告警推送" horizontalAlignment="left"></Label>
+</ActionBar>
+
+<GridLayout backgroundColor="#ccc">
+  <StackLayout orientation="horizontal" verticalAlignment="top" height="50">
+    <Label text="发送告警推送:" marginLeft="5" top="5" width="60%" height="40" textAlignment="right" fontSize="22"></Label>
+    <button height="40" borderRadius="5" marginLeft="10" text="推送" (tap)="pushNotification()"
+            class="weui-btn weui-btn_primary"></button>
+  </StackLayout>
+</GridLayout>

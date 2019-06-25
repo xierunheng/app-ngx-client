@@ -1,0 +1,79 @@
+<div class="row" *ngIf="jr">
+  <h1 class="text-center middle">{{jr.oid}}执行汇总</h1>
+  <div class="form-group col-12">
+    <ngb-progressbar showValue="true" [value]="processValue" type="showStatus" [striped]="true" [animated]="true" height="2rem"></ngb-progressbar>
+  </div>
+  <div class="col-md-4">
+    <nb-card size="xsmall">
+      <nb-card-header>
+        <span>工单名片</span>
+      </nb-card-header>
+      <nb-card-body>
+        <p>工单号：{{jr.oid}}</p>
+        <p>状态：{{jr.state}}</p>
+        <p>工位：{{jr.hs.name}}</p>
+        <p>工时：{{jr.startTime | date:'yyyy-MM-dd HH:mm:ss'}} - {{jr.endTime | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-4" >
+    <mes-job-show-total title="本工单产量" [value]="jr.qty" [total]="jo.qty"></mes-job-show-total>
+  </div>
+  <div class="col-md-4">
+    <mes-job-show-total title="本工单缺陷率" [value]="jr.ngqty" [total]="totalQty"></mes-job-show-total>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header class="d-flex justify-content-between">
+        <span>产量详情</span>
+        <div class="dropdown ghost-dropdown m-adjust" ngbDropdown>
+          <button type="button" ngbDropdownToggle class="btn btn-outline-success">
+            {{ qtyType }}
+          </button>
+          <ul class="dropdown-menu" ngbDropdownMenu>
+            <li class="dropdown-item" *ngFor="let t of qtyTypes" (click)="qtyType=t">{{ t }}</li>
+          </ul>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-job-show-qty [jo]="jo" [jr]="jr" [type]="qtyType"></mes-job-show-qty>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-6">
+    <nb-card>
+      <nb-card-header>
+        <span>缺陷Pareto图</span>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-job-show-qci [jr]="jr"></mes-job-show-qci>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>
+        <span>工单进程</span>
+      </nb-card-header>
+      <nb-card-body>
+        <mes-job-show-oplog [jr]="jr"></mes-job-show-oplog>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-12">
+    <ul class="nav justify-content-center border p-4">
+      <li class="nav-item back" (click)="goBack()">
+        <span class="nav-link green">返回</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#/pages/works/joborder/{{jr.jobOrder._id}}" [ngbTooltip]="jr.jobOrder.oid">工单请求</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#/pages/ops/segres/{{jr.segRes?._id}}" [ngbTooltip]="jr.segRes?.oid">操作段响应</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/#/pages/works/workres/{{jr.workRes._id}}" [ngbTooltip]="jr.workRes.oid">作业响应</a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<nb-flip-card *ngIf="model" [flipped]="flipped">
+  <nb-card-front>
+    <nb-card>
+      <div [ngSwitch]="tState" class="wrapper">
+        <div *ngSwitchCase="'run'" class="form-set">
+          <nb-card-header>
+            <terminal-header [title]="bodyOp.name" [person]="user.person" (titleClick)="reload()"></terminal-header>
+          </nb-card-header>
+          <div class="input-group input-group-lg pt08">
+            <label class="col-4 text-right" for="hs">工位: </label>
+            <span class="col-7" id="hs">{{model.oplog.hs.name}}</span>
+          </div>
+<!--           <div class="input-group input-group-lg pt08">
+            <label class="col-4 select-label pt5" for="mdef">修复方式: </label>
+            <div class="col-7">
+              <select class="repair-type" id="repairType" name="repairType" select="selected" [(ngModel)]="repairType">
+                <option *ngFor="let item of repairTypes" [ngValue]="item">{{item}}</option>
+              </select> -->
+              <!--               <select class="form-control select" id="mdef" name="mdef" select="selected" placeholder="坯体型号" required [(ngModel)]="model.msublot.mdef" (change)="onMdefChange($event)">
+                <option *ngFor="let item of mdefs" [ngValue]="item">{{item.oid}}</option>
+              </select> -->
+            <!-- </div> -->
+          <!-- </div> -->
+          <div class="input-group input-group-lg col-12 pt08">
+            <select class="code-select col-4" id="inputType" name="inputType" select="selected" [(ngModel)]="inputType" (change)="onInputTypeChange($event)">
+              <option *ngFor="let item of inputTypesArr" [ngValue]="item.text">{{item.text}}&nbsp;&nbsp;-&nbsp;&nbsp;{{item.desc}}</option>
+            </select>
+            <input #codeInput type="text" placeholder="扫码或手动录入" id="codeInput" [disabled]="inputType==='扫码'" [(ngModel)]="strBody" class="form-control form-control-success code-input" [ngClass]="stateClass" #codeInput>
+            <nb-badge [text]="strQty"></nb-badge>
+            
+          </div> 
+          <div class="pt08 col-12">
+            <input type="text" placeholder="新条码录入" [(ngModel)]="newBarcode" class="form-control newBarcode" [ngClass]="stateClass" id="newBarcode" name="newBarcode" [ngModelOptions]="{standalone: true}" *ngIf="inputType==='换码'">
+          </div>        
+<!--           <div class="input-group input-group-lg pt08">
+            <label class="col-4 text-right">状态:</label>
+            <span class="col-7">{{bodyOp.text}}</span>
+          </div> -->
+          <div class="input-group input-group-lg pt08">
+            <label class="col-4 text-right">缺陷: </label>
+            <span class="col-7">{{model.msublot.reason | oidPipe}}</span>
+          </div>
+          <div class="form-group row">
+<!--             <div class="col-6 mb1">
+              <button type="button" class="btn bgc-yellow  col-11 btn-xxlg" [disabled]="!strBody" (click)="onRepair()">已修复</button>
+            </div> -->
+            <div class="col-12 mb1 text-center pt2">
+              <button type="button" class="btn bgc-red col-11 btn-xxlg" [disabled]="!strBody" (click)="onScrap()">报废</button>
+            </div>
+
+          </div>
+        </div>
+        <nb-card *ngSwitchCase="'qc'">
+          <!-- 跳去质检 -->
+          <div class="form-set err-wrapper">
+            <mes-terminal-qc [model]="model" [bodyOp]="bodyOp" [tag]="bodyOp.pre" [op]="bodyOp.text" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-qc>
+          </div>
+        </nb-card>
+        <!-- 跳去报废 -->
+        <div *ngSwitchCase="'sc'" class="form-set err-wrapper">
+          <mes-terminal-scrap [model]="model" [op]="bodyOp.text" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-scrap>
+        </div>
+        <!-- 跳去错误操作，不应该出现在当前的终端的条码 -->
+        <div *ngSwitchCase="'err'" class="form-set err-wrapper">
+          <mes-terminal-err [model]="model" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-err>
+        </div>
+      </div>
+      <i class="nb-arrow-dropright i-arrowright" (click)="flipClick($event)"></i>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card>
+      <div class="back-wrapper">
+        <div class="mt08">
+          <label for="" class="col-12">今日总数：</label>
+          <div class="col-12">
+            <ngb-progressbar type="success" [showValue]="true" [value]="100 | ngxRound" height="3rem" [striped]="true" [animated]="true"><b class="load-speed">{{mQty?.quantity}} / {{mQty?.quantity}} </b></ngb-progressbar>
+          </div>
+        </div>
+        <div class="childitem-wrap">
+          <div *ngFor="let pv of mActCount" class="mt08">
+            <label for="" class="col-12">{{pv[0]}}:</label>
+            <div class="col-12">
+              <ngb-progressbar [showValue]="true" [value]="100 * pv[1] / (mQty?.quantity === 0 ? 1: mQty?.quantity) | ngxRound" height="2rem"><b class="load-speed">{{pv[1]}} / {{mQty?.quantity}}</b></ngb-progressbar>
+            </div>
+          </div>
+        </div>
+      </div>
+      <i class="nb-arrow-dropleft i-arrowleft" (click)="flipClick($event)"></i>
+    </nb-card>
+  </nb-card-back>
+</nb-flip-card>

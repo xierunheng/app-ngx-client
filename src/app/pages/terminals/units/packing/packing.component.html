@@ -1,0 +1,142 @@
+<nb-flip-card *ngIf="model"  [flipped]="flipped">
+  <nb-card-front [class.none]="flipped">
+    <nb-card>
+      <div>
+        <nb-card-header>
+          <terminal-header [title]="bodyOp.name" [person]='user.person' (titleClick)="reload()"></terminal-header>
+        </nb-card-header>
+      </div>     
+      <div>
+        <div [ngSwitch]="tState" class="col-6 pull-left">
+          <div *ngSwitchCase="'run'" class="form-set">
+            <div class="input-group input-group-lg pt08 ">
+              <label class="col-4" for="hs">工位: </label>
+              <label class="col-8" id="hs">{{model.oplog.hs.name}}</label>
+            </div>
+            <div class="input-group input-group-lg pt08">
+              <label class="col-4" for="jo">订单号: </label>
+              <label class="col-8 order" id="jo" *ngIf="jo" [ngClass]="jo?.txtClass">{{jo.oid}}-[{{jo.qty.quantity}}{{jo.qty.unit}}]</label>
+            </div>
+            <div class="input-group input-group-lg pt08 mb1">
+              <div class="col-4">
+              <select class="code-select col-12" id="inputType" name="inputType" select="selected" [(ngModel)]="inputType" (change)="onInputTypeChange($event)">
+                <option *ngFor="let item of inputTypesArr" [ngValue]="item.text">{{item.text}}</option>
+              </select>
+              <div *ngIf="this.bodyOp.name ==='包装'" class="col-12" style="margin-top: 2rem; padding: 0">
+<!--                 <mes-tree-multi-select [items]="dadaa | mesTreeitem:'_id'" name="packingMreq" [(ngModel)]="packingMreq" [compareWith]="idCmpFn" (valueChange)="onPackingMreqChange($event)" required></mes-tree-multi-select> -->
+<!--                 <angular2-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" 
+                  [settings]="dropdownSettings" 
+                  (onSelect)="onItemSelect($event)" 
+                  (onDeSelect)="OnItemDeSelect($event)"
+                  (onSelectAll)="onSelectAll($event)"
+                  (onDeSelectAll)="onDeSelectAll($event)"
+                  class="col-12" style="margin-top: 2rem; padding: 0">    
+                  </angular2-multiselect> -->
+              </div>
+              <input *ngIf="this.bodyOp.name ==='包装'" type="number" class="col-12" placeholder="每箱包装数" [(ngModel)]="model.packingMcount" min="1" style="margin-top: 2rem; border-radius: 0.375rem;">
+            </div>
+              <div class="col-8">
+                <textarea rows="3" placeholder="待包装件列表" disabled [ngModel]="strItems" class="form-control form-control-success code-input" [ngClass]="stateClass"></textarea>
+                <input type="text" placeholder="录入待包装件" [disabled]="inputType==='扫码' || inputType==='增加' || inputType==='退包' || inputType==='退托'" [(ngModel)]="strItem" class="col-12  form-control mt08  code-input" [ngClass]="stateClass">
+                <input type="text" placeholder="录入包装件" [disabled]="inputType==='扫码' || inputType==='增加' || inputType==='退包' || inputType==='退托'" [(ngModel)]="strBody" class="col-12 form-control  mt08 code-input" [ngClass]="stateClass" *ngIf="this.bodyOp.name!=='装车'">
+                <nb-badge [text]="strCount"></nb-badge>
+              </div>
+            </div>
+            <div class="text-center work-tips" *ngIf="tips">{{tips}}</div>
+          </div>
+          <!-- 跳去质检 -->
+          <div *ngSwitchCase="'qc'" class="form-set">
+            <mes-terminal-qc [model]="model" [tag]="bodyOp.name" [op]="bodyOp.text" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-qc>
+          </div>
+          <!-- 跳去报废 -->
+          <div *ngSwitchCase="'sc'" class="form-set">
+            <mes-terminal-scrap [model]="model" [op]="bodyOp.text" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-scrap>
+          </div>
+          <!-- 跳去错误操作，不应该出现在当前的终端的条码 -->
+          <div *ngSwitchCase="'err'" class="form-set">
+            <mes-terminal-err [model]="model" [(tState)]="tState" [player]="player" [oid]="model.msublot?.oid"></mes-terminal-err>
+          </div>
+        </div>
+        <div class="col-6 pull-left form-set pt08 ">
+          <!-- <div class="form-group row">
+            <label for="PO" class="col-sm-3 col-form-label nowrap">客户PO:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control time" id="PO" placeholder="" [ngModel]="order?.PO || jo?.oid" name="PO">
+            </div>
+          </div> -->
+          <div class="form-group row">
+            <label for="deliveryTime" class="col-sm-3 col-form-label nowrap">订单交期: </label>
+            <div class="col-sm-9 input-group">
+              <input type="date" class="form-control time" id="deliveryTime" [ngModel]="order?.deliveryTime | date: 'yyyy-MM-dd'" name="deliveryTime" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label nowrap">进度: </label>
+            <div *ngIf="this.model.jr" class="col-sm-9 row">
+              <div class="col-12 mt2">
+                <ngb-progressbar [showValue]="true" [value]="100 * this.model.jr.qty.quantity / jo.qty.quantity | ngxRound" height="2rem" [striped]="true" [animated]="true"><b class="load-speed">总: {{this.model.jr.qty.quantity}} / {{jo.qty.quantity}}</b></ngb-progressbar>
+              </div>
+              <div class="col-12 mt2" *ngIf="currPv">
+              <!-- <label for="" class="col-12"></label> -->
+              <!-- <div class="col-12"> -->
+                <ngb-progressbar [showValue]="true" [value]="100 * currPv.acount / currPv.count | ngxRound" height="2rem"><b class="load-speed">{{currPv.oid}}:{{currPv.acount}} / {{currPv.count}}</b></ngb-progressbar>
+              <!-- </div> -->
+            </div>
+            </div>
+          </div>
+          <div class="input-group input-group-lg row pt08 ">
+            <label class="col-12">包装要求: </label>
+            <div class="col-12">
+            </div>
+          </div>
+        </div>
+      </div>
+      <nb-card-footer>
+        <div class="form-group row footbox" *ngIf="this.bodyOp.name==='包装'">
+          <div class="dropdown col-3" placement="top-left" ngbDropdown>
+            <button class="btn btn-primary btn-xxlg text-center" type="button" [disabled]="isRunning" ngbDropdownToggle > 选择订单 </button>
+            <ul class="dropdown-menu choose-job" ngbDropdownMenu>
+              <li class="dropdown-item" *ngFor="let item of jos" (click)="onJOSelect(item)">
+                {{item.oid}}
+              </li>
+            </ul>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-success btn-xxlg ml15" [disabled]="!jo" (click)="onJOClick($event)">
+              {{jobCmd.name}}
+            </button>
+          </div>
+        </div>       
+      </nb-card-footer>
+      <i class="nb-arrow-dropright i-arrowright" (click)="flipClick($event)"></i>
+    </nb-card>
+  </nb-card-front>
+  <nb-card-back>
+    <nb-card [class.none]="!flipped">
+      <div class="back-wrapper mb1">
+        <div class="col-12 font2 text-center mt08">
+          计划时间: {{jo?.startTime | date:'yy-MM-dd'}} 至 {{jo?.endTime | date:'yy-MM-dd'}}
+        </div>
+        <div class="font-mid load-wrap" *ngIf="jo">
+          <div *ngIf="this.model.jr" class="mt08">
+            <label for="" class="col-12">总进度：</label>
+            <div class="col-12">
+              <ngb-progressbar type="success" [showValue]="true" [value]="100 * this.model.jr.qty.quantity / jo.qty.quantity | ngxRound" height="3rem" [striped]="true" [animated]="true"><b class="load-speed"> {{this.model.jr.qty.quantity}} / {{jo.qty.quantity}}</b></ngb-progressbar>
+            </div>
+          </div>
+          <div class="childitem-wrap">
+            <div *ngFor="let pv of pvs" class="mt08">
+              <label for="" class="col-12">{{pv.oid}}:</label>
+              <div class="col-12">
+                <ngb-progressbar [showValue]="true" [value]="100 * pv.acount / pv.count | ngxRound" height="2rem"><b class="load-speed">{{pv.acount}} / {{pv.count}}</b></ngb-progressbar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <i class="nb-arrow-dropleft i-arrowleft" (click)="flipClick($event)"></i>
+    </nb-card>
+  </nb-card-back>
+
+</nb-flip-card>
+<span class="copyright">{{logo}}</span>

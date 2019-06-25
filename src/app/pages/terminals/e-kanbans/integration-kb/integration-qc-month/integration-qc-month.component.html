@@ -1,0 +1,40 @@
+  <nb-card>
+
+      <nb-card-header>
+        <span>质量</span>
+      </nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-4">
+            <div class="table-header">
+              <div>缺陷统计Top5</div>
+            </div>
+<!--             <div class="stats-month" *ngFor="let reason of reasons_Table; index as i" >
+              <div>
+                <span class="month">{{reasons_Table[i].reason}}</span>
+                <span class="delta" [ngClass]="">{{reasons_Table[i].rate}}</span>
+              </div>
+              <div class="results">
+                <b>{{reasons_Table[i].count}}</b> pcs / <b>{{reasons_Total}}</b> pcs
+              </div>
+            </div> -->
+            <div class="stats-month" *ngFor="let reason of reasons_Table" >
+              <div>
+                <span class="month">{{reason.reason}}</span>
+                <span class="delta" [ngClass]="">{{reason.rate}}</span>
+              </div>
+              <div class="results">
+                <b>{{reason.count}}</b> pcs / <b>{{reasons_Total}}</b> pcs
+              </div>
+            </div>
+
+          </div>
+          <div class="chart-container col-8">
+            <mes-chart-summary [summary]="summary"></mes-chart-summary>
+            <div echarts [options]="options" class="echart"></div>
+          </div>
+        </div>
+      </nb-card-body>
+  </nb-card>
+
+

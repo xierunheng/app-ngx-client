@@ -1,0 +1,81 @@
+
+<ng-template #itemTemplate let-item="item" let-onCollapseExpand="onCollapseExpand" let-onCheckedChange="onCheckedChange" id="item.text">
+  <div class="form-check overy-hide form-reset bg-change" [class.tree-close-bg]="item.checked">
+    <div class="content-box">
+      <i *ngIf="item.children" (click)="onCollapseExpand()" aria-hidden="true" class="fa arrow" [class.fa-caret-right]="item.collapsed" [class.fa-caret-down]="!item.collapsed"></i>
+      <label class="form-check-label kb-cusor text-label">
+        <input type="checkbox" class="form-check-input form-check-reset kb-cusor" [(ngModel)]="item.checked" (ngModelChange)="onCheckedChange()" [disabled]="item.disabled" [indeterminate]="item.indeterminate" /> {{item.text}}
+      </label>
+    </div>
+    <div class="operate-box">
+      <!-- <label class="form-check-label pull-right f-size2">
+        <i class="nb-person kb-cusor" aria-hidden="true" title="{{item.text}}-员工" [nbPopoverContext]="{name: item.text, type: 'personnel'}" nbPopoverTrigger="hover" nbPopoverPlacement="start" [nbPopover]="popComponent" ></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-power kb-cusor" aria-hidden="true" title="{{item.text}}-设备" [nbPopoverContext]="{name: item.text, type: 'equipment'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent" ></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-drop kb-cusor" aria-hidden="true" title="{{item.text}}-物料" [nbPopoverContext]="{name: item.text, type: 'material'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-sunny kb-cusor" aria-hidden="true" title="{{item.text}}-能源" [nbPopoverContext]="{name: item.text, type: 'energy'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-shuffle kb-cusor" aria-hidden="true" title="{{item.text}}-工艺段" [nbPopoverContext]="{name: item.text, type: 'proseg'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-bar-chart kb-cusor" aria-hidden="true" title="{{item.text}}-KPI" [nbPopoverContext]="{name: item.text, type: 'kpi'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-trash kb-cusor" aria-hidden="true" title="删除 [{{item.text}}]" (click)="remove(item.value)"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2">
+        <i class="nb-edit kb-cusor" aria-hidden="true" title="修改 [{{item.text}}]" (click)="edit(item.value)"></i>
+      </label>
+      <label class="form-check-label pull-right f-size2" *ngIf=" !isLeaf(item.value)">
+        <i class="nb-plus kb-cusor" aria-hidden="true" title="[{{item.text}}] 新增" (click)="addItem(item)"></i>
+      </label> -->
+      <nb-actions size="medium" fullWidth="false">
+        <nb-action icon="nb-person" aria-hidden="true" title="{{item.text}}-员工" [nbPopoverContext]="{name: item.text, type: 'personnel'}" nbPopoverTrigger="hover" nbPopoverPlacement="start" [nbPopover]="popComponent" ></nb-action>
+        <nb-action icon="nb-power" aria-hidden="true" title="{{item.text}}-设备" [nbPopoverContext]="{name: item.text, type: 'equipment'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent" ></nb-action>
+        <nb-action icon="nb-drop" aria-hidden="true" title="{{item.text}}-物料" [nbPopoverContext]="{name: item.text, type: 'material'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></nb-action>
+        <nb-action icon="nb-sunny" aria-hidden="true" title="{{item.text}}-能源" [nbPopoverContext]="{name: item.text, type: 'energy'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></nb-action>
+        <nb-action icon="nb-shuffle" aria-hidden="true" title="{{item.text}}-工艺段" [nbPopoverContext]="{name: item.text, type: 'proseg'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></nb-action>
+        <nb-action icon="nb-bar-chart" aria-hidden="true" title="{{item.text}}-KPI" [nbPopoverContext]="{name: item.text, type: 'kpi'}" nbPopoverTrigger="hover" nbPopoverPlacement="start"  [nbPopover]="popComponent"></nb-action>
+        <nb-action icon="nb-trash" aria-hidden="true" title="删除 [{{item.text}}]" (click)="remove(item.value)"></nb-action>
+        <nb-action icon="nb-edit kb-cusor" aria-hidden="true" title="修改 [{{item.text}}]" (click)="edit(item.value)"></nb-action>
+        <nb-action icon="nb-plus" aria-hidden="true" title="[{{item.text}}] 新增" (click)="addItem(item)" *ngIf="!isLeaf(item.value)" ></nb-action>
+      </nb-actions>
+    </div>
+  </div>
+</ng-template>
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="xxlarge">
+  <nb-card-header class="d-flex justify-content-between">
+    <span>层级结构管理</span>
+    <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="table"> 表格
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="tree"> 树状
+      </label>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div *ngIf=" showtype === 'table' ">
+      <ng2-smart-table [settings]="settings" [source]="source" (create)="create()" (edit)="edit($event.data)" (delete)="remove($event.data)">
+      </ng2-smart-table>
+<!--       <div [class.record-box]="!shouldShow()">
+        <span class="record-all"  [class.record-over]="!shouldShow()">总计：<b>{{source.count()}}</b>&nbsp;条</span>
+      </div>   
+      <div class="page-filter" *ngIf="shouldShow()">     
+          <input class="page-number" type="number" min="1" [max]="maxLines" [ngModel]="perPage" (change)="onPerPageChange($event)">
+          <span class="page-remark">行&nbsp;/&nbsp;页</span>
+      </div> -->
+    </div>
+    <div *ngIf=" showtype === 'tree' ">
+      <ngx-treeview [config]="singleConfig" [items]="hstree" [itemTemplate]="itemTemplate" (filterChange)="onFilterChange($event)" (selectedChange)="onSelChange($event)">
+      </ngx-treeview>
+    </div>
+  </nb-card-body>
+</nb-card>

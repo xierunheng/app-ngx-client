@@ -1,0 +1,8 @@
+<div class="input-group" *ngIf="value">
+  <input list="sels" class="form-control col-8" id="value" placeholder="值" autocomplete="off" [(ngModel)]="value.valueStr" name="value" (change)="onValueChange($event)">
+  <datalist id="sels">
+    <option *ngFor="let v of vs" [ngValue]="v">{{v}}</option>
+  </datalist>
+  <input type="text" class="form-control col-4" id="unit" placeholder="单位" [(ngModel)]="value.unit" name="unit" (change)="onValueChange($event)">
+  <input *ngIf="showKey" type="text" class="form-control col-12" id="unit" placeholder="关键字(选填)" [(ngModel)]="value.key" name="key" (change)="onValueChange($event)">
+</div>

@@ -1,0 +1,47 @@
+<nb-card>
+  <nb-card-body>
+    <!-- <div class="row col-12"> -->
+      <!-- <div class="col-8"> -->
+        <div class="location">
+          <span>单位综合能耗</span>
+        </div>
+        <div class="date">
+          <span>Mon 29 Apri</span>
+        </div>
+        <div class="daily-forecast">
+          <div class="info">
+            <div class="temperature">
+            <!--   <span>11.28 kgce/t</span> -->
+              <span>{{ UnitEnergy.quantity }} {{ UnitEnergy.unit }}</span>
+            </div>
+            <div class="icon">
+              <i class="ion-ios-sunny-outline"></i>
+            </div>
+          </div>
+        </div>
+        <div class="weekly-forecast">
+          <div class="day">
+            <span class="caption">耗天然气量</span>
+            <!-- <i class="ion-ios-cloudy-outline"></i> -->
+            <span class="temperature">{{naturalGas.quantity}} {{naturalGas.unit}}</span>
+          </div>
+          <div class="day">
+            <span class="caption">耗电量</span>
+            <!-- <i class="ion-ios-sunny-outline"></i> -->
+            <span class="temperature">{{ElectricEnergy.quantity}} {{ElectricEnergy.unit}}</span>
+          </div>
+          <div class="day">
+            <span class="caption">成品产量</span>
+            <!-- <i class="ion-ios-rainy-outline"></i> -->
+            <span class="temperature">{{qty.quantity}} {{qty.unit}}</span>
+          </div>
+        </div>
+      <!-- </div> -->
+      <!-- <div class="col-4">
+        
+      </div> -->
+    <!-- </div> -->
+    
+  </nb-card-body>
+</nb-card>
+

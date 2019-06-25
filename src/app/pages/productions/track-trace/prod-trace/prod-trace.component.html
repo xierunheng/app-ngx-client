@@ -1,0 +1,151 @@
+<nb-card>
+  <nb-card-header class="d-flex justify-content-between">
+    <span><!-- {{vConfig.title}} --> 坯体追溯</span>
+    <div [(ngModel)]="showtype" ngbRadioGroup class="btn-group btn-group-toggle btn-outline-toggle-group  btn-toggle-radio-group">
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="form"> 窗体
+      </label>
+      <label ngbButtonLabel class="btn btn-outline-primary cursor">
+        <input ngbButton type="radio" value="trace"> 追溯
+      </label>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <form action="" #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="input-group">
+        <input type="text"  type="string" placeholder="请输入要追溯的条码.." name="oid" ngModel class="form-control col-3">
+        <span  class="input-group-append">
+            <input type="submit" class="btn btn-primary input-group-text" value="查询">
+        </span>
+    </form>
+
+    <div *ngIf="model" class="col-12">
+        <div class="row" *ngIf=" showtype === 'form' ">           
+            <div class="col-sm-12" *ngIf="!isTP && !isZX">
+                <mes-process-bar [ops]="model.oplog"></mes-process-bar>
+            </div>
+          
+          <!-- <div class="col-sm-6">
+            <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
+              <div class="form-group row">
+                <label for="msublot" class="col-sm-3 col-form-label">子批次号</label>
+                <div class="col-sm-9">
+                  <mes-tree-select [items]="msltree" [nodeOnly]="true" [(ngModel)]="model" id="msublot" name="msublot" [compareWith]="idCmpFn"></mes-tree-select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="desc" class="col-sm-3 col-form-label">描述</label>
+                <div class="col-sm-9">
+                  <textarea rows="3" class="form-control" id="desc" placeholder="描述" [(ngModel)]="model.desc" name="desc"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="hs" class="col-sm-3 col-form-label">层级结构</label>
+                <div class="col-sm-9">
+                  <mes-tree-select [items]="hstree" [(ngModel)]="model.hs" id="hs" name="hs" [compareWith]="idCmpFn"></mes-tree-select>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.molder">
+                <label for="molder" class="col-sm-3 col-form-label">成型工</label>
+                <div class="col-sm-9">
+                  <label class="form-control"><a href="/#/pages/resources/person/{{model.molder._id}}">{{model.molder.oid}}-[{{model.molder.name}}]</a></label>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.driedTime">
+                <label for="driedTime" class="col-sm-3 col-form-label">干燥时间</label>
+                <div class="col-sm-9">
+                  <label class="form-control">{{model.driedTime | date:"yyyy-MM-dd HH:mm:ss"}}</label>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.kiln">
+                <label for="kiln" class="col-sm-3 col-form-label">窑炉</label>
+                <div class="col-sm-9">
+                  <label class="form-control"><a href="/#/pages/resources/equip/{{model.kiln._id}}">{{model.kiln.oid}}-[{{model.kiln.name}}]</a></label>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.carton">
+                <label for="carton" class="col-sm-3 col-form-label">纸箱</label>
+                <div class="col-sm-9">
+                  <label class="form-control"><a href="/#/pages/resources/msublot/{{model.carton._id}}">{{model.carton.oid}}</a></label>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.pallet">
+                <label for="pallet" class="col-sm-3 col-form-label">托盘</label>
+                <div class="col-sm-9">
+                  <label class="form-control"><a href="/#/pages/resources/msublot/{{model.pallet._id}}">{{model.pallet.oid}}</a></label>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="qty" class="col-sm-3 col-form-label">数量</label>
+                <div class="col-sm-9">
+                  <mes-qty id="qty" name="qty" [(qty)]="model.qty"></mes-qty>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="loc" class="col-sm-3 col-form-label">存储位置</label>
+                <div class="col-sm-9">
+                  <mes-tree-select [items]="hstree" id="loc" name="loc" [(ngModel)]="model.loc" [compareWith]="idCmpFn">
+                  </mes-tree-select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="status" class="col-sm-3 col-form-label">状态</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="status" [(ngModel)]="model.status" name="status">
+                    <option *ngFor="let item of statuses" [ngValue]="item">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="assLot" class="col-sm-3 col-form-label">装配项批次</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="assLot" placeholder="装配项批次" [(ngModel)]="model.assLot" name="assLot" #assLot="ngModel">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="assSubLot" class="col-sm-3 col-form-label">装配项子批次</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="assSubLot" placeholder="装配项子批次" [(ngModel)]="model.assSubLot" name="assSubLot" #assSubLot="ngModel">
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.assSubLot && model.assSubLot.length > 0">
+                <label for="assType" class="col-sm-3 col-form-label">装配类型</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="assType" [(ngModel)]="model.assType" name="assType">
+                    <option *ngFor="let item of assTypes" [ngValue]="item">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="model.assSubLot && model.assSubLot.length > 0">
+                <label for="assRel" class="col-sm-3 col-form-label">装配关系</label>
+                <div class="col-sm-9">
+                  <select class="form-control" id="assRel" [(ngModel)]="model.assRel" name="assRel">
+                    <option *ngFor="let item of assRels" [ngValue]="item">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row d-flex justify-content-around">
+                <button type="button" class="btn btn-primary" (click)="goBack()"> 返回 </button>
+                <button type="button" class="btn btn-primary" (click)="openHeatTest()"> 热反应测试 </button>
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">{{vConfig.buttonText}}</button>
+                <button type="button" class="btn btn-primary" (click)="print()" *ngIf="isTP"> 打印标签 </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-sm-6">
+            <ngb-accordion activeIds="prop">
+             <ngb-panel id="prop" title="属性">
+              <ng-template ngbPanelContent>
+                <mes-pop-smart-table [resource]="model.prop" [columns]="propcolumns" [tags]="tags"></mes-pop-smart-table>
+              </ng-template>
+            </ngb-panel>
+           </ngb-accordion>
+          </div> -->
+        </div>
+        <div *ngIf=" showtype === 'trace' ">
+          <!-- <mes-timeline></mes-timeline> -->
+          <mes-timeline [states]="model.oplog"></mes-timeline>
+        </div>
+    </div>
+    
+  </nb-card-body>
+</nb-card>

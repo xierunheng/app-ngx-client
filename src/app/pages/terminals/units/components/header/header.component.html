@@ -1,0 +1,15 @@
+<div class="row justify-content-between">
+  <div class="font-weight-normal font-size-xs">
+    <p [hidden]="person === undefined">{{person?.name}}</p>
+    <p [hidden]="person === undefined">{{person?.oid}}</p>
+  </div>
+  <div class="align-middle text-center title" (click)="onTitleClick()">
+    <!-- <span class="logo">{{logo}}</span> -->
+    <span class="process-name">{{title}}终端</span>
+  </div>
+  <div>
+    <button [hidden]="person === undefined" type="button" class="close" aria-label="Close" (click)="logout()">
+      <span aria-hidden="true"><i class="fa fa-sign-out"></i></span>
+    </button>
+  </div>
+</div>
